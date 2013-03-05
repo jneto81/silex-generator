@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Doctrine\Common\Cache\ApcCache;
+use Doctrine\Common\Cache\ArrayCache;
+use Symfony\Component\Console\Application as ConsoleApp;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Silex\Application;
+
+$app = new Application();
+$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+  'db.options' =>array(
+		"driver"   => "pdo_mysql",
+		"host"     => "192.168.0.102",
+		"dbname"   => "ampla",
+		"user"     => "ampla",
+		"password" => "ampla"
+	)
+));
+
+$app->register(new Neutron\Silex\Provider\FilesystemServiceProvider());
+
+$app->register(new Nutwerk\Provider\DoctrineORMServiceProvider(), array(
+    'db.orm.proxies_dir'           => __DIR__ . '/../cache/doctrine/proxy',
+    'db.orm.proxies_namespace'     => 'Doctrine\\ORM\\Proxy\\Proxy',
+    'db.orm.cache'                 => ! $app['debug'] && extension_loaded('apc') ? new ApcCache() : new ArrayCache(),
+    'db.orm.auto_generate_proxies' => true,
+    'db.orm.entities'              => array(array(
+        'type'      =>		'annotation',       // entity definition 
+        'path'      => 		__DIR__ . '/../src/EquipeB/Ampla/Entity',   // path to your entity classes
+        'namespace' => 		'EquipeB\\Ampla\\Entity', // your classes namespace
+    )),
+));
+
+$console = new ConsoleApp('Silex Generator Console', '1.0');
+$console->add(new Samir\Generator\Command\GenerateCrudCommand($app));
+//$console->add(new Samir\Generator\Command\GenerateSilexProjectCommand($app));
+$console->run();
