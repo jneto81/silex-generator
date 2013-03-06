@@ -1,12 +1,12 @@
 <?php
 
-namespace Samir\Generator\Command;
+namespace Samir\Generator\Bundle;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
-class BundleImpl implements BundleInterface
+class LazyBundleImpl implements BundleInterface
 {
 	protected $entity;
 	protected $bundle;

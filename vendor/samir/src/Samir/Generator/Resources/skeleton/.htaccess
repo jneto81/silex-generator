@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+  Options -MultiViews
+  RewriteEngine On	
+	RewriteRule ^{{ upload_prefix }}/(.*)$ {{ upload_dir }}/$1 [QSA,L]
+	RewriteRule ^{{ assets_prefix }}/images/(.*)$ {{ assets_dir }}/img/$1 [QSA,L]
+	RewriteRule ^{{ assets_prefix }}/(.*)$ {{ assets_dir }}/$1 [QSA,L]
+  RewriteCond %{REQUEST_FILENAME} !-f	0
+  RewriteRule ^(.*)$ {{ web_dir }}/index.php [QSA,L]
+</IfModule>

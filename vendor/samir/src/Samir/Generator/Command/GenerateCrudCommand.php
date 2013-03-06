@@ -16,6 +16,7 @@ use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Sensio\Bundle\GeneratorBundle\Manipulator\RoutingManipulator;
 use Doctrine\Bundle\DoctrineBundle\Mapping\MetadataFactory;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
+use Samir\Generator\Bundle\LazyBundleImpl;
 
 /**
  * Generates a CRUD for a Doctrine entity.
@@ -308,6 +309,6 @@ EOT
 		
 		protected function getBundle($bundle, $entity)
 		{
-			return new BundleImpl($bundle, $entity);
+			return new LazyBundleImpl($bundle, $entity);
 		}
 }
