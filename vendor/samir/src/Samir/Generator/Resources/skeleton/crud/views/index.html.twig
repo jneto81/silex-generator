@@ -1,6 +1,10 @@
+{{ "{% extends 'default.html.twig' %}" }}
+
+{{ '{% block content %}' }}
+
 <h1>{{ entity }} list</h1>
 
-<table class="records_list">
+<table class="records_list table table-striped table-hover table-condensed span12">
     <thead>
         <tr>
         {%- for field, metadata in fields %}
@@ -46,11 +50,13 @@
 </table>
 
 {% if 'new' in actions %}
-<ul>
+<ul class="unstyled container">
     <li>
-        <a href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}">
+        <a class="btn btn-small btn-primary" href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}">
             Create a new entry
         </a>
     </li>
 </ul>
 {% endif %}
+
+{{ '{% endblock %}' }}

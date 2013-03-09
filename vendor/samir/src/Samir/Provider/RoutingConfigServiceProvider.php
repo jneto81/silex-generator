@@ -4,20 +4,21 @@ namespace Samir\Provider;
 
 use Silex\Application;
 
-class ServiceConfigServiceProvider extends ConfigurationServiceProvider
+class RoutingConfigServiceProvider extends ConfigurationServiceProvider
 {
   public function register(Application $app)
   {
     foreach ($this->readConfig() as $controller => $routes) {
-      $controller_prefix = $this->getControllerPrefix();
+      $controller_prefix = $this->getControllerPrefix($controller);
       
-      $app[$controller_prefix . '.controller'] = $app->share(function () use ($app, $controller) {
-        return new $controller());
+      $app[$controller_prefix] = $app->share(function () use ($app, $controller) {
+        return new $controller();
       });
       
       foreach ($routes as $route_name_prefix => $settings) {
         $settings = (object)$settings;
         $method = strtolower($settings->method);
+        
         $app->$method($settings->pattern, $controller_prefix . ':' . $settings->action . 'Action')
           ->bind($route_name_prefix);
       }
@@ -31,6 +32,6 @@ class ServiceConfigServiceProvider extends ConfigurationServiceProvider
   private function getControllerPrefix($controller)
   {
      $namespace = explode('\\', $controller);
-     return strtolower(strstr(end($namespace), "Controller", true));
+     return strtolower(strstr(end($namespace), "Controller", true)) .  '.controller';
   }
 }

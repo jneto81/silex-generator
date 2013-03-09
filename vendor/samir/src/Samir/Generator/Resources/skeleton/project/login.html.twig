@@ -1,0 +1,30 @@
+{% extends 'default.html.twig' %}
+
+{% block content %}
+
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<p>Welcome <strong>{{ app.security.token.user.username }}!</strong></p>
+		</div>
+	{% else %}
+			<form action="{{ path('login_check') }}" method="post">
+					<p>
+						<label for="username">Username: </label>
+						<input id="username" type="text" name="_username" value="{{ last_username }}">
+					</p>
+					<p>
+						<label for="password">Password: </label>
+						<input id="password" type="password" name="_password">
+					</p>
+					<p><input class="btn btn-small btn-primary" type="submit" value="Log in"></p>
+					{% if error %}
+						<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Error!</strong> {{ error }}.
+						</div>
+					{% endif %}
+			</form>
+	{% endif %}
+
+{% endblock %}

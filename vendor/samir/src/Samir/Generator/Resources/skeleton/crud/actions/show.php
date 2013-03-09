@@ -4,12 +4,13 @@
      *
 {% if 'annotation' == format %}
      * @Route("/{id}/show", name="{{ route_name_prefix }}_show")
+     * @Method("GET")
      * @Template()
 {% endif %}
      */
     public function showAction($id, Application $app)
     {
-			$entity = $app['db.orm.em']->getRepository('{{ entity_namespace }}\{{ entity_class }}')
+			$entity = $app['db.orm.em']->getRepository('{{ namespace }}\Entity\{{ entity }}')
 				->find($id);
 
 			if ( ! $entity) {

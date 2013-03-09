@@ -11,7 +11,7 @@
     public function createAction(Request $request, Application $app)
     {
 			$entity  = new {{ entity_class }}();
-			$form = $app['form.factory']->create(new {{ entity_class }}Type(), $entity, array());
+			$form = $app['form.factory']->create(new {{ entity }}Type(), $entity, array());
 			$form->bind($request);
 
 			if ($form->isValid()) {

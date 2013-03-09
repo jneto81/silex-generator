@@ -10,7 +10,7 @@
      */
     public function updateAction(Request $request, $id, Application $app)
     {
-      $entity = $app['db.orm.em']->getRepository('{{ entity_namespace }}\{{ entity_class }}')
+      $entity = $app['db.orm.em']->getRepository('{{ namespace }}\Entity\{{ entity }}')
 				->find($id);
 
 			if ( ! $entity) {

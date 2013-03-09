@@ -13,7 +13,7 @@
 			$form->bind($request);
 
 			if ($form->isValid()) {
-					$entity = $app['db.orm.em']->getRepository('{{ entity_namespace }}\{{ entity_class }}')
+					$entity = $app['db.orm.em']->getRepository('{{ namespace }}\Entity\{{ entity }}')
 						->find($id);
 
 					if ( ! $entity) {

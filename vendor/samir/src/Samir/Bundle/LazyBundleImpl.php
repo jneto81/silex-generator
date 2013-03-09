@@ -1,6 +1,6 @@
 <?php
 
-namespace Samir\Generator\Bundle;
+namespace Samir\Bundle;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

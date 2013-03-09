@@ -34,7 +34,7 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
         return $json;
     }
 
-    private function readConfig()
+    protected function readConfig()
     {
         $format = $this->getFileFormat();
 
@@ -53,7 +53,7 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
             return $config ?: array();
         }
 
-        if ('yaml' === $format) {
+        if ('yml' === $format) {
             if (!class_exists('Symfony\\Component\\Yaml\\Yaml')) {
                 throw new \RuntimeException('Unable to read yaml as the Symfony Yaml Component is not installed.');
             }

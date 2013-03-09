@@ -1,7 +1,5 @@
 <?php
 
-// TODO: views, routing
-
 namespace Samir\Generator\Command;
 
 use Silex\Application;
@@ -16,7 +14,7 @@ use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Sensio\Bundle\GeneratorBundle\Manipulator\RoutingManipulator;
 use Doctrine\Bundle\DoctrineBundle\Mapping\MetadataFactory;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
-use Samir\Generator\Bundle\LazyBundleImpl;
+use Samir\Bundle\LazyBundleImpl;
 
 /**
  * Generates a CRUD for a Doctrine entity.
@@ -27,6 +25,8 @@ class GenerateCrudCommand extends ConsoleCommand
 {
     private $generator;
     private $formGenerator;
+    private $skeletonPath;
+    private $app;
 		
 		public function __construct(Application $app, $skeletonPath = null) 
 		{
@@ -70,8 +70,7 @@ Using the --with-write option allows to generate the new, edit and delete action
 <info>php app/console doctrine:generate:crud --entity=AcmeBlogBundle:Post --route-prefix=post_admin --with-write</info>
 EOT
             )
-            ->setName('doctrine:generate:crud')
-            ->setAliases(array('generate:doctrine:crud'))
+            ->setName('generate:doctrine:crud')
         ;
     }
 
@@ -214,7 +213,7 @@ EOT
         }
 
         $output->write('Importing the CRUD routes: ');
-        $this->getContainer()->get('filesystem')->mkdir($bundle->getPath().'/Resources/config/');
+        $this->getApp('filesystem')->mkdir($bundle->getPath().'/Resources/config/');
         $routing = new RoutingManipulator($bundle->getPath().'/Resources/config/routing.yml');
         try {
             $ret = $auto ? $routing->addResource($bundle->getName(), $format, '/'.$prefix, 'routing/'.strtolower(str_replace('\\', '_', $entity))) : false;
