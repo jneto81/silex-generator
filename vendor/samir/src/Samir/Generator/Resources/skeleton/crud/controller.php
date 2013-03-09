@@ -25,6 +25,7 @@ use {{ namespace }}\Form\{{ entity }}Type;
  *
 {% if 'annotation' == format %}
  * @Route("/{{ route_prefix }}")
+ * @Method("/{{ route_method }}")
 {% endif %}
  */
 class {{ entity_class }}Controller extends Controller

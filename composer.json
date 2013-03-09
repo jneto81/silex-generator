@@ -16,6 +16,7 @@
 		"symfony/validator": "2.1.*",
 		"symfony/monolog-bridge": "2.1.*",
 		"symfony/twig-bridge": "2.1.*",
+    "symfony/yaml": "2.1.*",
 		"monolog/monolog": ">=1.0.0",
 		"twig/twig": ">=1.2.0",
 		"doctrine/dbal": "2.3.0",
@@ -26,7 +27,6 @@
 		"sensio/generator-bundle": "2.1.*",
 		"sensio/framework-extra-bundle": "2.1.*",
 		"neutron/silex-filesystem-provider": "dev-master",
-		"silex/web-profiler": "~1.0",
 		"igorw/config-service-provider": "1.0.*@dev"
 	},
 	"autoload": {

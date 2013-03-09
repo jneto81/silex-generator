@@ -10,9 +10,8 @@ use Doctrine\Common\Cache\ArrayCache;
 
 $app = new Silex\Application();
 
-$app->register(new Samir\Silex\Provider\ConfigurationServiceProvider(), array(
-	'conf' => {{ bundle_path }} . '/Resources/config/config.yml',
-	'conf.routing' => {{ bundle_path }} . '/Resources/config/routing.yml'
-));
+$app->register(new Samir\Provider\ServiceConfigServiceProvider(__DIR__ . "{{ bundle }}/Resources/config/config.yml"));
+
+$app->register(new Samir\Provider\RoutingConfigServiceProvider(__DIR__ . "{{ bundle }}/Resources/config/routing.yml"));
 
 $app->run();
