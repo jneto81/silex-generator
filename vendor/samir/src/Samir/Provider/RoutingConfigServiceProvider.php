@@ -8,19 +8,19 @@ class RoutingConfigServiceProvider extends ConfigurationServiceProvider
 {
   public function register(Application $app)
   {
-    foreach ($this->readConfig() as $controller => $routes) {
-      $controller_prefix = $this->getControllerPrefix($controller);
+    foreach ($this->readConfig() as $controllerClass => $routes) {
+      $controllerPrefix = $this->getControllerPrefix($controllerClass);
       
-      $app[$controller_prefix] = $app->share(function () use ($app, $controller) {
-        return new $controller();
+      $app[$controllerPrefix] = $app->share(function () use ($app, $controllerClass) {
+        return new $controllerClass();
       });
       
-      foreach ($routes as $route_name_prefix => $settings) {
+      foreach ($routes as $routeNamePrefix => $settings) {
         $settings = (object)$settings;
         $method = strtolower($settings->method);
         
-        $app->$method($settings->pattern, $controller_prefix . ':' . $settings->action . 'Action')
-          ->bind($route_name_prefix);
+        $app->$method($settings->pattern, $controllerPrefix . ':' . $settings->action . 'Action')
+          ->bind($routeNamePrefix);
       }
     }
   }
@@ -29,9 +29,9 @@ class RoutingConfigServiceProvider extends ConfigurationServiceProvider
   {    
   }
   
-  private function getControllerPrefix($controller)
+  private function getControllerPrefix($controllerClass)
   {
-     $namespace = explode('\\', $controller);
+     $namespace = explode('\\', $controllerClass);
      return strtolower(strstr(end($namespace), "Controller", true)) .  '.controller';
   }
 }

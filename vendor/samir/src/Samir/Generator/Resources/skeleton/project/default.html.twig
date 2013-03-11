@@ -41,9 +41,21 @@
 					
 					<div class="nav-collapse">
 						<ul class="nav">
-            
+						{{ "{% if entities is not null and entities|length %}" }}
+							{{ "{% for entity in entities %}" }}
+							  <li>
+							    <a href="/{{ "{{ entity.prefix }}" }}">{{ "{{ entity.name|trans }}" }}</a>
+							  </li>
+							{{ "{% endif %}" }}
+						{{ "{% endif %}" }}
 						</ul>
-						
+						{{ "{% if use_authentication is not null and use_authentication %}" }}
+            <ul class="nav pull-right">
+							<li>
+								<p><a class="btn btn-small" href="{{ "{{ path('logout') }}" }}">{{ "{{ 'Log out'|trans }}" }}</a></p>
+							</li:
+						</ul>
+						{{ "{% endif %}" }}
 					</div>
 				</div>
 			</div>

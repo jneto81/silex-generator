@@ -44,6 +44,8 @@ $app->register(new Nutwerk\Provider\DoctrineORMServiceProvider(), array(
 $console = new ConsoleApp('Silex Generator Console', '1.0');
 $console->add(new Samir\Generator\Command\GenerateCrudCommand($app));
 $console->add(new Samir\Generator\Command\GenerateSilexProjectCommand($app));
-//$console->add(new Samir\Generator\Command\GenerateEntityCommand($app));
-//$console->add(new Samir\Generator\Command\GenerateAuthenticationCommand($app));
+/*
+$console->add(new Samir\Generator\Command\GenerateEntityCommand($app));
+$console->add(new Samir\Generator\Command\GenerateAuthenticationCommand($app));
+*/
 $console->run();

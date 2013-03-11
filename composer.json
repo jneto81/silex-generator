@@ -31,7 +31,8 @@
 	},
 	"autoload": {
         "psr-0": {
-            "Samir": "/samir/src/"
+            "Samir": "vendor/samir/src/",
+            "EquipeB": "src/"
         }
     }
 }

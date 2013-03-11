@@ -1,7 +1,0 @@
-{% if enties is not null and entities|length %}
-{% for entity in entities %}
-  <li>
-    <a href="/{{ entity.prefix }}">{{ '{{ "' }}{{ entity.name }}{{ '"|trans }}' }}</a>
-  </li>
-{% endif %}
-{% endif %}

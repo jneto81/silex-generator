@@ -1,0 +1,15 @@
+Silex\Provider\DoctrineServiceProvider:
+  db.options:
+    driver:     pdo_mysql
+    host:       localhost
+    dbname:     ampla
+    user:       ampla
+    password:   ampla
+
+Nutwerk\Provider\DoctrineORMServiceProvider:
+  db.orm.proxies_dir:           '%root_dir%/cache/doctrine/proxy'
+  db.orm.proxies_namespace:     Doctrine\ORM\Proxy\Proxy
+  #db.orm.cache:                 (! $app['debug'] && extension_loaded('apc')) ? new ApcCache() : new ArrayCache();
+  db.orm.auto_generate_proxies: true
+  db.orm.entities:              
+    - { type: annotation, path: '%root_dir%/src/EquipeB/Ampla/Entity', namespace: EquipeB\Ampla\Entity }

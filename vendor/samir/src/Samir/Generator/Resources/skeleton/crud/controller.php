@@ -9,11 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 {%- endif %}
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-{% if 'annotation' == format -%}
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-{%- endif %}
+use Symfony\Component\HttpFoundation\Response;
 
 use {{ namespace }}\Entity\{{ entity }};
 {% if 'new' in actions or 'edit' in actions %}
