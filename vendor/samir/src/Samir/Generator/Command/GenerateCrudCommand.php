@@ -11,10 +11,12 @@ use Symfony\Component\Console\Command\Command as ConsoleCommand;
 use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Sensio\Bundle\GeneratorBundle\Generator\DoctrineFormGenerator;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
-use Sensio\Bundle\GeneratorBundle\Manipulator\RoutingManipulator;
 use Doctrine\Bundle\DoctrineBundle\Mapping\MetadataFactory;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
+use Samir\Generator\Manipulator\RoutingManipulator;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Samir\Bundle\LazyBundleImpl;
+use Samir\Reader\ActionReader;
 
 /**
  * Generates a CRUD for a Doctrine entity.
@@ -95,7 +97,7 @@ EOT
         $format = Validators::validateFormat($input->getOption('format'));
         $prefix = $this->getRoutePrefix($input, $entity);
         $withWrite = $input->getOption('with-write');
-
+        
         $dialog->writeSection($output, 'CRUD generation');
 
         $entityClass = $bundle .'\\'.$entity;
@@ -117,9 +119,7 @@ EOT
         }
 				
 				// routing
-        if ('annotation' != $format) {
-            $runner($this->updateRouting($dialog, $input, $output, $bundle, $format, $entity, $prefix));
-        }
+        $runner($this->updateRouting($dialog, $input, $output, $bundle, $format, $entity, $prefix));
 
         $dialog->writeGeneratorSummary($output, $errors);
     }
@@ -213,26 +213,21 @@ EOT
         }
 
         $output->write('Importing the CRUD routes: ');
-        $this->getApp('filesystem')->mkdir($bundle->getPath().'/Resources/config/');
-        $routing = new RoutingManipulator($bundle->getPath().'/Resources/config/routing.yml');
+        $this->getApp('filesystem')->mkdir($bundle->getPath().'/Resources/config/');        
+        $routing = new RoutingManipulator($bundle->getPath().'/Resources/config/routing.yml');        
+        
+        $parts = explode('\\', $entity);
+        $entityClass = array_pop($parts);
+        $controllerClass = $bundle->getNamespace() . '\\Controller\\' . $entityClass . 'Controller';
+        $actions = $this->getActions($controllerClass);
+        
+        
         try {
-            $ret = $auto ? $routing->addResource($bundle->getName(), $format, '/'.$prefix, 'routing/'.strtolower(str_replace('\\', '_', $entity))) : false;
+          foreach ($actions as $action) {
+            $ret = $auto ? $routing->addResource($controllerClass, $action['name'], $action['method'], $action['action'], $action['pattern']) : false;
+          }
         } catch (\RuntimeException $exc) {
             $ret = false;
-        }
-
-        if (!$ret) {
-            $help = sprintf("        <comment>resource: \"@%s/Resources/config/routing/%s.%s\"</comment>\n", $bundle->getName(), strtolower(str_replace('\\', '_', $entity)), $format);
-            $help .= sprintf("        <comment>prefix:   /%s</comment>\n", $prefix);
-
-            return array(
-                '- Import the bundle\'s routing resource in the bundle routing file',
-                sprintf('  (%s).', $bundle->getPath().'/Resources/config/routing.yml'),
-                '',
-                sprintf('    <comment>%s:</comment>', $bundle->getName().('' !== $prefix ? '_'.str_replace('/', '_', $prefix) : '')),
-                $help,
-                '',
-            );
         }
     }
 
@@ -245,6 +240,12 @@ EOT
         }
 
         return $prefix;
+    }
+    
+    protected function getActions($bundle)
+    {
+      $reader = new ActionReader($bundle);
+      return $reader->extract();
     }
 
     protected function getGenerator()

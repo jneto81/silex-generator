@@ -4,30 +4,23 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Doctrine\Common\Cache\ApcCache;
-use Doctrine\Common\Cache\ArrayCache;
 use Symfony\Component\Console\Application as ConsoleApp;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Silex\Application;
 
 $app = new Application();
-
 $app['debug'] = true;
 $app['root_dir'] = __DIR__ . '/../';
-
-$map = require __DIR__ . '/../vendor/composer/autoload_namespaces.php';
-
-AnnotationRegistry::registerAutoloadNamespace("Sensio\\Bundle\\FrameworkExtraBundle", $map["Sensio\\Bundle\\FrameworkExtraBundle"]);
 
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new Samir\Provider\ServiceConfigServiceProvider(__DIR__ . "/../src/Samuca/Fashion/Resources/config/config.yml"));
 
-$console = new ConsoleApp('Silex Generator Console', '1.0');
-$console->add(new Samir\Generator\Command\GenerateCrudCommand($app));
-$console->add(new Samir\Generator\Command\GenerateSilexProjectCommand($app));
-$console->add(new Samir\Generator\Command\GenerateUserCommand($app));
-$console->run();
+$helpers = new Symfony\Component\Console\Helper\HelperSet(array(
+    'db' => new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($app['db']),
+    'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($app['db.orm.em'])
+));
+
+\Doctrine\ORM\Tools\Console\ConsoleRunner::run($helpers);

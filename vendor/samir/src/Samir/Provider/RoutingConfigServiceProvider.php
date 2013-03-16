@@ -19,7 +19,7 @@ class RoutingConfigServiceProvider extends ConfigurationServiceProvider
         $settings = (object)$settings;
         $method = strtolower($settings->method);
         
-        $app->$method($settings->pattern, $controllerPrefix . ':' . $settings->action . 'Action')
+        $app->$method($settings->pattern, $controllerPrefix . ':' . $settings->action)
           ->bind($routeNamePrefix);
       }
     }

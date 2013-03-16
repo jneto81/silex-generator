@@ -32,7 +32,7 @@
 	"autoload": {
         "psr-0": {
             "Samir": "vendor/samir/src/",
-            "EquipeB": "src/"
+            "Samuca": "src/"
         }
     }
 }

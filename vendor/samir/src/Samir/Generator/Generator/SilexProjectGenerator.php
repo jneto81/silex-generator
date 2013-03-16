@@ -64,7 +64,7 @@ class SilexProjectGenerator extends Generator
             'routes'          => array(
               array(
                 'name_prefix' => 'home',
-                'action'      => 'index',
+                'action'      => 'indexAction',
                 'pattern'     => '/',
                 'method'      => 'GET',
               )

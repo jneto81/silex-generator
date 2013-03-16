@@ -71,7 +71,7 @@ class LazyBundleImpl implements BundleInterface
 					$this->reflected = new \ReflectionClass($this->bundle . '\\' . $this->entity);
 			}
 
-			return $this->reflected->getNamespaceName();
+			return str_replace('/', '\\', dirname(str_replace('\\', '/', $this->reflected->getNamespaceName())));
 	}
 	
 	public function getPath() 

@@ -8,16 +8,32 @@ class ServiceConfigServiceProvider extends ConfigurationServiceProvider
 {
   public function register(Application $app)
   {
-  	foreach ($this->readConfig() as $key => $value) {
-    	array_walk_recursive($value, function (&$value) use ($app) {
-    		
-    		if (strpos($value, '%root_dir%') !== FALSE) {
-    			$value = str_replace('%root_dir%', $app['root_dir'], $value);
-    		}
-    		
-    	});
+    foreach ($this->readConfig() as $key => $value) {
+      if ( ! empty($value)) {
+        array_walk_recursive($value, function (&$value, $key) use ($app) {
+          $matches = array();
 
-    	$app->register(new $key(), $value);
+          $value = preg_replace_callback('/\%(\w+)\%/', function ($matches) use ($app) {
+            return $app[$matches[1]];
+          }, $value);
+          
+          $matches = array();
+
+          preg_match('/^\!(.*)/', $value, $matches);
+          
+          if (isset($matches[1])) {
+            $service = $matches[1];
+            
+            $value = $app->share(function () use ($app, $service) {              
+              return new $service($app);
+            });
+          }
+        });
+      } else {
+        $value = array();
+      }
+      
+      $app->register(new $key(), $value);
     }
   }
 

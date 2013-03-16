@@ -1,0 +1,58 @@
+Silex\Provider\DoctrineServiceProvider:
+  db.options:
+    driver:   pdo_mysql
+    host:     192.168.56.1
+    dbname:   fashiondb
+    user:     fashiondb
+    password: fashiondb
+
+Nutwerk\Provider\DoctrineORMServiceProvider:
+  db.orm.proxies_dir:             '%root_dir$/cache/doctrine/proxy'
+  db.orm.proxies_namespace:       Doctrine\ORM\Proxy\Proxy
+  #db.orm.cache: 
+  db.orm.auto_generate_proxies:   true
+  db.orm.entities: 
+    - { type: annotation, path: '%root_dir%/src/Samuca/Fashion/Entity', namespace: Samuca\Fashion\Entity }
+      
+Silex\Provider\ServiceControllerServiceProvider: ~
+Silex\Provider\UrlGeneratorServiceProvider: ~
+Samir\Provider\FormServiceProviderImpl: ~
+Silex\Provider\SessionServiceProvider: ~
+Neutron\Silex\Provider\FilesystemServiceProvider: ~
+
+Silex\Provider\SecurityServiceProvider:
+  security.firewalls:
+    list:               { pattern: ^/list }
+    show:               { pattern: '^/show/{id}' }
+    upload:             { pattern: ^/upload }
+    default: 
+      pattern:          ^.*$
+      anonymous:        true
+      form:
+        login_path:     /
+        check_path:     login_check
+      logout: 
+        logout_path:    /logout
+      users:            !Samir\Provider\UserProvider
+  security.access_rules:
+    - [ ^/.+$, ROLE_ADMIN ]
+
+Samir\Provider\TranslationServiceProvider:
+  locale_fallback:      en
+  translator.format:    xliff
+  translator.domains:
+    messages:
+      pt_BR:            '%root_dir%/locales/messages.pt_BR.xlf'
+
+Samir\Provider\TwigExtraServiceProvider:
+  twig.path:        '%root_dir%/src/Samuca/Fashion/Resources/views'
+  twig.class_path:  '%root_dir%/vendor/twig/twig/lib'
+  twig.options:
+    cache:          '%root_dir%/cache'
+    debug:          true
+  twig.globals:
+    menu:  
+      - { name: Shopping, path: /shopping }
+      - { name: Address, path: /address }
+      - { name: Network, path: /network }      
+    use_authentication: true

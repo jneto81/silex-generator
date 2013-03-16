@@ -1,0 +1,32 @@
+Samuca\Fashion\Controller\DefaultController:
+    home: { pattern: /, method: GET, action: indexAction }
+    list: { pattern: /list, method: GET, action: listAction }
+    show: { pattern: '/show/{id}', method: GET, action: showAction }
+    upload: { pattern: /upload, method: POST, action: uploadAction }
+    
+Samuca\Fashion\Controller\AddressController:
+    address: { pattern: /address/, method: get, action: indexAction }
+    address_show: { pattern: '/address/{id}/show', method: get, action: showAction }
+    address_new: { pattern: /address/new, method: get, action: newAction }
+    address_create: { pattern: /address/create, method: post, action: createAction }
+    address_edit: { pattern: '/address/{id}/edit', method: get, action: editAction }
+    address_update: { pattern: '/address/{id}/update', method: post, action: updateAction }
+    address_delete: { pattern: '/address/{id}/delete', method: post, action: deleteAction }
+    
+Samuca\Fashion\Controller\NetworkController:
+    network: { pattern: /network/, method: get, action: indexAction }
+    network_show: { pattern: '/network/{id}/show', method: get, action: showAction }
+    network_new: { pattern: /network/new, method: get, action: newAction }
+    network_create: { pattern: /network/create, method: post, action: createAction }
+    network_edit: { pattern: '/network/{id}/edit', method: get, action: editAction }
+    network_update: { pattern: '/network/{id}/update', method: post, action: updateAction }
+    network_delete: { pattern: '/network/{id}/delete', method: post, action: deleteAction }
+    
+Samuca\Fashion\Controller\ShoppingController:
+    shopping: { pattern: /shopping/, method: get, action: indexAction }
+    shopping_show: { pattern: '/shopping/{id}/show', method: get, action: showAction }
+    shopping_new: { pattern: /shopping/new, method: get, action: newAction }
+    shopping_create: { pattern: /shopping/create, method: post, action: createAction }
+    shopping_edit: { pattern: '/shopping/{id}/edit', method: get, action: editAction }
+    shopping_update: { pattern: '/shopping/{id}/update', method: post, action: updateAction }
+    shopping_delete: { pattern: '/shopping/{id}/delete', method: post, action: deleteAction }

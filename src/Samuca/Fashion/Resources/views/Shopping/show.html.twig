@@ -1,0 +1,39 @@
+{% extends 'default.html.twig' %}
+
+{% block content %}
+
+<h1>Shopping</h1>
+
+<table class="record_properties table table-striped table-hover table-condensed span6">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions unstyled container inline">
+    <li>
+        <a class="btn btn-small" href="{{ path('shopping') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('shopping_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('shopping_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+
+{% endblock %}
