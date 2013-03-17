@@ -1,0 +1,5 @@
+select { width: auto; }
+
+.input-append select { margin-right: 5px; }
+.inline { display: inline-block; }
+.clearfix { clear: both; }

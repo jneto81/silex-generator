@@ -13,8 +13,8 @@ class NetworkType extends AbstractType
         $builder
             ->add('name')
             ->add('link')
-            ->add('shopping', 'entity', array(
-              'class' => 'Samuca\Fashion\Entity\Shopping',
+            ->add('brand', 'entity', array(
+              'class' => 'Samuca\Fashion\Entity\Brand',
               'property' => 'name'
             ))
         ;

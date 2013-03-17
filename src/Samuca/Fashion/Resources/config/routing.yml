@@ -1,6 +1,10 @@
 Samuca\Fashion\Controller\DefaultController:
     home: { pattern: /, method: GET, action: indexAction }
-    list: { pattern: /list, method: GET, action: listAction }
+    list:
+      pattern: /list/{page}
+      method: MATCH
+      action: listAction
+      defaults: { page: 1 }
     show: { pattern: '/show/{id}', method: GET, action: showAction }
     upload: { pattern: /upload, method: POST, action: uploadAction }
     
@@ -22,11 +26,11 @@ Samuca\Fashion\Controller\NetworkController:
     network_update: { pattern: '/network/{id}/update', method: post, action: updateAction }
     network_delete: { pattern: '/network/{id}/delete', method: post, action: deleteAction }
     
-Samuca\Fashion\Controller\ShoppingController:
-    shopping: { pattern: /shopping/, method: get, action: indexAction }
-    shopping_show: { pattern: '/shopping/{id}/show', method: get, action: showAction }
-    shopping_new: { pattern: /shopping/new, method: get, action: newAction }
-    shopping_create: { pattern: /shopping/create, method: post, action: createAction }
-    shopping_edit: { pattern: '/shopping/{id}/edit', method: get, action: editAction }
-    shopping_update: { pattern: '/shopping/{id}/update', method: post, action: updateAction }
-    shopping_delete: { pattern: '/shopping/{id}/delete', method: post, action: deleteAction }
+Samuca\Fashion\Controller\BrandController:
+    brand: { pattern: /brand/, method: get, action: indexAction }
+    brand_show: { pattern: '/brand/{id}/show', method: get, action: showAction }
+    brand_new: { pattern: /brand/new, method: get, action: newAction }
+    brand_create: { pattern: /brand/create, method: post, action: createAction }
+    brand_edit: { pattern: '/brand/{id}/edit', method: get, action: editAction }
+    brand_update: { pattern: '/brand/{id}/update', method: post, action: updateAction }
+    brand_delete: { pattern: '/brand/{id}/delete', method: post, action: deleteAction }

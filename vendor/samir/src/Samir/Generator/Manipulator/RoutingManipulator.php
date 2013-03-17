@@ -42,19 +42,17 @@ class RoutingManipulator
       return true;
     }
     
-    public function addResource($bundle, $name, $method = 'GET', $action, $pattern)
+    public function addResource($bundle, $name, $method = 'GET', $action, $pattern, $defaults = array())
     {
       if (file_exists($this->file)) {
         $config = Yaml::parse($this->file);
         
         if (array_key_exists($bundle, $config)) {
-          if ( ! array_key_exists($name, $config[$bundle])) {
-            $config[$bundle][$name] = array(
-              'pattern' => $pattern,
-              'method'  => $method,
-              'action'  => $action,
-             );
-          }
+          $config[$bundle][$name] = array(
+            'pattern' => $pattern,
+            'method'  => $method,
+            'action'  => $action,
+           );
         } else {
           $config[$bundle] = array(
             $name => array(
@@ -62,6 +60,10 @@ class RoutingManipulator
               'method'  => $method,
               'action'  => $action,
           ));
+        }
+        
+        if ( ! empty($defaults)) {
+          $config[$bundle][$name]['defaults'] = $defaults;
         }
       }
       

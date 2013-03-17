@@ -12,8 +12,8 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('address')
-            ->add('shopping', 'entity', array(
-              'class' => 'Samuca\Fashion\Entity\Shopping',
+            ->add('brand', 'entity', array(
+              'class' => 'Samuca\Fashion\Entity\Brand',
               'property' => 'name'
             ))
         ;

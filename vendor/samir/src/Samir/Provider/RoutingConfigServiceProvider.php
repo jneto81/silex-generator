@@ -19,8 +19,14 @@ class RoutingConfigServiceProvider extends ConfigurationServiceProvider
         $settings = (object)$settings;
         $method = strtolower($settings->method);
         
-        $app->$method($settings->pattern, $controllerPrefix . ':' . $settings->action)
+        $route = $app->$method($settings->pattern, $controllerPrefix . ':' . $settings->action)
           ->bind($routeNamePrefix);
+          
+        if (isset($settings->defaults)) {
+          foreach ($settings->defaults as $key => $value) {
+            $route->value($key, $value);
+          }
+        }
       }
     }
   }

@@ -7,12 +7,12 @@ use Doctrine\Mapping as ORM;
 /**
  * Shopping
  *
- * @Table(name="shopping")
- * @Entity(repositoryClass="ShoppingRepository")
+ * @Table(name="brand")
+ * @Entity(repositoryClass="BrandRepository")
  */ 
-class Shopping
+class Brand
 {
-  const TYPE_WHOLESAIL = 'wholesail';
+  const TYPE_WHOLESALE = 'wholesale';
   
   const TYPE_RETAIL = 'retail';
 
@@ -49,9 +49,9 @@ class Shopping
   private $type;
   
   /**
-   * @Column(name="keywords", type="string", length=255)
+   * @Column(name="keyword", type="string", length=255)
    */
-  private $keywords;
+  private $keyword;
   
   /**
    * @Column(name="region", type="string", length=255)
@@ -59,12 +59,12 @@ class Shopping
   private $region;
   
   /**
-   * @OneToMany(targetEntity="Address", mappedBy="shopping")
+   * @OneToMany(targetEntity="Address", mappedBy="brand")
    */
   private $addresses;
   
   /**
-   * @OneToMany(targetEntity="Network", mappedBy="shopping")
+   * @OneToMany(targetEntity="Network", mappedBy="brand")
    */
   private $networks;
   
@@ -187,8 +187,8 @@ class Shopping
    */
   public function setType($type)
   {
-      if ( ! in_array($status, array(self::TYPE_WHOLESAIL, self::TYPE_RETAIL))) {
-          throw new \InvalidArgumentException("Invalid status");
+      if ( ! in_array($type, array(self::TYPE_WHOLESALE, self::TYPE_RETAIL))) {
+          throw new \InvalidArgumentException("Invalid type");
       }
   
       $this->type = $type;
@@ -207,26 +207,26 @@ class Shopping
   }
 
   /**
-   * Set keywords
+   * Set keyword
    *
-   * @param string $keywords
+   * @param string $keyword
    * @return Shopping
    */
-  public function setKeywords($keywords)
+  public function setKeyword($keyword)
   {
-      $this->keywords = $keywords;
+      $this->keyword = $keyword;
   
       return $this;
   }
 
   /**
-   * Get keywords
+   * Get keyword
    *
    * @return string 
    */
-  public function getKeywords()
+  public function getKeyword()
   {
-      return $this->keywords;
+      return $this->keyword;
   }
 
   /**

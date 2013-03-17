@@ -41,7 +41,8 @@ class ActionReader
             'method'    => strtolower($methods[0]),
             'pattern'   => $annotation->getPattern() . $routeAnnotation->getPattern(),
             'action'    => $method->name,
-            'name'      => $routeAnnotation->getName()
+            'name'      => $routeAnnotation->getName(),
+            'defaults'  => $routeAnnotation->getDefaults()
           );
         }
       }

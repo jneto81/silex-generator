@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Shopping list</h1>
+<h1>Brand list</h1>
 
 <table class="records_list table table-striped table-hover table-condensed span12">
     <thead>
@@ -15,15 +15,15 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('shopping_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><a href="{{ path('brand_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.address }}</td>
             <td>
                 <ul class="unstyled inline">
                     <li>
-                        <a btn btn-mini" href="{{ path('shopping_show', { 'id': entity.id }) }}">show</a>
+                        <a btn btn-mini" href="{{ path('brand_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a btn btn-mini" href="{{ path('shopping_edit', { 'id': entity.id }) }}">edit</a>
+                        <a btn btn-mini" href="{{ path('brand_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
             </td>
@@ -34,7 +34,7 @@
 
 <ul class="unstyled container">
     <li>
-        <a class="btn btn-small btn-primary" href="{{ path('shopping_new') }}">
+        <a class="btn btn-small btn-primary" href="{{ path('brand_new') }}">
             Create a new entry
         </a>
     </li>

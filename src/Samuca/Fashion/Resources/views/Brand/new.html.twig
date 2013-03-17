@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Shopping creation</h1>
+<h1>Brand creation</h1>
 
 {% if form.vars.errors|length %}
 <div class="alert alert-error">
@@ -11,7 +11,7 @@
 </div>
 {% endif %}
 
-<form action="{{ path('shopping_create') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('brand_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_rest(form) }}
     <p>
         <button class="btn btn-small btn-primary" type="submit">Create</button>
@@ -20,7 +20,7 @@
 
 <ul class="record_actions unstyled container inline">
     <li>
-        <a class="btn btn-small" href="{{ path('shopping') }}">
+        <a class="btn btn-small" href="{{ path('brand') }}">
             Back to the list
         </a>
     </li>

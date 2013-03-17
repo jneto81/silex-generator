@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Samuca\Fashion\Form\SearchType;
+use Samuca\Fashion\Entity\Brand;
+use Samir\Pagination\Paginator;
 
 class DefaultController extends Controller
 {
@@ -27,14 +30,40 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/list", name="list")
-     * @Method("GET")
+     * @Route("/list/{page}", name="list", defaults={"page" = 1})
      * @Template()
      */
-    public function listAction(Request $request, Application $app)
+    public function listAction($page = 1, Request $request, Application $app)
     {
+      $data = new Brand();
+      $type = new SearchType();
+      $search = array();
+      $values = $request->get($type->getName(), array());
+      $limit = $app['const.pagination'];
+      
+      if ( ! empty($values)) {
+        array_walk($values, function ($value, $key) use (&$search, $data) {
+          if (strpos($key, '_')  !== 0 && ! empty($value)) {              
+              $search[$key] = $value;
+              $setter = 'set' . ucfirst($key);
+              $data->$setter($value);
+          }
+        });
+      }
+      
+      $list = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+        ->findBy($search);
+        
+      $paginator = new Paginator($list, $limit);
+      
+      $form = $app['form.factory']->create($type, $data, array())
+        ->createView();
+
       return $app['twig']->render('index.html.twig', array(
-          
+        'list'   => $paginator->get($page),
+        'pages' => $paginator->pages(),
+        'show_pagination' => $paginator->count() > 1,
+        'search_form'   => $form,
       ));
     }
     

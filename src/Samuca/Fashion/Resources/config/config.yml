@@ -1,3 +1,6 @@
+Samir\Provider\ConstantsBagServiceProvider:
+  const.pagination: 12
+
 Silex\Provider\DoctrineServiceProvider:
   db.options:
     driver:   pdo_mysql
@@ -52,7 +55,18 @@ Samir\Provider\TwigExtraServiceProvider:
     debug:          true
   twig.globals:
     menu:  
-      - { name: Shopping, path: /shopping }
+      - { name: Brand, path: /brand }
       - { name: Address, path: /address }
       - { name: Network, path: /network }      
     use_authentication: true
+    types: [ retail, wholesale ]
+    backend: 
+      title: 'BACKEND'
+      author: ''
+      description: ''
+      keywords: ''
+    frontend: 
+      title: 'COMPRAS BH'
+      author: ''
+      description: ''
+      keywords: ''

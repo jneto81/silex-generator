@@ -30,9 +30,9 @@ class Network
   private $link;
   
   /**
-   * @ManyToOne(targetEntity="Shopping", inversedBy="networks", fetch="LAZY")    
+   * @ManyToOne(targetEntity="Brand", inversedBy="networks", fetch="LAZY")    
    */
-  private $shopping;
+  private $brand;
 
     /**
      * Get id
@@ -91,25 +91,25 @@ class Network
     }
 
     /**
-     * Set shopping
+     * Set brand
      *
-     * @param \Samuca\Fashion\Entity\Shopping $shopping
+     * @param \Samuca\Fashion\Entity\Brand $brand
      * @return Network
      */
-    public function setShopping(\Samuca\Fashion\Entity\Shopping $shopping = null)
+    public function setShopping(\Samuca\Fashion\Entity\Brand $brand = null)
     {
-        $this->shopping = $shopping;
+        $this->brand = $brand;
     
         return $this;
     }
 
     /**
-     * Get shopping
+     * Get brand
      *
-     * @return \Samuca\Fashion\Entity\Shopping 
+     * @return \Samuca\Fashion\Entity\Brand
      */
-    public function getShopping()
+    public function getBrand()
     {
-        return $this->shopping;
+        return $this->brand;
     }
 }

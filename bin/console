@@ -30,4 +30,5 @@ $console = new ConsoleApp('Silex Generator Console', '1.0');
 $console->add(new Samir\Generator\Command\GenerateCrudCommand($app));
 $console->add(new Samir\Generator\Command\GenerateSilexProjectCommand($app));
 $console->add(new Samir\Generator\Command\GenerateUserCommand($app));
+$console->add(new Samir\Generator\Command\UpdateRoutesCommand($app));
 $console->run();

@@ -25,9 +25,9 @@ class Address
   private $address;
   
   /**
-   * @ManyToOne(targetEntity="Shopping", inversedBy="addresses", fetch="LAZY")    
+   * @ManyToOne(targetEntity="Brand", inversedBy="addresses", fetch="LAZY")    
    */
-  private $shopping;
+  private $brand;
 
     /**
      * Get id
@@ -63,25 +63,25 @@ class Address
     }
 
     /**
-     * Set shopping
+     * Set brand
      *
-     * @param \Samuca\Fashion\Entity\Shopping $shopping
+     * @param \Samuca\Fashion\Entity\Brand $brand
      * @return Address
      */
-    public function setShopping(\Samuca\Fashion\Entity\Shopping $shopping = null)
+    public function setBrand(\Samuca\Fashion\Entity\Brand $brand = null)
     {
-        $this->shopping = $shopping;
+        $this->brand = $brand;
     
         return $this;
     }
 
     /**
-     * Get shopping
+     * Get brand
      *
-     * @return \Samuca\Fashion\Entity\Shopping 
+     * @return \Samuca\Fashion\Entity\Brand 
      */
-    public function getShopping()
+    public function getBrand()
     {
-        return $this->shopping;
+        return $this->brand;
     }
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ShoppingType extends AbstractType
+class BrandType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -23,12 +23,12 @@ class ShoppingType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Samuca\Fashion\Entity\Shopping'
+            'data_class' => 'Samuca\Fashion\Entity\Brand'
         ));
     }
 
     public function getName()
     {
-        return 'samuca_fashion_shoppingtype';
+        return 'samuca_fashion_brandtype';
     }
 }

@@ -224,7 +224,7 @@ EOT
         
         try {
           foreach ($actions as $action) {
-            $ret = $auto ? $routing->addResource($controllerClass, $action['name'], $action['method'], $action['action'], $action['pattern']) : false;
+            $ret = $auto ? $routing->addResource($controllerClass, $action['name'], $action['method'], $action['action'], $action['pattern'], $action['defaults']) : false;
           }
         } catch (\RuntimeException $exc) {
             $ret = false;

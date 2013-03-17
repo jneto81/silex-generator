@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Shopping</h1>
+<h1>Brand</h1>
 
 <table class="record_properties table table-striped table-hover table-condensed span6">
     <tbody>
@@ -19,17 +19,17 @@
 
 <ul class="record_actions unstyled container inline">
     <li>
-        <a class="btn btn-small" href="{{ path('shopping') }}">
+        <a class="btn btn-small" href="{{ path('brand') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a class="btn btn-small btn-primary" href="{{ path('shopping_edit', { 'id': entity.id }) }}">
+        <a class="btn btn-small btn-primary" href="{{ path('brand_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
     <li>
-        <form action="{{ path('shopping_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('brand_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button class="btn btn-small btn-danger" type="submit">Delete</button>
         </form>
