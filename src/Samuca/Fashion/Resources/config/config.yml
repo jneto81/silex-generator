@@ -25,7 +25,7 @@ Silex\Provider\SessionServiceProvider: ~
 Silex\Provider\SecurityServiceProvider:
   security.firewalls:
     list:               { pattern: ^/list }
-    show:               { pattern: '^/show/{id}' }
+    show:               { pattern: ^/show }
     upload:             { pattern: ^/upload }
     default: 
       pattern:          ^.*$

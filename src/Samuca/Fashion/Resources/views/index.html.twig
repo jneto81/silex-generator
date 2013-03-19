@@ -27,10 +27,11 @@
 	{% block stylesheets %}{% endblock %}
 </head>
 <body>
-  <div class="container-fluid">     
-    <header>
-        <div class="pull-right {{ is_dashed ? 'dashed-bottom' : '' }}">
-          <div class="heading"><small>{{ "ADVANCED SEARCH"|trans }}</small></div>
+  <div>
+    <div class="row-fluid">
+      <header>
+          <div id="search" class="pull-right">
+            <div class="heading"><small>{{ "ADVANCED SEARCH"|trans }}</small></div>
             <form action="/list" class="form-inline" method="post">
               <div class="input-append">
                 {% for key, form in search_form %}
@@ -45,21 +46,20 @@
                     {{ form_widget(form, { empty_value: key|capitalize, attr: { placeholder: key|capitalize } }) }}
                   {% endif %}
                 {% endfor %}
-                <button class="btn" type="submit">OK</button>
+                <button class="btn btn-black" type="submit">OK</button>
               </div>
             </form>
           </div>
+          
+          {% block header %}{% endblock %}
+      </header>
+      
+      <div class="clearfix">
+        <div id="content" class="container-fluid">
+          {% block content %}{% endblock %}
         </div>
-        
-        {% block header %}{% endblock %}
-    </header>
-    
-    <div class="container-fluid">
-      <div id="content">
-        {% block content %}{% endblock %}
       </div>
     </div>
-    
   </div>
   
   <script src="/assets/js/jquery.min.js"></script>

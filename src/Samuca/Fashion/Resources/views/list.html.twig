@@ -1,5 +1,23 @@
 {% extends 'index.html.twig' %}
 
+{% block header %}
+
+  <ul class="nav nav-tabs span12">
+    {% for type in types %}
+    <li class="{{ loop.index == 1 ? 'active' : '' }}">
+      <a href="#" class="tab-anchor">{{ type|upper|trans }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="index dashed-bottom clearfix span12 text-right">
+  {% for index in range('A', 'Z') %}
+    <a class="headline inline" href="/list/{{ index }}">{{ index }}</a>
+  {% endfor %}
+  </div>
+
+{% endblock %}
+
 {% block content %}
 
   {% for item in list %}
@@ -15,7 +33,7 @@
     </div>
     
     <div class="pull-right">
-      <a class="btn btn-black btn-more" href="/show/{{ item.id }}">>{{ "MORE"|trans }}</a>        
+      <a class="btn btn-black btn-more" href="/show/{{ item.id }}">> {{ "MORE"|trans }}</a>        
     </div>
   </div>
   {% endfor %}
@@ -42,7 +60,7 @@
     
       <h3>{{ "FEATURED BRANDS"|trans }}</h3>
       
-      <div class="item-featured section">
+      <div class="item-featured section container-fluid">
       {% for entity in list %}
         <div class="item span4">
           <h4>{{ entity.name }}</h4>
@@ -56,7 +74,7 @@
           </div>
           
           <div class="pull-right">
-            <a class="btn btn-black btn-more" href="/show/{{ entity.id }}">>{{ "MORE"|trans }}</a>        
+            <a class="btn btn-black btn-more" href="/show/{{ entity.id }}">> {{ "MORE"|trans }}</a>        
           </div>
         </div>
       {% endfor %}
@@ -64,22 +82,4 @@
     </div>
   </footer>
   
-{% endblock %}
-
-{% block header %}
-
-  <ul class="nav nav-tabs span12">
-    {% for type in types %}
-    <li class="active">
-      <a href="#" class="tab-anchor">{{ type|upper|trans }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-  <div class="index dashed-bottom clearfix pull-right">
-  {% for index in range('A', 'Z') %}
-    <a class="headline inline" href="/list/{{ index }}">{{ index }}</a>
-  {% endfor %}
-  </div>
-
 {% endblock %}

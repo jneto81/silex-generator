@@ -64,8 +64,7 @@ class DefaultController extends Controller
         'pages'           => $paginator->pages(),
         'show_pagination' => $paginator->count() > 1,
         'search_form'     => $form,
-        'current_page'    => $page,
-        'is_dashed'       => true
+        'current_page'    => $page
       ));
     }
     
@@ -77,7 +76,7 @@ class DefaultController extends Controller
     public function showAction($id, Request $request, Application $app)
     {
       $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
-        ->findById($id);
+        ->find($id);
         
       $form = $app['form.factory']->create(new SearchType(), new Brand(), array())
         ->createView();
@@ -85,8 +84,7 @@ class DefaultController extends Controller
       return $app['twig']->render('show.html.twig', array(
         'entity'        => $entity,
         'search_form'   => $form,
-        'is_dashed'     => false,
-        'referer'       => $request->headers->get('referer')
+        'referer_url'       => $request->headers->get('referer')
       ));
     }
     

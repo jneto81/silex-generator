@@ -6,50 +6,45 @@
 
 {% endblock %}
 
+{% block header %}
+
+  <div class="btn-back">
+    <a href="{{ referer_url }}">
+      <i class="icon icon-arrow-left"></i><span class="heading">{{ "BACK TO BRAND LIST"|trans }}</span>
+    </a>
+  </div>
+
+{% endblock %}
+
 {% block content %}
   
-  <article>
-    <header class="dashed-bottom">
-      <div class="span6">
+    <header class="dashed-bottom container-fluid title">
+      <div>
         <h2>{{ entity.name }}</h2>
-      </div>
-      
-      <div class="pull-right">
-        <a href="{{ referer_url }}">
-          <i class="icon icon-arrow-left"/><span class="heading">{{ "BACK TO BRAND LIST"|trans }}</span>
-        </a>
-      </div>
+      </div>    
     </header>
-    
+  
     <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style pull-right">
+    <div class="addthis_toolbox addthis_default_style clearfix span2 pull-right text-right">
       <a class="addthis_button_preferred_1"></a>
       <a class="addthis_button_preferred_2"></a>
       <a class="addthis_button_preferred_3"></a>
       <a class="addthis_button_preferred_4"></a>
       <a class="addthis_button_compact"></a>
+      <!--
       <a class="addthis_counter addthis_bubble_style"></a>
+      -->
     </div>
     <!-- AddThis Button END -->
-
     
-    
-    <div class="clearfix">
-      <img src="{{ entity.featured }}">
-    </div>
-    
-    <div class="text-justify">
+    <div class="text-justify entry">
       {{ entity.description }}
     </div>
-    
 
     <h3>{{ "PHOTO GALLERY"|trans }}</h3>
     
     <div class="mygallery">
       <div class="tn3 album">
-        <h4>Album 1</h4>
-        <div class="tn3 description">Full size images - good for fullscreen view</div>
-        <div class="tn3 thumb">/images/114x72/3.jpg</div>
         <ol>
         {% for media in entity.medias %}
           <li>
@@ -63,6 +58,8 @@
         </ol>
       </div>
     </div>
+    
+    <br class="clearfix" />
     
     <h3>{{ "WHERE TO BUY"|trans }}</h3>
 
@@ -79,11 +76,9 @@
 
     <ul class="inline unstyled container">
     {% for network in entity.networks %}
-      <li><a href="{{ network.link }}" target="_blank"><i class="icon icon-network icon-{{ network.name }}"/></a></li>
+      <li><a href="{{ network.link }}" target="_blank"><i class="icon icon-network icon-{{ network.name }}"></i></a></li>
     {% endfor %}	
     </ul>
-    
-  </article>
   
 {% endblock %}
 
