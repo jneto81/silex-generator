@@ -112,4 +112,17 @@ class Network
     {
         return $this->brand;
     }
+
+    /**
+     * Set brand
+     *
+     * @param \Samuca\Fashion\Entity\Brand $brand
+     * @return Network
+     */
+    public function setBrand(\Samuca\Fashion\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+    
+        return $this;
+    }
 }

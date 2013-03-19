@@ -1,0 +1,83 @@
+{% extends 'default.html.twig' %}
+
+{% block content %}
+
+  {% for item in list %}
+  <div class="item span4 dashed-bottom">
+    <h4>{{ item.name }}</h4>
+    
+    <div class="text-center">
+      <img src="content/{{ item.logo }}">
+    </div>
+    
+    <div class="text-center">
+      {{ item.description }}
+    </div>
+    
+    <div class="pull-right">
+      <a class="btn btn-black btn-more" href="/show/{{ item.id }}">>{{ "MORE"|trans }}</a>        
+    </div>
+  </div>
+  {% endfor %}
+  
+  <footer>
+    {% if show_pagination %}
+    <div class="pager container-fluid">
+      <a href="#" title="{{ "Previous"|trans }}" class="span1 btn-page"><</a>
+
+      <div class="span10">
+        <div class="pagination pagination-centered">
+          <ul>
+          {% for page in pages %}
+            <li><a href="/list/{{ page }}" class="btn-page {{ current_page == page ? 'active' : '' }}">{{ strpadleft(page, 2, '0') }}</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    
+      <a href="#" title="{{ "Next"|trans }}" class="span1 pull-page">></a><
+    </div>
+    {% endif %}
+  
+    <h3>{{ "FEATURED BRANDS"|trans }}</h3>
+    
+    <div class="item-featured section">
+    {% for entity in list %}
+      <div class="item span4">
+        <h4>{{ item.name }}</h4>
+        
+        <div class="text-center">
+          <img src="content/{{ item.logo }}">
+        </div>
+        
+        <div class="text-center">
+          {{ item.description }}
+        </div>
+        
+        <div class="pull-right">
+          <a class="btn btn-black btn-more" href="/show/{{ item.id }}">>{{ "MORE"|trans }}</a>        
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </footer>
+  
+{% endblock %}
+
+{% block header %}
+
+  <ul class="nav nav-tabs span3">
+    {% for type in types %}
+    <li class="active">
+      <a href="#" class="tab-anchor">{{ type|upper|trans }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="index dashed-bottom clearfix pull-right">
+  {% for index in range('A', 'Z') %}
+    <a class="headline inline" href="/list/{{ index }}">{{ index }}</a>
+  {% endfor %}
+  </div>
+
+{% endblock %}

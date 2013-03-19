@@ -6,29 +6,28 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AddressType extends AbstractType
+class MediaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('location')
-            ->add('brand', 'entity', array(
-              'class' => 'Samuca\Fashion\Entity\Brand',
-              'property' => 'name'
-            ))
+            ->add('title')
+            ->add('source')
+            ->add('caption')
+            ->add('thumb')
+            ->add('brand')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Samuca\Fashion\Entity\Address'
+            'data_class' => 'Samuca\Fashion\Entity\Media'
         ));
     }
 
     public function getName()
     {
-        return 'samuca_fashion_addresstype';
+        return 'samuca_fashion_mediatype';
     }
 }

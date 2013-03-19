@@ -23,4 +23,7 @@ $helpers = new Symfony\Component\Console\Helper\HelperSet(array(
     'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($app['db.orm.em'])
 ));
 
+$app['db']->getDatabasePlatform()
+  ->registerDoctrineTypeMapping('enum', 'string');
+
 \Doctrine\ORM\Tools\Console\ConsoleRunner::run($helpers);

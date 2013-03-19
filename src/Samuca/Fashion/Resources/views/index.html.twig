@@ -29,65 +29,37 @@
 <body>
 	<header>
     <div class="row-fluid">     
-      <ul class="nav nav-tabs span3">
-        {% for type in types %}
-        <li class="active">
-          <a href="#" class="tab-anchor">{{ type|upper|trans }}</a>
-        </li>
-        {% endfor %}
-      </ul>
       
-      <div class="pull-right">
-        <div><small><small>{{ "advanced search"|upper|trans }}</small></small></div>
-        <div>
-          <form class="form-inline" method="post">
+      <div class="pull-right class="{{ is_dashed ? 'dashed-bottom' : '' }}">
+        <div class="heading"><small>{{ "ADVANCED SEARCH"|trans }}</small></div>
+          <form action="/list" class="form-inline" method="post">
             <div class="input-append">
-            {% for key, form in search_form %}
-              {% if form.vars.choices is defined %}
-                <select id="{{ search_form.vars.name }}_{{ key }}" name="{{ search_form.vars.name }}[{{ key }}]" >
-                  <option value>{{ key|capitalize }}</value>
-                {% for choice in form.vars.choices %}
-                  <option value="{{ choice.label }}" {{ form.vars.data == choice.label ? 'selected="true"' : '' }}>{{ choice.label }}</value>
-                {% endfor %}
-                </select>
-              {% else %}
-                {{ form_widget(form, { empty_value: key|capitalize, attr: { placeholder: key|capitalize } }) }}
-              {% endif %}
-            {% endfor %}
-            <button class="btn" type="submit">Go!</button>
+              {% for key, form in search_form %}
+                {% if form.vars.choices is defined %}
+                  <select id="{{ search_form.vars.name }}_{{ key }}" name="{{ search_form.vars.name }}[{{ key }}]" >
+                    <option value>{{ key|capitalize }}</value>
+                  {% for choice in form.vars.choices %}
+                    <option value="{{ choice.label }}" {{ form.vars.data == choice.label ? 'selected="true"' : '' }}>{{ choice.label }}</value>
+                  {% endfor %}
+                  </select>
+                {% else %}
+                  {{ form_widget(form, { empty_value: key|capitalize, attr: { placeholder: key|capitalize } }) }}
+                {% endif %}
+              {% endfor %}
+              <button class="btn" type="submit">OK</button>
             </div>
           </form>
-        </div>      
+        </div>
       </div>
       
-      <div id="list-letter" class="clearfix pull-right">
-        {% for letter in range('A', 'Z') %}
-          <a href="#">{{ letter }}</a>
-        {% endfor %}
-      </div>
+      {% block header %}{% endblock %}
 	</header>
 	
 	<div class="container-fluid">
     <div id="content">
-		{% include 'item.html.twig' %}
+      {% block content %}{% endblock %}
     </div>
 	</div>
-	
-	<footer>
-    {% if show_pagination %}
-		<div class="pagination pagination-centered">
-      <ul>
-        <li><a href="#" class="btn-prev">Prev</a></li>
-        
-        {% for page in pages %}
-        <li><a href="/list/{{ page }}">{{ page }}</a></li>
-        {% endfor %}
-        
-        <li><a href="#" class="btn-next">Next</a></li>
-      </ul>
-    </div>
-    {% endif %}
-	</footer>
 	
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>

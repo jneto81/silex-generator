@@ -1,5 +1,46 @@
+body { font-family: Arial }
+
+h2 { font-size: 24px; margin: 10px 5px; }
+h3 { font-size: 18px; margin: 30px 0 5px; }
+
 select { width: auto; }
+select, 
+input { border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; border: solid 1px black; }
 
 .input-append select { margin-right: 5px; }
 .inline { display: inline-block; }
 .clearfix { clear: both; }
+
+.tab { padding: 10px; font-size: 18px; }
+
+.nav-tabs { border-bottom: dashed 1px black; }
+.nav-tabs > li > a { border-bottom: dashed 1px transparent; background-color: #eeeeee; }
+.nav-tabs > .active > a { color: black; }
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover, 
+.nav-tabs > .active > a:focus { border-bottom: dashed 1px black; }
+
+.index a { word-spacing: 5px; }
+
+.item { padding: 10px; margin: 5px 0 0; }
+.btn-black, btn-page { background: black; color: white; font-size: 14px; padding: 10px; }
+.btn-more {  }
+.btn-page.active { background: #b62a3e; }
+
+.section { margin: 30px 0 5px }
+
+.item-featured { background: #d7d7d7; padding: 10px; }
+
+.heading { font-size: 14px; }
+
+.dashed-top { border-top: dashed 1px black; } 
+.dashed-bottom { border-bottom: dashed 1px black; } 
+
+.addthis_toolbox { margin: 14px 0 21px; }
+
+.icon-network { height: 32px; width: 32px; display: inline-block; background: url(../imgs/icon-network.png) no-repeat; }
+.icon-facebook { background-position: 0 0; }
+.icon-googleplus { background-position: -41px 0; }
+.icon-pinterest { background-position: -82px 0; }
+.icon-twitter { background-position: -123px 0; }
+.icon-instagram { background-position: -164px 0; }

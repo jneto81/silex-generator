@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Address</h1>
+<h1>Media</h1>
 
 <table class="record_properties table table-striped table-hover table-condensed span6">
     <tbody>
@@ -11,33 +11,37 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Name</th>
-            <td>{{ entity.name }}</td>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
         </tr>
         <tr>
-            <th>Address</th>
-            <td>{{ entity.location }}</td>
+            <th>Src</th>
+            <td>{{ entity.src }}</td>
         </tr>
         <tr>
-            <th>Brand</th>
-            <td>{{ entity.brand.name }}</td>
+            <th>Caption</th>
+            <td>{{ entity.caption }}</td>
+        </tr>
+        <tr>
+            <th>Thumb</th>
+            <td>{{ entity.thumb }}</td>
         </tr>
     </tbody>
 </table>
 
 <ul class="record_actions unstyled container inline">
     <li>
-        <a class="btn btn-small" href="{{ path('address') }}">
+        <a class="btn btn-small" href="{{ path('media') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a class="btn btn-small btn-primary" href="{{ path('address_edit', { 'id': entity.id }) }}">
+        <a class="btn btn-small btn-primary" href="{{ path('media_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
     <li>
-        <form action="{{ path('address_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('media_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button class="btn btn-small btn-danger" type="submit">Delete</button>
         </form>

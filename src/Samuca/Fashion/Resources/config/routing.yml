@@ -1,7 +1,7 @@
 Samuca\Fashion\Controller\DefaultController:
     home: { pattern: /, method: GET, action: indexAction }
     list:
-      pattern: /list/{page}
+      pattern: '/list/{page}'
       method: MATCH
       action: listAction
       defaults: { page: 1 }
@@ -34,3 +34,12 @@ Samuca\Fashion\Controller\BrandController:
     brand_edit: { pattern: '/brand/{id}/edit', method: get, action: editAction }
     brand_update: { pattern: '/brand/{id}/update', method: post, action: updateAction }
     brand_delete: { pattern: '/brand/{id}/delete', method: post, action: deleteAction }
+    
+Samuca\Fashion\Controller\MediaController:
+    media: { pattern: /media/, method: get, action: indexAction }
+    media_show: { pattern: '/media/{id}/show', method: get, action: showAction }
+    media_new: { pattern: /media/new, method: get, action: newAction }
+    media_create: { pattern: /media/create, method: post, action: createAction }
+    media_edit: { pattern: '/media/{id}/edit', method: get, action: editAction }
+    media_update: { pattern: '/media/{id}/update', method: post, action: updateAction }
+    media_delete: { pattern: '/media/{id}/delete', method: post, action: deleteAction }

@@ -21,7 +21,6 @@ Silex\Provider\ServiceControllerServiceProvider: ~
 Silex\Provider\UrlGeneratorServiceProvider: ~
 Samir\Provider\FormServiceProviderImpl: ~
 Silex\Provider\SessionServiceProvider: ~
-Neutron\Silex\Provider\FilesystemServiceProvider: ~
 
 Silex\Provider\SecurityServiceProvider:
   security.firewalls:
@@ -39,6 +38,7 @@ Silex\Provider\SecurityServiceProvider:
       users:            !Samir\Provider\UserProvider
   security.access_rules:
     - [ ^/.+$, ROLE_ADMIN ]
+    - [ ^/list, '' ]
 
 Samir\Provider\TranslationServiceProvider:
   locale_fallback:      en

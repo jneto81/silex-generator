@@ -18,11 +18,16 @@ class Address
    * @GeneratedValue(strategy="AUTO")
    */  
   private $id;
-  
+
   /**
    * @Column(name="name", type="string", length=255)
    */
-  private $address;
+  private $name;
+  
+  /**
+   * @Column(name="location", type="string", length=255)
+   */
+  private $location;
   
   /**
    * @ManyToOne(targetEntity="Brand", inversedBy="addresses", fetch="LAZY")    
@@ -83,5 +88,51 @@ class Address
     public function getBrand()
     {
         return $this->brand;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Address
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set location
+     *
+     * @param string $location
+     * @return Address
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return string 
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }

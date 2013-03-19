@@ -46,7 +46,9 @@ class UpdateRoutesCommand extends ConsoleCommand
     protected function configure()
     {
         $this
-          ->setDefinition(new InputOption('entity', '', InputOption::VALUE_REQUIRED, 'The entity class name to initialize (shortcut notation)'))
+          ->setDefinition(array(
+            new InputOption('entity', '', InputOption::VALUE_REQUIRED, 'The entity class name to initialize (shortcut notation)'
+          )))
           ->setDescription('Updates routes')
           ->setHelp(<<<EOT
 The <info>routing:update</info> command update the routes.

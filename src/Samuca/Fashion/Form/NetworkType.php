@@ -11,7 +11,14 @@ class NetworkType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', 'choice', array(
+              'choices' => array(
+                'googleplus'  => 'Google+',
+                'facebook'    => 'Facebook',
+                'instagram'   => 'Instagram',
+                'pinterest'   => 'Pinterest',
+                'twitter'     => 'Twitter',
+            )))
             ->add('link')
             ->add('brand', 'entity', array(
               'class' => 'Samuca\Fashion\Entity\Brand',

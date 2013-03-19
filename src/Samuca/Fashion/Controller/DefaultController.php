@@ -59,23 +59,34 @@ class DefaultController extends Controller
       $form = $app['form.factory']->create($type, $data, array())
         ->createView();
 
-      return $app['twig']->render('index.html.twig', array(
-        'list'   => $paginator->get($page),
-        'pages' => $paginator->pages(),
+      return $app['twig']->render('list.html.twig', array(
+        'list'            => $paginator->get($page),
+        'pages'           => $paginator->pages(),
         'show_pagination' => $paginator->count() > 1,
-        'search_form'   => $form,
+        'search_form'     => $form,
+        'current_page'    => $page,
+        'is_dashed'       => true
       ));
     }
     
     /**
-     * @Route("/show", name="show")
+     * @Route("/show/{id}", name="show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction(Request $request, Application $app)
+    public function showAction($id, Request $request, Application $app)
     {
+      $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+        ->findById($id);
+        
+      $form = $app['form.factory']->create(new SearchType(), new Brand(), array())
+        ->createView();
+    
       return $app['twig']->render('show.html.twig', array(
-          
+        'entity'        => $entity,
+        'search_form'   => $form,
+        'is_dashed'     => false,
+        'referer'       => $request->headers->get('referer')
       ));
     }
     

@@ -5,7 +5,6 @@ namespace Samir\Provider;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 
-
 class TwigExtraServiceProvider extends TwigServiceProvider
 {
   public function register(Application $app)
@@ -13,6 +12,8 @@ class TwigExtraServiceProvider extends TwigServiceProvider
     parent::register($app);
     
     $app['twig'] = $app->share($app->extend('twig', function ($twig) use ($app) {
+      $twig->addExtension(new \Samir\Twig\Extensions\StrPadExtension($app));
+    
       foreach ($app['twig.globals'] as $key => $value) {
         $twig->addGlobal($key, $value);
       }

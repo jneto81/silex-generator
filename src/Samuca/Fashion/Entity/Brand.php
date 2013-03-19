@@ -69,6 +69,11 @@ class Brand
   private $networks;
   
   /**
+   * @OneToMany(targetEntity="Media", mappedBy="brand")
+   */
+  private $medias;
+  
+  /**
    * Constructor
    */
   public function __construct()
@@ -317,4 +322,37 @@ class Brand
   {
       return $this->networks;
   }
+
+    /**
+     * Add medias
+     *
+     * @param \Samuca\Fashion\Entity\Media $medias
+     * @return Brand
+     */
+    public function addMedia(\Samuca\Fashion\Entity\Media $medias)
+    {
+        $this->medias[] = $medias;
+    
+        return $this;
+    }
+
+    /**
+     * Remove medias
+     *
+     * @param \Samuca\Fashion\Entity\Media $medias
+     */
+    public function removeMedia(\Samuca\Fashion\Entity\Media $medias)
+    {
+        $this->medias->removeElement($medias);
+    }
+
+    /**
+     * Get medias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMedias()
+    {
+        return $this->medias;
+    }
 }
