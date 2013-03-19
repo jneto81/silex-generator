@@ -1,4 +1,4 @@
-{% extends 'default.html.twig' %}
+{% extends 'index.html.twig' %}
 
 {% block content %}
 
@@ -21,44 +21,46 @@
   {% endfor %}
   
   <footer>
-    {% if show_pagination %}
-    <div class="pager container-fluid">
-      <a href="#" title="{{ "Previous"|trans }}" class="span1 btn-page"><</a>
+    <div class="clearfix">
+      {% if show_pagination %}
+      <div class="pager container-fluid">
+        <a href="#" title="{{ "Previous"|trans }}" class="span1 btn-page"><</a>
 
-      <div class="span10">
-        <div class="pagination pagination-centered">
-          <ul>
-          {% for page in pages %}
-            <li><a href="/list/{{ page }}" class="btn-page {{ current_page == page ? 'active' : '' }}">{{ strpadleft(page, 2, '0') }}</a></li>
-          {% endfor %}
-          </ul>
+        <div class="span10">
+          <div class="pagination pagination-centered">
+            <ul>
+            {% for page in pages %}
+              <li><a href="/list/{{ page }}" class="btn-page {{ current_page == page ? 'active' : '' }}">{{ strpadleft(page, 2, '0') }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
         </div>
+      
+        <a href="#" title="{{ "Next"|trans }}" class="span1 pull-page">></a><
       </div>
+      {% endif %}
     
-      <a href="#" title="{{ "Next"|trans }}" class="span1 pull-page">></a><
-    </div>
-    {% endif %}
-  
-    <h3>{{ "FEATURED BRANDS"|trans }}</h3>
-    
-    <div class="item-featured section">
-    {% for entity in list %}
-      <div class="item span4">
-        <h4>{{ item.name }}</h4>
-        
-        <div class="text-center">
-          <img src="content/{{ item.logo }}">
+      <h3>{{ "FEATURED BRANDS"|trans }}</h3>
+      
+      <div class="item-featured section">
+      {% for entity in list %}
+        <div class="item span4">
+          <h4>{{ entity.name }}</h4>
+          
+          <div class="text-center">
+            <img src="content/{{ entity.logo }}">
+          </div>
+          
+          <div class="text-center">
+            {{ entity.description }}
+          </div>
+          
+          <div class="pull-right">
+            <a class="btn btn-black btn-more" href="/show/{{ entity.id }}">>{{ "MORE"|trans }}</a>        
+          </div>
         </div>
-        
-        <div class="text-center">
-          {{ item.description }}
-        </div>
-        
-        <div class="pull-right">
-          <a class="btn btn-black btn-more" href="/show/{{ item.id }}">>{{ "MORE"|trans }}</a>        
-        </div>
+      {% endfor %}
       </div>
-    {% endfor %}
     </div>
   </footer>
   
@@ -66,7 +68,7 @@
 
 {% block header %}
 
-  <ul class="nav nav-tabs span3">
+  <ul class="nav nav-tabs span12">
     {% for type in types %}
     <li class="active">
       <a href="#" class="tab-anchor">{{ type|upper|trans }}</a>

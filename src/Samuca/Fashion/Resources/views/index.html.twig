@@ -27,43 +27,44 @@
 	{% block stylesheets %}{% endblock %}
 </head>
 <body>
-	<header>
-    <div class="row-fluid">     
-      
-      <div class="pull-right class="{{ is_dashed ? 'dashed-bottom' : '' }}">
-        <div class="heading"><small>{{ "ADVANCED SEARCH"|trans }}</small></div>
-          <form action="/list" class="form-inline" method="post">
-            <div class="input-append">
-              {% for key, form in search_form %}
-                {% if form.vars.choices is defined %}
-                  <select id="{{ search_form.vars.name }}_{{ key }}" name="{{ search_form.vars.name }}[{{ key }}]" >
-                    <option value>{{ key|capitalize }}</value>
-                  {% for choice in form.vars.choices %}
-                    <option value="{{ choice.label }}" {{ form.vars.data == choice.label ? 'selected="true"' : '' }}>{{ choice.label }}</value>
-                  {% endfor %}
-                  </select>
-                {% else %}
-                  {{ form_widget(form, { empty_value: key|capitalize, attr: { placeholder: key|capitalize } }) }}
-                {% endif %}
-              {% endfor %}
-              <button class="btn" type="submit">OK</button>
-            </div>
-          </form>
+  <div class="container-fluid">     
+    <header>
+        <div class="pull-right {{ is_dashed ? 'dashed-bottom' : '' }}">
+          <div class="heading"><small>{{ "ADVANCED SEARCH"|trans }}</small></div>
+            <form action="/list" class="form-inline" method="post">
+              <div class="input-append">
+                {% for key, form in search_form %}
+                  {% if form.vars.choices is defined %}
+                    <select id="{{ search_form.vars.name }}_{{ key }}" name="{{ search_form.vars.name }}[{{ key }}]" >
+                      <option value>{{ key|capitalize }}</value>
+                    {% for choice in form.vars.choices %}
+                      <option value="{{ choice.label }}" {{ form.vars.data == choice.label ? 'selected="true"' : '' }}>{{ choice.label }}</value>
+                    {% endfor %}
+                    </select>
+                  {% else %}
+                    {{ form_widget(form, { empty_value: key|capitalize, attr: { placeholder: key|capitalize } }) }}
+                  {% endif %}
+                {% endfor %}
+                <button class="btn" type="submit">OK</button>
+              </div>
+            </form>
+          </div>
         </div>
+        
+        {% block header %}{% endblock %}
+    </header>
+    
+    <div class="container-fluid">
+      <div id="content">
+        {% block content %}{% endblock %}
       </div>
-      
-      {% block header %}{% endblock %}
-	</header>
-	
-	<div class="container-fluid">
-    <div id="content">
-      {% block content %}{% endblock %}
     </div>
-	</div>
-	
-	<script src="/assets/js/jquery.min.js"></script>
-	<script src="/assets/js/bootstrap.min.js"></script>
-	
+    
+  </div>
+  
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  
   {% block javascripts %}{% endblock %}
 	
 </body>

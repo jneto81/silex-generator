@@ -18,7 +18,7 @@ input { border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; borde
 .nav-tabs > .active > a { color: black; }
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover, 
-.nav-tabs > .active > a:focus { border-bottom: dashed 1px black; }
+.nav-tabs > .active > a:focus { border: dashed 1px black; }
 
 .index a { word-spacing: 5px; }
 
