@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Samuca\Fashion\Form\SearchType;
 use Samuca\Fashion\Entity\Brand;
 use Samir\Pagination\Paginator;
+use Samir\File\Streamer;
+use Samir\Image\Thumbnail;
 
 class DefaultController extends Controller
 {
@@ -95,6 +97,36 @@ class DefaultController extends Controller
      */
     public function uploadAction(Request $request, Application $app)
     {
-      
-    }
+			$output = false;
+			$dir = $request->get('dir');
+			$name = $request->get('name');
+			$thumb_dir = $request->get('thumb_dir');
+		
+			if ( ! file_exists($dir)) {
+				mkdir($dir);
+			}
+				
+			$st = new Streamer();
+			$st->setDestination($dir . '/', $name);
+				
+			if ($st->receive()) {
+				if ($request->get('thumbnail') == 'true') {
+					
+					if ( ! file_exists($thumb_dir)) {
+						mkdir($thumb_dir);
+					}
+						
+					$thumbnail = new Thumbnail(120, 120);
+					$thumbnail->loadFile($dir . '/' . $name);
+					$thumbnail->save($thumb_dir . '/' . $name, $request->get('type'));
+				}
+				
+				return $app->json(array(
+					'name' => $name,
+					'success' => true
+				));
+			}
+		
+			return $app->json(false);
+		}
 }

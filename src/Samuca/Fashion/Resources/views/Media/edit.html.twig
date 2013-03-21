@@ -37,6 +37,8 @@
 
 {% block javascripts %}
 	$(function () { 
-		FileUpload.init({}, '#thumbnail');
+		FileUpload.init({
+			url: '{{ path('upload') }}'
+		}, '#samuca_fashion_mediatype_thumb, #samuca_fashion_mediatype_source');
 	});
 {% endblock %}

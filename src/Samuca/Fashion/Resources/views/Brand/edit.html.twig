@@ -37,6 +37,8 @@
 
 {% block javascripts %}
 	$(function () { 
-		FileUpload.init({}, '#thumbnail');
+		FileUpload.init({
+			url: '{{ path('upload') }}'
+		}, '#samuca_fashion_brandtype_logo');
 	});
 {% endblock %}
