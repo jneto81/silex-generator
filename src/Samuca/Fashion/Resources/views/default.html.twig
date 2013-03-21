@@ -15,6 +15,10 @@
 	
 	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/assets/css/bootstrap-responsive.min.css">
+	
+	<link rel="stylesheet" href="/assets/css/jquery.fileupload-ui.css">
+	<link rel="stylesheet" href="/assets/css/jquery.fileupload-ui-noscript.css">
+	
 	<link rel="stylesheet" href="/assets/css/backend/theme.css">	
 	
 	<link rel="author" href="/assets/humans.txt" />
@@ -79,8 +83,17 @@
 	
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="js/vendor/jquery.ui.widget.js"></script>
 	
-  {% block javascripts %}{% endblock %}
+	<!-- FileUploadImpl: http://blueimp.github.com -->
+	<script src="/assets/js/jquery.iframe-transport.js"></script>
+	<script src="/assets/js/jquery.fileupload.js"></script>
+	<script src="/assets/js/load-image.min.js"></script>
+	<script src="/assets/js/canvas-to-blob.min.js"></script>
+	<script src="/assets/js/jquery.fileupload-fp.js"></script>
+	<script src="/assets/js/backend.js"></script>
+  
+	{% block javascripts %}{% endblock %}
 	
 </body>
 </html>

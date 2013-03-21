@@ -15,7 +15,8 @@ class BrandType extends AbstractType
             ->add('logo')
             ->add('segment')
             ->add('description')
-            ->add('keywords')
+						->add('type')
+            ->add('keyword')
             ->add('region')
         ;
     }
