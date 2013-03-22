@@ -23,7 +23,7 @@ h3 { font-size: 18px; margin: 30px 0 5px; }
 
 .index a { display: inline-block; margin-right: 5px; }
 
-.item { padding: 10px; margin: 5px 0 0; }
+.item { padding: 10px; margin: 5px 0 0; height: 200px; }
 .btn-black, 
 .btn-page { background: black; color: white; font-size: 14px; padding: 5px; }
 

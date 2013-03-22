@@ -4,7 +4,7 @@
 
 <h1>Brand</h1>
 
-<table class="record_properties table table-striped table-hover table-condensed span6">
+<table class="record_properties table table-striped table-hover table-condensed">
     <tbody>
         <tr>
             <th>Id</th>
@@ -16,7 +16,11 @@
         </tr>
 				<tr>
             <th>Logo</th>
-            <td>{{ entity.logo }}</td>
+            <td>
+            {% if entity.logo is not null %}
+              <img src="/uploads/thumbs/{{ entity.logo }}">
+            {% endif %}
+            </td>
         </tr>
 				<tr>
             <th>Segment</th>

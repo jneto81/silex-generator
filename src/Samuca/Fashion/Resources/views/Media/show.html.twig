@@ -4,7 +4,7 @@
 
 <h1>Media</h1>
 
-<table class="record_properties table table-striped table-hover table-condensed span6">
+<table class="record_properties table table-striped table-hover table-condensed">
     <tbody>
         <tr>
             <th>Id</th>
@@ -16,15 +16,15 @@
         </tr>
         <tr>
             <th>Src</th>
-            <td>{{ entity.src }}</td>
+            <td>
+            {% if entity.src is not null %}
+              <img src="/uploads/thumbs/{{ entity.src }}">
+            {% endif %}
+            </td>
         </tr>
         <tr>
             <th>Caption</th>
             <td>{{ entity.caption }}</td>
-        </tr>
-        <tr>
-            <th>Thumb</th>
-            <td>{{ entity.thumb }}</td>
         </tr>
     </tbody>
 </table>

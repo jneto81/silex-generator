@@ -6,7 +6,7 @@ Samuca\Fashion\Controller\DefaultController:
       action: listAction
       defaults: { page: 1 }
     show: { pattern: '/show/{id}', method: GET, action: showAction }
-    upload: { pattern: /upload, method: POST, action: uploadAction }
+    upload: { pattern: /upload, method: MATCH, action: uploadAction }
     
 Samuca\Fashion\Controller\AddressController:
     address: { pattern: /address/, method: get, action: indexAction }

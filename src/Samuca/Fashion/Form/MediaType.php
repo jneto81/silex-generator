@@ -12,9 +12,8 @@ class MediaType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('source')
+            ->add('src')
             ->add('caption')
-            ->add('thumb')
             ->add('brand')
         ;
     }

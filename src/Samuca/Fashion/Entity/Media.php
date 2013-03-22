@@ -35,11 +35,6 @@ class Media
   private $caption;
   
   /**
-   * @Column(name="thumb", type="string", length=255)
-   */
-  private $thumb;
-  
-  /**
    * @ManyToOne(targetEntity="Brand", inversedBy="medias", fetch="LAZY")    
    */
   private $brand;
@@ -121,29 +116,6 @@ class Media
     public function getCaption()
     {
         return $this->caption;
-    }
-
-    /**
-     * Set thumb
-     *
-     * @param string $thumb
-     * @return Media
-     */
-    public function setThumb($thumb)
-    {
-        $this->thumb = $thumb;
-    
-        return $this;
-    }
-
-    /**
-     * Get thumb
-     *
-     * @return string 
-     */
-    public function getThumb()
-    {
-        return $this->thumb;
     }
 
     /**

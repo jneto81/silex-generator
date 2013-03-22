@@ -98,14 +98,16 @@ class DefaultController extends Controller
     public function uploadAction(Request $request, Application $app)
     {
 			$output = false;
-			$dir = $request->get('dir');
-			$name = $request->get('name');
-			$thumb_dir = $request->get('thumb_dir');
-		
+      
+			$dir = $app['root_dir'] . '/web/uploads/';
+      $thumb_dir = $app['root_dir'] . '/web/uploads/thumbs/';              
+			
 			if ( ! file_exists($dir)) {
 				mkdir($dir);
 			}
-				
+			
+      $name = $request->get('name');
+      
 			$st = new Streamer();
 			$st->setDestination($dir . '/', $name);
 				
