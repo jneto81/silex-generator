@@ -27,8 +27,6 @@ class DefaultController extends Controller
           'error' => $app['security.last_error']($request),
           'last_username' => $app['session']->get('_security.last_username')
       ));
-      
-      //return $app['twig']->render('default.html.twig', array());
     }
     
     /**
@@ -99,11 +97,11 @@ class DefaultController extends Controller
     {
 			$output = false;
       
-			$dir = $app['root_dir'] . '/web/uploads/';
-      $thumb_dir = $app['root_dir'] . '/web/uploads/thumbs/';              
+			$dir = $app['root_dir'] . '/web' . $request->get('dir') . '/';
+      $thumb_dir = $app['root_dir'] . '/web' . $request->get('dir') . '/thumbs/';              
 			
 			if ( ! file_exists($dir)) {
-				mkdir($dir);
+				$app['filesystem']->mkdir($dir);
 			}
 			
       $name = $request->get('name');
@@ -115,7 +113,7 @@ class DefaultController extends Controller
 				if ($request->get('thumbnail') == 'true') {
 					
 					if ( ! file_exists($thumb_dir)) {
-						mkdir($thumb_dir);
+						$app['filesystem']->mkdir($thumb_dir);
 					}
 						
 					$thumbnail = new Thumbnail(120, 120);

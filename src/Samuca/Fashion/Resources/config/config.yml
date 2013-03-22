@@ -21,6 +21,7 @@ Silex\Provider\ServiceControllerServiceProvider: ~
 Silex\Provider\UrlGeneratorServiceProvider: ~
 Samir\Provider\FormServiceProviderImpl: ~
 Silex\Provider\SessionServiceProvider: ~
+Neutron\Silex\Provider\FilesystemServiceProvider: ~
 
 Silex\Provider\SecurityServiceProvider:
   security.firewalls:
@@ -35,7 +36,7 @@ Silex\Provider\SecurityServiceProvider:
         check_path:     login_check
       logout: 
         logout_path:    /logout
-      users:            !Samir\Provider\UserProvider
+      users:            '!Samir\Provider\UserProvider'
   security.access_rules:
     - [ ^/.+$, ROLE_ADMIN ]
     - [ ^/list, '' ]
@@ -60,6 +61,11 @@ Samir\Provider\TwigExtraServiceProvider:
       - { name: Network, path: /network }      
     use_authentication: true
     types: [ retail, wholesale ]
+    filesystem:
+      title: 'FILESYSTEM'
+      author: ''
+      description: ''
+      keywords: ''
     backend: 
       title: 'BACKEND'
       author: ''

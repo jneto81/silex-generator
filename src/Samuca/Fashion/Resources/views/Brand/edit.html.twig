@@ -43,6 +43,11 @@
 {% endblock %}
 
 {% block javascripts %}
+<!-- 
+<script src="/assets/tinymce/tiny_mce.js"></script>
+ -->
+<script src="/assets/tiny_mce/jquery.tinymce.js"></script>
+<script src="/assets/js/tiny_mce.js"></script>
 
 <script src="/assets/js/bootstrap-fileupload.min.js"></script>
 <script src="/assets/js/upload.js"></script>
@@ -52,7 +57,11 @@
 		Upload.init({
 			url: '{{ path('upload') }}',
       allow: [ 'jpe?g', 'png' ],
+      dir: '/uploads',
       showProgress: true,
+      end: function (data) {
+    	  $('#samuca_fashion_brandtype_logo').after('<img src="/uploads/thumbs/' + data.name + '">');
+			},  
       thumbnail: true
 		}, '#samuca_fashion_brandtype_logo');
 	});

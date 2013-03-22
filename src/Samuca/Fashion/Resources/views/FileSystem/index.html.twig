@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{ filesystem.title }}</title>
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="{{ filesystem.description }}">
+	<meta name="author" content="{{ filesystem.author }}">
+	
+	<link rel="shortcut icon" href="/assets/ico/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+	
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" href="/assets/css/filesystem/theme.css">	
+	
+	<link rel="author" href="/assets/humans.txt" />
+	
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<link rel="stylesheet" href="/assets/css/bootstrap-fileupload.min.css">
+</head>
+<body>
+
+  <div id="dialog" class="modal hide fade">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3>{{ "Confirm"|trans  }}</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>{{ "Confirm removal?"|trans }}</p>
+	    <ul class="dialog-filelist"></ul>
+	    <p>{{ "This operation can't be undone."|trans }}</p>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" id="dialog-cancel" class="btn">{{ "Cancel"|trans }}</a>
+	    <a href="#" id="dialog-confirm" class="btn btn-primary">{{ "Confirm"|trans }}</a>
+	  </div>
+	</div>
+	
+	<div id="error" class="modal hide">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3>{{ "Can't delete some files"|trans  }}</h3>
+	  </div>
+	  <div class="modal-body error">	  
+	    <p>{{ "Refresh the window and try again."|trans }}</p>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" id="error-refresh" class="btn btn-primary">{{ "Refresh"|trans }}</a>
+	  </div>
+	</div>
+	
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<br />
+		
+			<div class="form">		  
+				{% include 'upload.html.twig' %}
+				
+				<p>
+		        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Upload"|trans }}</button>
+		    </p>
+			</div>
+			
+			<hr>
+			
+			<table class="table" width="100%">
+				<thead>
+					<tr>
+						<th><input id="all" type="checkbox"></th>	
+						{% for header in headers %}
+						<th>header</th>
+						{% endfor %}
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for file in files %}
+						<tr data-path="/contents/{{ file}}">
+							<td><input type="checkbox" name="files[]" value="/contents/{{ file }}"></td>
+							<td><img class="thumb" src="/contents/thumbs/{{ file }}"></td>
+							<td><a class="btn btn-mini btn-danger btn-remove" href="/contents/{{ file }}">{{ "Remove"|trans }}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="{{ headers|length + 2 }}">
+							<a class="btn btn-small btn-danger btn-checked" href="#">{{ "Remove checked"|trans }}</a>							
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	
+	<script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/bootstrap-fileupload.min.js"></script>
+  <script src="/assets/js/filesystem.js"></script>
+	<script src="/assets/js/upload.js"></script>
+
+<script>
+	var DIR = '/contents';
+	var THUMB_DIR = '/contents/thumbs';
+					
+	$(function () {		
+		FileSystem.init();
+		 
+		Upload.init({
+			url: "{{ path('upload') }}",
+      allow: [ 'jpe?g', 'png' ],
+      dir: '/contents',
+      showProgress: true,
+      end: function (data) {
+    	  $('.table tbody').prepend('<tr data-path="/contents/' + data.name + '">' +
+					'<td><input type="checkbox" name="files[]" value="/contents/' + data.name + '"></td>' +
+					'<td><img class="thumb" src="/contents/thumbs/' + data.name + '"></td>' +
+					'<td><a class="btn btn-mini btn-danger btn-remove" href="/contents/' + data.name + '">{{ "Remove"|trans }}</a></td>' +
+				'</tr>');
+			},   
+      thumbnail: true
+		}, '#dummy');
+		
+    $("img").error(function(){
+      $(this).hide();
+    });  
+  });
+  </script>
+</body>
+</html>

@@ -7,7 +7,6 @@ var Upload = (function ($) {
     show: function () {
       $('#progress').find('.bar')
         .text('0%')
-        .end()
         .css('width', '0%')
         .show();
     },
@@ -16,7 +15,6 @@ var Upload = (function ($) {
       $('#progress').hide()
         .find('.bar')
         .text('0%')
-        .end()
         .css('width', '0%');
     },
     
@@ -25,7 +23,9 @@ var Upload = (function ($) {
         Upload.hide();
       }
       
-      Upload.form.submit();
+      if ('form' in Upload) {
+    	  Upload.form.submit();  
+      }
     },
     
     error: function (jqHXR, textStatus) {
@@ -34,7 +34,8 @@ var Upload = (function ($) {
     
     load: function (data, textStatus, jqXHR) {
       $(Upload.context).val(data.name);
-      $(Upload.context).after('<img src="/uploads/thumbs/' + data.name + '">');
+      
+      Upload.options.end(data);
     },
     
     progress: function (event) {    
@@ -42,7 +43,6 @@ var Upload = (function ($) {
       
       $('#progress').find('.bar')
         .text(per + '% (' + Math.floor(event.loaded/1000) + 'K/' + Math.floor(event.total/1000) + 'K)')
-        .end()
         .css('width', per + '%');
     },
     
@@ -71,8 +71,10 @@ var Upload = (function ($) {
       $('#submit-btn').bind('click', function (event) {
         if ($('.fileupload :file').val()) {
           event.preventDefault();
-        
-          Upload.form = this.form;
+          
+          if ('form' in this && this.form) {
+        	  Upload.form = this.form;
+          }
           
           var file = $('.fileupload :file').get(0).files[0];          
           var extensions = Upload.options.allow.join('|');
@@ -80,14 +82,16 @@ var Upload = (function ($) {
           
           if (allow.test(file.name)) {
             var matches = file.name.match(allow);
+            var name = Upload.timestamp() + '.' + matches[2]; /* extension */
           
             var url = Upload.options.url + '?' + $.param({
               type: file.type,
               thumbnail: Upload.options.thumbnail,
-              name: Upload.timestamp() + '.' + matches[2] /* extension */
+              name: name,
+              dir: Upload.options.dir
             });
           
-            var reader = $(new FileReader())
+            var reader = $(new FileReader());
             reader.load(function (event) {
               $.ajax({
                 url: url,

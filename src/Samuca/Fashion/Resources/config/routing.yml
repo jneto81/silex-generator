@@ -1,3 +1,7 @@
+Samuca\Fashion\Controller\FileSystemController:
+  command: { pattern: '/filesystem/{command}', method: POST, action: commandAction }
+  filesystem: { pattern: /filesystem, method: GET, action: indexAction }
+
 Samuca\Fashion\Controller\DefaultController:
     home: { pattern: /, method: GET, action: indexAction }
     list:
