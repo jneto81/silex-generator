@@ -27,7 +27,8 @@
 		"sensio/generator-bundle": "2.1.*",
 		"sensio/framework-extra-bundle": "2.1.*",
 		"neutron/silex-filesystem-provider": "dev-master",
-		"igorw/config-service-provider": "1.0.*@dev"
+		"igorw/config-service-provider": "1.0.*@dev",
+    "twig/extensions": "1.0.*@dev"
 	},
 	"autoload": {
         "psr-0": {

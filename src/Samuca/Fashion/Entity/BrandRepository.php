@@ -12,4 +12,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class BrandRepository extends EntityRepository
 {
+  public function findByWildcard($wildcard) 
+  {
+
+    if (empty($wildcard) || !is_array($wildcard))
+        $wildcard = array();
+      
+    $params = array();
+  
+    foreach ($wildcard as $col => $val) {
+      $opr = '=';
+      
+      if (strpos($val, '%') !== false && preg_match('/%?(.*)%?$/', $val))
+        $opr = 'LIKE';
+      
+      if (!is_numeric($val))
+        $val = "'$val'";
+      
+      $params[] = sprintf('b.%s %s %s', $col, $opr, $val);
+    }
+  
+    return $this->getEntityManager()
+      ->createQuery('SELECT b FROM Samuca\Fashion\Entity\Brand b' . (count($params) ? ' WHERE ' . implode(' AND ', $params) : ''))
+      ->getResult();
+  }
 }

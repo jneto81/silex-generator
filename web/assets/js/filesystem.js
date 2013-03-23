@@ -30,8 +30,6 @@ var FileSystem = (function () {
 					files.push(anchor.pathname);
 				});
 				
-				
-				
 				FileSystem.rm(files, function (data) {
 					$('.dialog-filelist').empty();
 					
@@ -60,7 +58,13 @@ var FileSystem = (function () {
 					$(':checkbox').attr('checked', false);
 				}
 			});
-			
+      
+      $('.btn-pick').click(function (event) {
+				event.preventDefault();
+        
+        window.parent.pickUrl(this.href)
+      });
+      
 			$('.btn-checked').click(function (event) {
 				event.preventDefault();
 				

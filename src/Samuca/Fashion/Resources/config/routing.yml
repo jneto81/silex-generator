@@ -5,10 +5,10 @@ Samuca\Fashion\Controller\FileSystemController:
 Samuca\Fashion\Controller\DefaultController:
     home: { pattern: /, method: GET, action: indexAction }
     list:
-      pattern: '/list/{page}'
+      pattern: '/list/{param1}/{param2}'
       method: MATCH
       action: listAction
-      defaults: { page: 1 }
+      defaults: { param1: NULL, param2: NULL }
     show: { pattern: '/show/{id}', method: GET, action: showAction }
     upload: { pattern: /upload, method: MATCH, action: uploadAction }
     

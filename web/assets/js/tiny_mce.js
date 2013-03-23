@@ -1,5 +1,5 @@
 $(function() {
-	$('textarea.tinymce').tinymce({
+	$('textarea.tiny_mce').tinymce({
 		//Location of TinyMCE script
 		script_url : '/assets/tiny_mce/tiny_mce.js',
 

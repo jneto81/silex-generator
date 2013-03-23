@@ -10,7 +10,7 @@ Silex\Provider\DoctrineServiceProvider:
     password: fashiondb
 
 Nutwerk\Provider\DoctrineORMServiceProvider:
-  db.orm.proxies_dir:             '%root_dir$/cache/doctrine/proxy'
+  db.orm.proxies_dir:             '%root_dir%/cache/doctrine/proxy'
   db.orm.proxies_namespace:       Doctrine\ORM\Proxy\Proxy
   #db.orm.cache: 
   db.orm.auto_generate_proxies:   true
@@ -58,7 +58,8 @@ Samir\Provider\TwigExtraServiceProvider:
     menu:  
       - { name: Brand, path: /brand }
       - { name: Address, path: /address }
-      - { name: Network, path: /network }      
+      - { name: Network, path: /network }   
+      - { name: Media, path: /media }
     use_authentication: true
     types: [ retail, wholesale ]
     filesystem:

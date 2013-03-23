@@ -29,7 +29,7 @@
             {% endif %}
             </td>
 						<td>{{ entity.segment }}</td>
-						<td>{{ entity.description }}</td>
+						<td>{{ wordwrap(entity.description, 50, "...")|raw }}</td>
 						<td>{{ entity.type }}</td>
 						<td>{{ entity.keyword }}</td>
 						<td>{{ entity.region }}</td>

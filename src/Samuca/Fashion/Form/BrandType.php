@@ -16,7 +16,7 @@ class BrandType extends AbstractType
             ->add('segment')
             ->add('description', 'textarea', array(
             	'attr' => array(
-            			'tiny_mce'
+            			'class' => 'tiny_mce'
             	)))
 						->add('type')
             ->add('keyword')

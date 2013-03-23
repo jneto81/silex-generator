@@ -30,16 +30,31 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/list/{page}", name="list", defaults={"page" = 1})
+     * @Route("/list/{param1}/{param2}", name="list", defaults={ "param1" = NULL, "param2" = NULL })
      * @Template()
      */
-    public function listAction($page = 1, Request $request, Application $app)
+    public function listAction($param1 = null, $param2 = null, Request $request, Application $app)
     {
       $data = new Brand();
       $type = new SearchType();
       $search = array();
       $values = $request->get($type->getName(), array());
       $limit = $app['const.pagination'];
+      $letter = null;
+      $page = 1;
+      
+      if ( ! empty($param2)) {
+        $letter = $param1;
+        $page = $param2;
+      }
+      
+      if ( ! empty($param1)) {
+        if (is_numeric($param1)) {
+          $page = $param1;
+        } else {
+          $letter = $param1;
+        }
+      }
       
       if ( ! empty($values)) {
         array_walk($values, function ($value, $key) use (&$search, $data) {
@@ -51,20 +66,32 @@ class DefaultController extends Controller
         });
       }
       
+      if (isset($letter)) {
+        $search['name'] = "$letter%";
+      }
+      
       $list = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
-        ->findBy($search);
+        ->findByWildcard($search);
         
       $paginator = new Paginator($list, $limit);
       
       $form = $app['form.factory']->create($type, $data, array())
         ->createView();
-
+        
+        
+      $featured = $app['db.orm.em']->createQuery("SELECT b FROM Samuca\Fashion\Entity\Brand b ORDER BY b.id DESC")
+        ->setMaxResults(3)
+        ->getResult();
+        
       return $app['twig']->render('list.html.twig', array(
         'list'            => $paginator->get($page),
         'pages'           => $paginator->pages(),
         'show_pagination' => $paginator->count() > 1,
         'search_form'     => $form,
-        'current_page'    => $page
+        'current_page'    => $page,
+        'current_type'    => isset($values['type']) ? $values['type'] : 1,
+        'current_index'   => $letter,
+        'featured'        => $featured
       ));
     }
     

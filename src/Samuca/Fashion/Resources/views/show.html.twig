@@ -2,7 +2,7 @@
 
 {% block stylesheets %}
 
-<link rel="stylesheet" href="/assets/css/tn3e.css">
+<link rel="stylesheet" href="/assets/css/wowslider.css">
 
 {% endblock %}
 
@@ -38,24 +38,29 @@
     <!-- AddThis Button END -->
     
     <div class="text-justify entry">
-      {{ entity.description }}
+      {{ entity.description|raw }}
     </div>
 
     <h3>{{ "PHOTO GALLERY"|trans }}</h3>
     
-    <div class="mygallery">
-      <div class="tn3 album">
-        <ol>
-        {% for media in entity.medias %}
+    <div id="wowslider-container">
+      <div class="ws_images">
+        <ul>
+          {% for media in entity.medias %}
           <li>
-            <h4>{{ media.title }}</h4>
-            <div class="tn3 description">{{ media.caption }}</div>
-            <a href="/uploads/{{ media.src }}">
-              <img src="/uploads/thumbs/{{ media.src }}" data-size="120x120"/>
-            </a>
+            <img src="/uploads/{{ media.src }}" alt="{{ media.caption }}" title="{{ media.title }}">
           </li>
-        {% endfor %}
-        </ol>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="ws_thumbs">
+        <div>
+          {% for media in entity.medias %}
+          <a href="#" title="{{ media.title }}">
+            <img src="/uploads/thumbs/{{ media.src }}" alt="{{ media.caption }}">
+          </a>
+          {% endfor %}
+        </div>
       </div>
     </div>
     
@@ -83,38 +88,31 @@
 {% endblock %}
 
 {% block javascripts %}
-  <script src="/assets/js/jquery.tn3.min"></script>
+  
   <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-51476ef143dd7d2e"></script>
+  
+  <script src="/assets/js/wowslider.js"></script>
   <script>
-    $(function () {
-      var tn1 = $('.mygallery').tn3({
-        skinDir: "/skins",
-        responsive: "width",	    
-        autoplay: true,
-        delay: 5000,
-        skin: "tn3e",
-        mouseWheel: false,
-        imageClick: "url",
-        image: {
-          crop: true,	
-          transitions: [{
-            type: "blinds",
-            duration: 300
-          },{
-            type: "grid",
-            duration: 160,
-            gridX: 9,
-            gridY: 7,
-            easing: "easeInCubic",
-            sort: "circle"
-          },{
-            type: "slide",
-            duration: 430,
-            easing: "easeInOutExpo"
-          }]
-        }        
-      });
+  $(function () {
+    $("#wowslider-container").wowSlider({
+      effect: "fade",
+      prev: "",
+      next: "",
+      duration: 20 * 100,
+      delay: 24 * 100,
+      width: 960,
+      height: 360,
+      autoPlay: true,
+      stopOnHover: false,
+      loop: false,
+      bullets: 0,
+      caption: true,
+      captionEffect: "fade",
+      controls: true,
+      onBeforeStep: 0,
+      images: 0
     });
+  });
 </script>
 
 {% endblock %}

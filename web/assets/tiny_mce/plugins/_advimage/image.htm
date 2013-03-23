@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>{#advimage_dlg.dialog_title}</title>
@@ -8,7 +8,6 @@
 	<script type="text/javascript" src="../../utils/validate.js"></script>
 	<script type="text/javascript" src="../../utils/editable_selects.js"></script>
 	<script type="text/javascript" src="js/image.js"></script>
-  <script type="text/javascript" src="js/picker.js"></script>
 	<link href="css/advimage.css" rel="stylesheet" type="text/css" />
 </head>
 <body id="advimage" style="display: none" role="application" aria-labelledby="app_title">
@@ -16,26 +15,18 @@
 	<form onsubmit="ImageDialog.insert();return false;" action="#"> 
 		<div class="tabs">
 			<ul>
-        <li id="manager_tab" class="current" aria-controls="manager_panel"><span><a href="javascript:mcTabs.displayTab('manager_tab','manager_panel');" onmousedown="return false;">{#advimage_dlg.tab_manager}</a></span></li>
 				<li id="general_tab" class="current" aria-controls="general_panel"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">{#advimage_dlg.tab_general}</a></span></li>
 				<li id="appearance_tab" aria-controls="appearance_panel"><span><a href="javascript:mcTabs.displayTab('appearance_tab','appearance_panel');" onmousedown="return false;">{#advimage_dlg.tab_appearance}</a></span></li>
 				<li id="advanced_tab" aria-controls="advanced_panel"><span><a href="javascript:mcTabs.displayTab('advanced_tab','advanced_panel');" onmousedown="return false;">{#advimage_dlg.tab_advanced}</a></span></li>
 			</ul>
 		</div>
-    
+
 		<div class="panel_wrapper">
-      <div id="manager_panel" class="panel current">
-        <fieldset>
-						<legend>{#advimage_dlg.manager}</legend>
-            <iframe src="/filesystem" width="100%" height="90%"></iframe>
-        </fieldset>
-      </div>    
-    
-      <div id="general_panel" class="panel">
+			<div id="general_panel" class="panel current">
 				<fieldset>
 						<legend>{#advimage_dlg.general}</legend>
-            
-            <table role="presentation" class="properties">
+            <div>FOO</div>
+						<table role="presentation" class="properties">
 							<tr>
 								<td class="column1"><label id="srclabel" for="src">{#advimage_dlg.src}</label></td>
 								<td colspan="2"><table role="presentation" border="0" cellspacing="0" cellpadding="0">
@@ -150,7 +141,7 @@
 				</fieldset>
 			</div>
 
-      <div id="advanced_panel" class="panel">
+			<div id="advanced_panel" class="panel">
 				<fieldset>
 					<legend>{#advimage_dlg.swap_image}</legend>
 

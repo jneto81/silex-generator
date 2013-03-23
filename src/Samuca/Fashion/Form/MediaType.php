@@ -14,7 +14,10 @@ class MediaType extends AbstractType
             ->add('title')
             ->add('src')
             ->add('caption')
-            ->add('brand')
+            ->add('brand', 'entity', array(
+              'class' => 'Samuca\Fashion\Entity\Brand',
+              'property' => 'name'
+            ))
         ;
     }
 

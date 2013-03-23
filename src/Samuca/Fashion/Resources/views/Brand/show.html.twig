@@ -28,7 +28,7 @@
         </tr>
 				<tr>
             <th>Description</th>
-            <td>{{ entity.description }}</td>
+            <td>{{ wordwrap(entity.description, 50, "...")|raw }}</td>
         </tr>
 				<tr>
             <th>Type</th>

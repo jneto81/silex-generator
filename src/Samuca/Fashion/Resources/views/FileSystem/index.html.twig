@@ -78,6 +78,7 @@
 						{% for header in headers %}
 						<th>header</th>
 						{% endfor %}
+            <th></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -86,6 +87,7 @@
 						<tr data-path="/contents/{{ file}}">
 							<td><input type="checkbox" name="files[]" value="/contents/{{ file }}"></td>
 							<td><img class="thumb" src="/contents/thumbs/{{ file }}"></td>
+              <td><a class="btn btn-mini btn-primary btn-pick" href="/contents/{{ file }}">{{ "Select"|trans }}</a></td>
 							<td><a class="btn btn-mini btn-danger btn-remove" href="/contents/{{ file }}">{{ "Remove"|trans }}</a></td>
 						</tr>
 					{% endfor %}
