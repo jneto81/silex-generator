@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="1">
+        <source>ADVANCED SEARCH</source>
+        <target>BUSCA AVANÇADA</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>MORE</source>
+        <target>MAIS</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Previous</source>
+        <target>Anterior</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Next</source>
+        <target>Próximo</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>FEATURED BRANDS</source>
+        <target>NOVOS CADASTROS</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>BACK TO BRAND LIST</source>
+        <target>VOLTAR PARA A LISTA DE LOJAS</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>PHOTO GALLERY</source>
+        <target>GALERIA DE FOTOS</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>WHERE TO BUY</source>
+        <target>AONDE COMPRAR</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>FOLLOW US IN THE SOCIAL NETWORKS</source>
+        <target>ACOMPANHE NAS REDES SOCIAIS</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Segment</source>
+        <target>Segmento</target>
+      </trans-unit>            
+      <trans-unit id="11">
+        <source>Type</source>
+        <target>Tipo</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Keyword</source>
+        <target>Palavra-chave</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Region</source>
+        <target>Região</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>RETAIL</source>
+        <target>ATACADO</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>WHOLESALE</source>
+        <target>VAREJO</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>retail</source>
+        <target>atacado</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>wholesale</source>
+        <target>varejo</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Welcome</source>
+        <target>Bem vindo</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Error</source>
+        <target>Erro</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Password</source>
+        <target>Senha</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Username</source>
+        <target>Usuário</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Brand</source>
+        <target>Marca</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Address</source>
+        <target>Endereço</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Network</source>
+        <target>Redes Sociais</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Media</source>
+        <target>Galeria</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Log out</source>
+        <target>Sair</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Select file</source>
+        <target>Selecionar arquivo</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Change</source>
+        <target>Alterar</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Remove</source>
+        <target>Remover</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>show</source>
+        <target>exibir</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>edit</source>
+        <target>editar</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Create a new entry</source>
+        <target>Criar novo</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>list</source>
+        <target>listagem</target>
+      </trans-unit>      
+      <trans-unit id="34">
+        <source>Back to the list</source>
+        <target>Voltar</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Create</source>
+        <target>Criar</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Edit</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Delete</source>
+        <target>Excluir</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>creation</source>
+        <target>inserir</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Name</source>
+        <target>Nome</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Description</source>
+        <target>Descrição</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Actions</source>
+        <target>Ações</target>
+      </trans-unit>  
+      <trans-unit id="42">
+        <source>Location</source>
+        <target>Localização</target>
+      </trans-unit> 
+      <trans-unit id="43">
+        <source>Title</source>
+        <target>Título</target>
+      </trans-unit> 
+      <trans-unit id="44">
+        <source>Src</source>
+        <target>Imagem</target>
+      </trans-unit> 
+      <trans-unit id="45">
+        <source>Caption</source>
+        <target>Legenda</target>
+      </trans-unit>       
+    </body>
+  </file>
+</xliff>

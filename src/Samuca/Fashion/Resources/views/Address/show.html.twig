@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Address</h1>
+<h1>{{ "Address"|trans }}</h1>
 
 <table class="record_properties table table-striped table-hover table-condensed">
     <tbody>
@@ -11,15 +11,15 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Name</th>
+            <th>{{ "Name"|trans }}</th>
             <td>{{ entity.name }}</td>
         </tr>
         <tr>
-            <th>Location</th>
+            <th>{{ "Location"|trans }}</th>
             <td>{{ entity.location }}</td>
         </tr>
         <tr>
-            <th>Brand</th>
+            <th>{{ "Brand"|trans }}</th>
             <td>{{ entity.brand.name }}</td>
         </tr>
     </tbody>
@@ -28,18 +28,18 @@
 <ul class="record_actions unstyled container inline">
     <li>
         <a class="btn btn-small" href="{{ path('address') }}">
-            Back to the list
+            {{ "Back to the list"|trans }}
         </a>
     </li>
     <li>
         <a class="btn btn-small btn-primary" href="{{ path('address_edit', { 'id': entity.id }) }}">
-            Edit
+            {{ "Edit"|trans }}
         </a>
     </li>
     <li>
         <form action="{{ path('address_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
-            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+            <button class="btn btn-small btn-danger" type="submit">{{ "Delete"|trans }}</button>
         </form>
     </li>
 </ul>

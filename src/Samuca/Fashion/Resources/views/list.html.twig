@@ -22,55 +22,61 @@
 {% block content %}
 
   {% for entity in list %}
-  <div class="item span4 dashed-bottom">
-    <h4>{{ entity.name }}</h4>
-    
-    <div class="text-center">
-      <img src="uploads/thumbs/{{ entity.logo }}">
+    {% if loop.index%3 == 1 %}
+    <div>
+    {% endif %}
+      <div class="item span4 dashed-bottom">
+        <h4>{{ entity.name }}</h4>
+        
+        <div class="text-center brand-logo">
+          <img src="/uploads/thumbs/{{ entity.logo }}">
+        </div>
+        
+        <div class="text-center brand-text">
+          {{ wordwrap(entity.description, 50, "...")|raw }}
+        </div>
+        
+        <div class="clearfix pull-right">
+          <a class="btn btn-black btn-more" href="/show/{{ entity.id }}">> {{ "MORE"|trans }}</a>        
+        </div>
+      </div>
+    {% if loop.index%3 == 0 %}
     </div>
-    
-    <div class="text-center">
-      {{ wordwrap(entity.description, 50, "...")|raw }}
-    </div>
-    
-    <div class="pull-right">
-      <a class="btn btn-black btn-more" href="/show/{{ entity.id }}">> {{ "MORE"|trans }}</a>        
-    </div>
-  </div>
+    {% endif %}
   {% endfor %}
   
   <footer>
     <div class="clearfix">
       {% if show_pagination %}
       <div class="pager container-fluid">
-        <a href="#" title="{{ "Previous"|trans }}" class="span1 btn-page"><</a>
-
+        <a href="/list/{{ base_page }}{{ current_page - 1 }}" title="{{ "Previous"|trans }}" class="span1 btn-nav {{ current_page > 1 ? '' : 'hidden' }}"><</a>
+        
         <div class="span10">
           <div class="pagination pagination-centered">
             <ul>
             {% for page in pages %}
-              <li><a href="/list/{{ page }}" class="btn-page {{ current_page == page ? 'active' : '' }}">{{ strpadleft(page, 2, '0') }}</a></li>
+              <li><a href="/list/{{ base_page }}{{ page }}" class="btn-page {{ current_page == page ? 'active' : '' }}">{{ strpadleft(page, 2, '0') }}</a></li>
             {% endfor %}
             </ul>
           </div>
         </div>
-      
-        <a href="#" title="{{ "Next"|trans }}" class="span1 pull-page">></a><
+        
+        <a href="/list/{{ base_page }}{{ current_page + 1 }}" title="{{ "Next"|trans }}" class="span1 btn-nav {{ current_page < page_count ? '' : 'hidden' }}">></a>
       </div>
       {% endif %}
     
       <h3>{{ "FEATURED BRANDS"|trans }}</h3>
       
-      <div class="item-featured section container-fluid">
+      <div class="item-featured container-fluid">
       {% for entity in featured %}
         <div class="item span4">
           <h4>{{ entity.name }}</h4>
           
-          <div class="text-center">
-            <img src="uploads/thumbs/{{ entity.logo }}">
+          <div class="text-center brand-logo">
+            <img src="/uploads/thumbs/{{ entity.logo }}">
           </div>
           
-          <div class="text-center">
+          <div class="text-center brand-text">
             {{ wordwrap(entity.description, 50, "...")|raw }}
           </div>
           

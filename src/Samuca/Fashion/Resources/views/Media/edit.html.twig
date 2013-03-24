@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Media edit</h1>
+<h1>{{ "Media"|trans }} {{ "edit"|trans }}</h1>
 
 {% if edit_form.vars.errors|length %}
 <div class="alert alert-error">
@@ -17,21 +17,21 @@
     {% include 'upload.html.twig' %}
     
     <p>
-        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">Edit</button>
+        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Edit"|trans }}</button>
     </p>
 </form>
 
 <ul class="record_actions unstyled container inline">
     <li>
         <a class="btn btn-small" href="{{ path('media') }}">
-            Back to the list
+            {{ "Back to the list"|trans }}
         </a>
     </li>
     <li>
         <form action="{{ path('media_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             
-            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+            <button class="btn btn-small btn-danger" type="submit">{{ "Delete"|trans }}</button>
         </form>
     </li>
 </ul>

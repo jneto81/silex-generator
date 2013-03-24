@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Media creation</h1>
+<h1>{{ "Media"|trans }} {{ "creation"|trans }}</h1>
 
 {% if form.vars.errors|length %}
 <div class="alert alert-error">
@@ -17,14 +17,14 @@
     {% include 'upload.html.twig' %}
     
     <p>
-        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">Create</button>
+        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Create"|trans }}</button>
     </p>
 </form>
 
 <ul class="record_actions unstyled container inline">
     <li>
         <a class="btn btn-small" href="{{ path('media') }}">
-            Back to the list
+            {{ "Back to the list"|trans }}
         </a>
     </li>
 </ul>

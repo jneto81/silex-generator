@@ -17,21 +17,25 @@ class TextExtension extends \Twig_Extension
     
     public function wordwrap($str, $length, $append) 
     {    
-      $array = explode(' ', strip_tags($str));
-      $output = array();
-      $count = 0;
+      if (strlen($str) > $length) {
+        $array = explode(' ', strip_tags($str));
+        $output = array();
+        $count = 0;
       
-      foreach ($array as $word) {
-        $count += strlen($word) + 1;
-        
-        if ($count > $length) {
-          break;
+        foreach ($array as $word) {
+          $count += strlen($word) + 1;
+          
+          if ($count > $length) {
+            break;
+          }
+          
+          $output[] = $word;
         }
         
-        $output[] = $word;
+        $str = implode(' ', $output) . '...';
       }
       
-      return implode(' ', $output);
+      return $str;
     }
 
     /**

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Network creation</h1>
+<h1>{{ "Network"|trans }} {{ "creation"|trans }}</h1>
 
 {% if form.vars.errors|length %}
 <div class="alert alert-error">
@@ -14,14 +14,14 @@
 <form action="{{ path('network_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_rest(form) }}
     <p>
-        <button class="btn btn-small btn-primary" type="submit">Create</button>
+        <button class="btn btn-small btn-primary" type="submit">{{ "Create"|trans }}</button>
     </p>
 </form>
 
 <ul class="record_actions unstyled container inline">
     <li>
         <a class="btn btn-small" href="{{ path('network') }}">
-            Back to the list
+            {{ "Back to the list"|trans }}
         </a>
     </li>
 </ul>

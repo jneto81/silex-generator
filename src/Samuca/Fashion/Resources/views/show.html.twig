@@ -3,6 +3,9 @@
 {% block stylesheets %}
 
 <link rel="stylesheet" href="/assets/css/wowslider.css">
+<style>
+  #wowslider-container { margin-bottom: 70px; }
+</style>
 
 {% endblock %}
 
@@ -41,6 +44,7 @@
       {{ entity.description|raw }}
     </div>
 
+    {% if entity.medias|length %}
     <h3>{{ "PHOTO GALLERY"|trans }}</h3>
     
     <div id="wowslider-container">
@@ -63,6 +67,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     
     <br class="clearfix" />
     
@@ -71,8 +76,11 @@
     <ul class="unstyled">
     {% for address in entity.addresses %}
       <li class="heading">
-        <strong>{{ address.name }}</strong>
-        <span>{{ address.address }}</strong>
+        <p>
+          <strong>{{ address.name }}</strong>
+          <br />
+          <span>{{ address.location }}</strong>
+        </p>
       </li>
     {% endfor %}
     </ul>

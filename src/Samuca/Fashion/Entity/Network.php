@@ -30,7 +30,7 @@ class Network
   private $link;
   
   /**
-   * @ManyToOne(targetEntity="Brand", inversedBy="networks", fetch="LAZY")    
+   * @ManyToOne(targetEntity="Brand", inversedBy="networks", fetch="LAZY") 
    */
   private $brand;
 

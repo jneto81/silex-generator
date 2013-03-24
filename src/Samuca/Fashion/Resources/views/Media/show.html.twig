@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Media</h1>
+<h1>{{ "Media"|trans }}</h1>
 
 <table class="record_properties table table-striped table-hover table-condensed">
     <tbody>
@@ -11,11 +11,11 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Title</th>
+            <th>{{ "Title"|trans }}</th>
             <td>{{ entity.title }}</td>
         </tr>
         <tr>
-            <th>Src</th>
+            <th>{{ "Src"|trans }}</th>
             <td>
             {% if entity.src is not null %}
               <img src="/uploads/thumbs/{{ entity.src }}">
@@ -23,7 +23,7 @@
             </td>
         </tr>
         <tr>
-            <th>Caption</th>
+            <th>{{ "Caption"|trans }}</th>
             <td>{{ entity.caption }}</td>
         </tr>
     </tbody>
@@ -32,18 +32,18 @@
 <ul class="record_actions unstyled container inline">
     <li>
         <a class="btn btn-small" href="{{ path('media') }}">
-            Back to the list
+            {{ "Back to the list"|trans }}
         </a>
     </li>
     <li>
         <a class="btn btn-small btn-primary" href="{{ path('media_edit', { 'id': entity.id }) }}">
-            Edit
+            {{ "Edit"|trans }}
         </a>
     </li>
     <li>
         <form action="{{ path('media_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
-            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+            <button class="btn btn-small btn-danger" type="submit">{{ "Delete"|trans }}</button>
         </form>
     </li>
 </ul>

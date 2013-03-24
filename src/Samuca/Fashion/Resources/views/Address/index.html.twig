@@ -2,16 +2,16 @@
 
 {% block content %}
 
-<h1>Address list</h1>
+<h1>{{ "Address"|trans }} {{ "list"|trans }}</h1>
 
 <table class="records_list table table-striped table-hover table-condensed span12">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Brand</th>
-            <th>Actions</th>
+            <th>{{ "Name"|trans }}</th>
+            <th>{{ "Location"|trans }}</th>
+            <th>{{ "Brand"|trans }}</th>
+            <th>{{ "Actions"|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -24,10 +24,10 @@
             <td>
                 <ul class="unstyled inline">
                     <li>
-                        <a class="btn btn-mini" href="{{ path('address_show', { 'id': entity.id }) }}">show</a>
+                        <a class="btn btn-mini" href="{{ path('address_show', { 'id': entity.id }) }}">{{ "show"|trans }}</a>
                     </li>
                     <li>
-                        <a class="btn btn-mini" href="{{ path('address_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="btn btn-mini" href="{{ path('address_edit', { 'id': entity.id }) }}">{{ "edit"|trans }}</a>
                     </li>
                 </ul>
             </td>
@@ -39,7 +39,7 @@
 <ul class="unstyled container">
     <li>
         <a class="btn btn-small btn-primary" href="{{ path('address_new') }}">
-            Create a new entry
+            {{ "Create a new entry"|trans }}
         </a>
     </li>
 </ul>

@@ -45,29 +45,6 @@ class Address
     }
 
     /**
-     * Set address
-     *
-     * @param string $address
-     * @return Address
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-    
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string 
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set brand
      *
      * @param \Samuca\Fashion\Entity\Brand $brand

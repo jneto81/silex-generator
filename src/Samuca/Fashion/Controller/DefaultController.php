@@ -40,7 +40,8 @@ class DefaultController extends Controller
       $search = array();
       $values = $request->get($type->getName(), array());
       $limit = $app['const.pagination'];
-      $letter = null;
+      $base_page = '';
+      $letter = null;      
       $page = 1;
       
       if ( ! empty($param2)) {
@@ -52,6 +53,7 @@ class DefaultController extends Controller
         if (is_numeric($param1)) {
           $page = $param1;
         } else {
+          $base_page = "$letter/";
           $letter = $param1;
         }
       }
@@ -66,6 +68,12 @@ class DefaultController extends Controller
         });
       }
       
+      if (isset($search['keyword'])) {
+        $search['keyword'] = implode(' OR ', array_map(function ($value) {
+          return "%$value%";
+        }, explode($search['keyword'])));
+      }
+      
       if (isset($letter)) {
         $search['name'] = "$letter%";
       }
@@ -76,8 +84,7 @@ class DefaultController extends Controller
       $paginator = new Paginator($list, $limit);
       
       $form = $app['form.factory']->create($type, $data, array())
-        ->createView();
-        
+        ->createView();        
         
       $featured = $app['db.orm.em']->createQuery("SELECT b FROM Samuca\Fashion\Entity\Brand b ORDER BY b.id DESC")
         ->setMaxResults(3)
@@ -87,8 +94,10 @@ class DefaultController extends Controller
         'list'            => $paginator->get($page),
         'pages'           => $paginator->pages(),
         'show_pagination' => $paginator->count() > 1,
+        'page_count'      => $paginator->count(),
         'search_form'     => $form,
         'current_page'    => $page,
+        'base_page'       => $base_page,
         'current_type'    => isset($values['type']) ? $values['type'] : 1,
         'current_index'   => $letter,
         'featured'        => $featured

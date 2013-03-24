@@ -2,20 +2,20 @@
 
 {% block content %}
 
-<h1>Brand list</h1>
+<h1>{{ "Brand"|trans }} {{ "list"|trans }}</h1>
 
 <table class="records_list table table-striped table-hover table-condensed span12">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-						<th>Logo</th>
-						<th>Segment</th>
-						<th>Description</th>
-						<th>Type</th>
-						<th>Keyword</th>
-						<th>Region</th>
-            <th>Actions</th>
+            <th>{{ "Name"|trans }}</th>
+						<th>{{ "Logo"|trans }}</th>
+						<th>{{ "Segment"|trans }}</th>
+						<th>{{ "Description"|trans }}</th>
+						<th>{{ "Type"|trans }}</th>
+						<th>{{ "Keyword"|trans }}</th>
+						<th>{{ "Region"|trans }}</th>
+            <th>{{ "Actions"|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -36,10 +36,10 @@
             <td>
                 <ul class="unstyled inline">
                     <li>
-                        <a class="btn btn-mini" href="{{ path('brand_show', { 'id': entity.id }) }}">show</a>
+                        <a class="btn btn-mini" href="{{ path('brand_show', { 'id': entity.id }) }}">{{ "show"|trans }}</a>
                     </li>
                     <li>
-                        <a class="btn btn-mini" href="{{ path('brand_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="btn btn-mini" href="{{ path('brand_edit', { 'id': entity.id }) }}">{{ "edit"|trans }}</a>
                     </li>
                 </ul>
             </td>
@@ -51,7 +51,7 @@
 <ul class="unstyled container">
     <li>
         <a class="btn btn-small btn-primary" href="{{ path('brand_new') }}">
-            Create a new entry
+            {{ "Create a new entry"|trans }}
         </a>
     </li>
 </ul>

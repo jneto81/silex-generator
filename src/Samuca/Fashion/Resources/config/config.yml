@@ -42,11 +42,11 @@ Silex\Provider\SecurityServiceProvider:
     - [ ^/list, '' ]
 
 Samir\Provider\TranslationServiceProvider:
-  locale_fallback:      en
+  locale_fallback:      pt_BR
   translator.format:    xliff
   translator.domains:
     messages:
-      pt_BR:            '%root_dir%/locales/messages.pt_BR.xlf'
+      pt_BR:            '%root_dir%/src/Samuca/Fashion/Resources/translations/messages.pt_BR.xlf'
 
 Samir\Provider\TwigExtraServiceProvider:
   twig.path:        '%root_dir%/src/Samuca/Fashion/Resources/views'
