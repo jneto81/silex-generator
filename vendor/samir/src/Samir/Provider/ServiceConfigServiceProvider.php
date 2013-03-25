@@ -16,7 +16,7 @@ class ServiceConfigServiceProvider extends ConfigurationServiceProvider
           $value = preg_replace_callback('/\%(\w+)\%/', function ($matches) use ($app) {
             return $app[$matches[1]];
           }, $value);
-          
+          /*
           $matches = array();
 
           preg_match('/^\!(.*)/', $value, $matches);
@@ -28,6 +28,7 @@ class ServiceConfigServiceProvider extends ConfigurationServiceProvider
               return new $service($app);
             });
           }
+          */
         });
       } else {
         $value = array();
