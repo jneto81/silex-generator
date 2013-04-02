@@ -18,7 +18,12 @@ class BrandType extends AbstractType
             	'attr' => array(
             			'class' => 'tiny_mce'
             	)))
-						->add('type')
+						->add('type', 'choice', array(
+              'choices' => array(
+                'retail'    => 'retail'
+                'wholesale' => 'wholesale'
+              )
+            ))
             ->add('keyword')
             ->add('region')
         ;
