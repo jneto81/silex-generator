@@ -15,14 +15,6 @@
             <td>{{ entity.name }}</td>
         </tr>
 				<tr>
-            <th>{{ "Logo"|trans }}</th>
-            <td>
-            {% if entity.logo is not null %}
-              <img src="/uploads/thumbs/{{ entity.logo }}">
-            {% endif %}
-            </td>
-        </tr>
-				<tr>
             <th>{{ "Segment"|trans }}</th>
             <td>{{ entity.segment }}</td>
         </tr>
@@ -41,6 +33,14 @@
 				<tr>
             <th>{{ "Region"|trans }}</th>
             <td>{{ entity.region }}</td>
+        </tr>
+        <tr>
+            <th>{{ "Logo"|trans }}</th>
+            <td>
+            {% if entity.logo is not null %}
+              <img src="/uploads/thumbs/{{ entity.logo }}">
+            {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>

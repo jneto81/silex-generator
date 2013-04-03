@@ -12,7 +12,6 @@ class BrandType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('logo')
             ->add('segment')
             ->add('description', 'textarea', array(
             	'attr' => array(
@@ -26,6 +25,7 @@ class BrandType extends AbstractType
             ))
             ->add('keyword')
             ->add('region')
+            ->add('logo')
         ;
     }
 
