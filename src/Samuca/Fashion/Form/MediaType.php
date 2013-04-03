@@ -12,12 +12,12 @@ class MediaType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('src')
             ->add('caption')
             ->add('brand', 'entity', array(
               'class' => 'Samuca\Fashion\Entity\Brand',
               'property' => 'name'
             ))
+            ->add('src')
         ;
     }
 

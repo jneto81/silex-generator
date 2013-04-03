@@ -4,6 +4,14 @@
 
 <h1>{{ "Network"|trans }} {{ "list"|trans }}</h1>
 
+<ul class="unstyled container">
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('network_new') }}">
+            {{ "Create a new entry"|trans }}
+        </a>
+    </li>
+</ul>
+
 <table class="records_list table table-striped table-hover table-condensed span12">
     <thead>
         <tr>

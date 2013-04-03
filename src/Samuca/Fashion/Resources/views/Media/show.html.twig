@@ -15,16 +15,16 @@
             <td>{{ entity.title }}</td>
         </tr>
         <tr>
+            <th>{{ "Caption"|trans }}</th>
+            <td>{{ entity.caption }}</td>
+        </tr>
+         <tr>
             <th>{{ "Src"|trans }}</th>
             <td>
             {% if entity.src is not null %}
               <img src="/uploads/thumbs/{{ entity.src }}">
             {% endif %}
             </td>
-        </tr>
-        <tr>
-            <th>{{ "Caption"|trans }}</th>
-            <td>{{ entity.caption }}</td>
         </tr>
     </tbody>
 </table>
