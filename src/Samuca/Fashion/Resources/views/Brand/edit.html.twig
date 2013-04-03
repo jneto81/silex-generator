@@ -11,20 +11,7 @@
 </div>
 {% endif %}
 
-
-<ul class="record_actions unstyled container inline">
-    <li>
-        <a class="btn btn-small" href="{{ path('brand') }}">
-            {{ "Back to the list"|trans }}
-        </a>
-    </li>
-</ul>
-
 <form action="{{ path('brand_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    <p>
-        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Edit"|trans }}</button>
-    </p>
-    
     {{ form_rest(edit_form) }}
     
 		{% include 'upload.html.twig' %}
