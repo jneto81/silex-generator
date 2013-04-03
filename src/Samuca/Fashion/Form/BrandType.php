@@ -20,7 +20,7 @@ class BrandType extends AbstractType
             	)))
 						->add('type', 'choice', array(
               'choices' => array(
-                'retail'    => 'retail'
+                'retail'    => 'retail',
                 'wholesale' => 'wholesale'
               )
             ))
