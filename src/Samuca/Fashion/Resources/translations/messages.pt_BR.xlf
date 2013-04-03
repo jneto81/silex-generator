@@ -140,7 +140,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Create</source>
-        <target>Criar</target>
+        <target>Salvar</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Edit</source>
@@ -181,7 +181,11 @@
       <trans-unit id="45">
         <source>Caption</source>
         <target>Legenda</target>
-      </trans-unit>       
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Save</source>
+        <target>Salvar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
