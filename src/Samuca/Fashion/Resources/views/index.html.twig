@@ -43,7 +43,7 @@
                     {% endfor %}
                     </select>
                   {% else %}
-                    {{ form_widget(form, { empty_value: key|capitalize, attr: { placeholder: key|capitalize } }) }}
+                    {{ form_widget(form, { empty_value: key|capitalize|trans, attr: { placeholder: key|capitalize|trans } }) }}
                   {% endif %}
                 {% endfor %}
                 <button class="btn btn-black" type="submit">OK</button>
