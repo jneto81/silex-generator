@@ -60,6 +60,8 @@ Samir\Provider\TwigExtraServiceProvider:
       - { name: Address, path: /address }
       - { name: Network, path: /network }   
       - { name: Media, path: /media }
+      - { name: Region, path: /region }
+      - { name: Segment, path: /segment }
     use_authentication: true
     types: [ retail, wholesale ]
     filesystem:

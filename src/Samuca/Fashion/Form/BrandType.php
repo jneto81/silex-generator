@@ -12,7 +12,10 @@ class BrandType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('segment')
+            ->add('segment', 'entity', array(
+              'class' => 'Samuca\Fashion\Entity\Segment',
+              'property' => 'name'
+            ))
             ->add('description', 'textarea', array(
             	'attr' => array(
             			'class' => 'tiny_mce'
@@ -24,7 +27,22 @@ class BrandType extends AbstractType
               )
             ))
             ->add('keyword')
-            ->add('region')
+            ->add('region', 'entity', array(
+              'class' => 'Samuca\Fashion\Entity\Region',
+              'property' => 'name'
+            ))
+            ->add('addresses', 'collection', array(
+              'type'         => new AddressType(),
+              'allow_add'    => true,
+              'by_reference' => false,
+              'allow_delete' => true,
+            ))
+            ->add('networks', 'collection', array(
+              'type'         => new NetworkType(),
+              'allow_add'    => true,
+              'by_reference' => false,
+              'allow_delete' => true,
+            ))
             ->add('logo')
         ;
     }

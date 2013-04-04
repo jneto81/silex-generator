@@ -11,119 +11,119 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 
-use Samuca\Fashion\Entity\Brand;
-use Samuca\Fashion\Form\BrandType;
+use Samuca\Fashion\Entity\Segment;
+use Samuca\Fashion\Form\SegmentType;
 
 /**
- * Brand controller.
+ * Segment controller.
  *
- * @Route("/brand")
+ * @Route("/segment")
  * @Method("GET")
  */
-class BrandController extends Controller
+class SegmentController extends Controller
 {
     /**
-     * Lists all Brand entities.
+     * Lists all Segment entities.
      *
-     * @Route("/", name="brand")
+     * @Route("/", name="segment")
      * @Method("GET")
      * @Template()
      */
     public function indexAction(Application $app)
     {
-			$entities = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+			$entities = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Segment')
 				->findAll();
 			
-			return $app['twig']->render('Brand\index.html.twig', array(
+			return $app['twig']->render('Segment\index.html.twig', array(
 					'entities' => $entities,
 			));
     }
 
     /**
-     * Finds and displays a Brand entity.
+     * Finds and displays a Segment entity.
      *
-     * @Route("/{id}/show", name="brand_show")
+     * @Route("/{id}/show", name="segment_show")
      * @Method("GET")
      * @Template()
      */
     public function showAction($id, Application $app)
     {
-			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Segment')
 				->find($id);
 
 			if ( ! $entity) {
-					return $app->abort(404, 'Unable to find Brand entity.');
+					return $app->abort(404, 'Unable to find Segment entity.');
 			}
 
 						$deleteForm = $this->createDeleteForm($id);
 						
-			return $app['twig']->render('Brand\show.html.twig', array(
+			return $app['twig']->render('Segment\show.html.twig', array(
 				'entity'      => $entity,
         'delete_form' => $deleteForm->createView()			
       ));
     }
 
     /**
-     * Displays a form to create a new Brand entity.
+     * Displays a form to create a new Segment entity.
      *
-     * @Route("/new", name="brand_new")
+     * @Route("/new", name="segment_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction(Application $app)
     {
-        $entity = new Brand();
+        $entity = new Segment();
 				
-				$form = $app['form.factory']->create(new BrandType(), $entity, array());
+				$form = $app['form.factory']->create(new SegmentType(), $entity, array());
 				
-				return $app['twig']->render('Brand\new.html.twig', array(
+				return $app['twig']->render('Segment\new.html.twig', array(
 						'entity' => $entity,
 						'form'   => $form->createView(),
 				));
     }
 
     /**
-     * Creates a new Brand entity.
+     * Creates a new Segment entity.
      *
-     * @Route("/create", name="brand_create")
+     * @Route("/create", name="segment_create")
      * @Method("POST")
-     * @Template("Brand\new.html.twig")
+     * @Template("Segment\new.html.twig")
      */
     public function createAction(Request $request, Application $app)
     {
-			$entity  = new Brand();
-			$form = $app['form.factory']->create(new BrandType(), $entity, array());
+			$entity  = new Segment();
+			$form = $app['form.factory']->create(new SegmentType(), $entity, array());
 			$form->bind($request);
       
 			if ($form->isValid()) {
 					$app['db.orm.em']->persist($entity);
 					$app['db.orm.em']->flush();
 	
-										return $app->redirect($app['url_generator']->generate('brand_show', array(
+										return $app->redirect($app['url_generator']->generate('segment_show', array(
 						'id' => $entity->getId()
 					)));
       }
 			
-			return $app['twig']->render('Brand\new.html.twig', array(
+			return $app['twig']->render('Segment\new.html.twig', array(
 					'entity' => $entity,
 					'form'   => $form->createView()
 			));
     }
 
     /**
-     * Displays a form to edit an existing Brand entity.
+     * Displays a form to edit an existing Segment entity.
      *
-     * @Route("/{id}/edit", name="brand_edit")
+     * @Route("/{id}/edit", name="segment_edit")
      * @Method("GET")
      * @Template()
      */
     public function editAction($id, Application $app)
     {
-			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Segment')
 				->find($id);
 
 			if ( ! $entity) {
-					return $app->abort(404, 'Unable to find Brand entity.');
+					return $app->abort(404, 'Unable to find Segment entity.');
 			}
       
       $originalAddresses = array();
@@ -137,10 +137,10 @@ class BrandController extends Controller
         $originalNetworks[] = $networks;
       }
 
-			$editForm = $app['form.factory']->create(new BrandType(), $entity, array());
+			$editForm = $app['form.factory']->create(new SegmentType(), $entity, array());
 			$deleteForm = $this->createDeleteForm($id);
 
-			return $app['twig']->render('Brand\edit.html.twig', array(
+			return $app['twig']->render('Segment\edit.html.twig', array(
 					'entity'      => $entity,
 					'edit_form'   => $editForm->createView(),
 					'delete_form' => $deleteForm->createView(),
@@ -148,19 +148,19 @@ class BrandController extends Controller
     }
 
     /**
-     * Edits an existing Brand entity.
+     * Edits an existing Segment entity.
      *
-     * @Route("/{id}/update", name="brand_update")
+     * @Route("/{id}/update", name="segment_update")
      * @Method("POST")
-     * @Template("Brand\edit.html.twig")
+     * @Template("Segment\edit.html.twig")
      */
     public function updateAction(Request $request, $id, Application $app)
     {
-      $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+      $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Segment')
 				->find($id);
 
 			if ( ! $entity) {
-				return $app->abort(404, 'Unable to find Brand entity.');
+				return $app->abort(404, 'Unable to find Segment entity.');
 			}
       
       $originalAddresses = array();
@@ -175,12 +175,12 @@ class BrandController extends Controller
       }
       
 			$deleteForm = $this->createDeleteForm($id);
-			$editForm = $app['form.factory']->create(new BrandType(), $entity, array());
+			$editForm = $app['form.factory']->create(new SegmentType(), $entity, array());
 			$editForm->bind($request);
 
 			if ($editForm->isValid()) {
         // filter $originalTags to contain tags no longer present
-        foreach ($entity->getAddresses() as $address) {
+        foreach ($task->getAddresses() as $address) {
             foreach ($originalAddresses as $key => $toDel) {
                 if ($toDel->getId() === $address->getId()) {
                     unset($originalAddresses[$key]);
@@ -196,9 +196,9 @@ class BrandController extends Controller
             }
         }
 
-        // remove the relationship between the tag and the Address
+        // remove the relationship between the tag and the Task
         foreach ($originalAddresses as $address) {
-            // remove the Brand from the Address
+            // remove the Task from the Tag
             $entity->getAddresses()->removeElement($address);
             // if it were a ManyToOne relationship, remove the relationship like this
             // $tag->setTask(null);
@@ -207,9 +207,9 @@ class BrandController extends Controller
             $app['db.orm.em']->remove($address);
         }
         
-        // remove the relationship between the tag and the Network
+        // remove the relationship between the tag and the Task
         foreach ($originalNetworks as $network) {
-            // remove the Brand from the Network
+            // remove the Task from the Tag
             $entity->getNetworks()->removeElement($network);
             // if it were a ManyToOne relationship, remove the relationship like this
             // $tag->setTask(null);
@@ -222,12 +222,12 @@ class BrandController extends Controller
 					$app['db.orm.em']->persist($entity);
 					$app['db.orm.em']->flush();
 					
-					return $app->redirect($app['url_generator']->generate('brand_edit', array(
+					return $app->redirect($app['url_generator']->generate('segment_edit', array(
 						'id' => $id
 					)));
 			}
 
-			return $app['twig']->render('Brand\edit.html.twig', array(
+			return $app['twig']->render('Segment\edit.html.twig', array(
 					'entity'      => $entity,
 					'edit_form'   => $editForm->createView(),
 					'delete_form' => $deleteForm->createView(),
@@ -235,9 +235,9 @@ class BrandController extends Controller
     }
 
     /**
-     * Deletes a Brand entity.
+     * Deletes a Segment entity.
      *
-     * @Route("/{id}/delete", name="brand_delete")
+     * @Route("/{id}/delete", name="segment_delete")
      * @Method("POST")
      */
     public function deleteAction(Request $request, $id, Application $app)
@@ -246,18 +246,18 @@ class BrandController extends Controller
 			$form->bind($request);
 
 			if ($form->isValid()) {
-					$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+					$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Segment')
 						->find($id);
 
 					if ( ! $entity) {
-						return $app->abort(404, 'Unable to find Brand entity.');
+						return $app->abort(404, 'Unable to find Segment entity.');
 					}
 
 					$app['db.orm.em']->remove($entity);
 					$app['db.orm.em']->flush();
 			}
 			
-			return $app->redirect($app['url_generator']->generate('brand'));
+			return $app->redirect($app['url_generator']->generate('segment'));
     }
 
     private function createDeleteForm($id)

@@ -16,6 +16,10 @@
     
 		{% include 'upload.html.twig' %}
     
+    <ul class="addresses unstyled" data-prototype="{{ form_widget(edit_form.addresses.vars.prototype)|e }}"></ul>
+    
+    <ul class="networks unstyled" data-prototype="{{ form_widget(edit_form.networks.vars.prototype)|e }}"></ul>
+    
     <p>
         <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Save"|trans }}</button>
     </p>
@@ -47,11 +51,15 @@
 <script src="/assets/tiny_mce/jquery.tinymce.js"></script>
 <script src="/assets/js/tiny_mce.js"></script>
 
+<script src="/assets/js/brand.js"></script>
+
 <script src="/assets/js/bootstrap-fileupload.min.js"></script>
 <script src="/assets/js/upload.js"></script>
 
 <script>
-	$(function () { 
+	$(function () {
+    Brand.init();
+    
 		Upload.init({
 			url: '{{ path('upload') }}',
       allow: [ 'jpe?g', 'png' ],

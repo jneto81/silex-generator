@@ -1,0 +1,30 @@
+{% extends 'default.html.twig' %}
+
+{% block content %}
+
+<h1>{{ "Region"|trans }} {{ "creation"|trans }}</h1>
+
+{% if form.vars.errors|length %}
+<div class="alert alert-error">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ form_errors(form) }}
+</div>
+{% endif %}
+
+<form action="{{ path('region_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_rest(form) }}
+    
+    <p>
+        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Create"|trans }}</button>
+    </p>
+</form>
+
+<ul class="record_actions unstyled container inline">
+    <li>
+        <a class="btn btn-small" href="{{ path('region') }}">
+            {{ "Back to the list"|trans }}
+        </a>
+    </li>
+</ul>
+
+{% endblock %}

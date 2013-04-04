@@ -5,7 +5,7 @@ var Brand = (function ($) {
   
   var addressesHolder = $('ul.addresses');
   var $addAddressLink = $('<a href="#" class="add_address_link btn btn-mini">Add a address</a>');
-  var $newAddressLinkLi = $('<li></li>').append($addAddresskLink);
+  var $newAddressLinkLi = $('<li></li>').append($addAddressLink);
 
   return {
   
@@ -74,7 +74,7 @@ var Brand = (function ($) {
       var $newFormLi = $('<li></li>').append(newForm);
       $newLinkLi.before($newFormLi);
       
-      brand.addFormDeleteLink($newFormLi);
+      Brand.addFormDeleteLink($newFormLi);
     },
     
     addFormDeleteLink: function ($formLi) {

@@ -16,7 +16,7 @@
         </tr>
 				<tr>
             <th>{{ "Segment"|trans }}</th>
-            <td>{{ entity.segment }}</td>
+            <td>{{ entity.segment is not null ? entity.segment.name : '' }}</td>
         </tr>
 				<tr>
             <th>{{ "Description"|trans }}</th>
@@ -32,7 +32,7 @@
         </tr>
 				<tr>
             <th>{{ "Region"|trans }}</th>
-            <td>{{ entity.region }}</td>
+            <td>{{ entity.region is not null ? entity.region.name : '' }}</td>
         </tr>
         <tr>
             <th>{{ "Logo"|trans }}</th>

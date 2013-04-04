@@ -47,3 +47,21 @@ Samuca\Fashion\Controller\MediaController:
     media_edit: { pattern: '/media/{id}/edit', method: get, action: editAction }
     media_update: { pattern: '/media/{id}/update', method: post, action: updateAction }
     media_delete: { pattern: '/media/{id}/delete', method: post, action: deleteAction }
+
+Samuca\Fashion\Controller\SegmentController:
+    segment: { pattern: /segment/, method: get, action: indexAction }
+    segment_show: { pattern: '/segment/{id}/show', method: get, action: showAction }
+    segment_new: { pattern: /segment/new, method: get, action: newAction }
+    segment_create: { pattern: /segment/create, method: post, action: createAction }
+    segment_edit: { pattern: '/segment/{id}/edit', method: get, action: editAction }
+    segment_update: { pattern: '/segment/{id}/update', method: post, action: updateAction }
+    segment_delete: { pattern: '/segment/{id}/delete', method: post, action: deleteAction }
+    
+Samuca\Fashion\Controller\RegionController:
+    region: { pattern: /region/, method: get, action: indexAction }
+    region_show: { pattern: '/region/{id}/show', method: get, action: showAction }
+    region_new: { pattern: /region/new, method: get, action: newAction }
+    region_create: { pattern: /region/create, method: post, action: createAction }
+    region_edit: { pattern: '/region/{id}/edit', method: get, action: editAction }
+    region_update: { pattern: '/region/{id}/update', method: post, action: updateAction }
+    region_delete: { pattern: '/region/{id}/delete', method: post, action: deleteAction }

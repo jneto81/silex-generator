@@ -36,11 +36,11 @@
               <img src="/uploads/thumbs/{{ entity.logo }}">
             {% endif %}
             </td>
-						<td>{{ entity.segment }}</td>
+						<td>{{ entity.segment is not null ? entity.segment.name : '' }}</td>
 						<td>{{ wordwrap(entity.description, 50, "...")|raw }}</td>
 						<td>{{ entity.type }}</td>
 						<td>{{ entity.keyword }}</td>
-						<td>{{ entity.region }}</td>
+						<td>{{ entity.region is not null ? entity.region.name : '' }}</td>
             <td>
                 <ul class="unstyled inline">
                     <li>

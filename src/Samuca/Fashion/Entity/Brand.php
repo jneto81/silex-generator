@@ -33,8 +33,12 @@ class Brand
    */
   private $logo;
   
-  /**
+  /*
    * @Column(name="segment", type="string", length=255)
+   */
+   
+  /**
+   * @OneToOne(targetEntity="Segment")
    */
   private $segment;
   
@@ -53,8 +57,12 @@ class Brand
    */
   private $keyword;
   
-  /**
+  /*
    * @Column(name="region", type="string", length=255)
+   */
+   
+  /**
+   * @OneToOne(targetEntity="Region")
    */
   private $region;
   
@@ -64,12 +72,12 @@ class Brand
   private $addresses;
   
   /**
-   * @OneToMany(targetEntity="Network", mappedBy="brand")
+   * @OneToMany(targetEntity="Network", mappedBy="brand", cascade={"persist"})
    */
   private $networks;
   
   /**
-   * @OneToMany(targetEntity="Media", mappedBy="brand")
+   * @OneToMany(targetEntity="Media", mappedBy="brand", cascade={"persist"})
    */
   private $medias;
   
@@ -257,27 +265,40 @@ class Brand
       return $this->region;
   }
 
+  public function setAddresses(\Doctrine\Common\Collections\ArrayCollection $addresses)
+  {
+    /*
+    foreach ($addresses as $address) {
+      $address->setBrand($this);
+    }
+    */
+
+    $this->addresses = $addresses;
+    
+    return $this;
+  }
+  
   /**
-   * Add addresses
+   * Add address
    *
-   * @param \Samuca\Fashion\Entity\Address $addresses
+   * @param \Samuca\Fashion\Entity\Address $address
    * @return Shopping
    */
-  public function addAddresse(\Samuca\Fashion\Entity\Address $addresses)
+  public function addAddress(\Samuca\Fashion\Entity\Address $address)
   {
-      $this->addresses[] = $addresses;
+      $this->address[] = $address;
   
       return $this;
   }
 
   /**
-   * Remove addresses
+   * Remove address
    *
-   * @param \Samuca\Fashion\Entity\Address $addresses
+   * @param \Samuca\Fashion\Entity\Address $address
    */
-  public function removeAddresse(\Samuca\Fashion\Entity\Address $addresses)
+  public function removeAddress(\Samuca\Fashion\Entity\Address $address)
   {
-      $this->addresses->removeElement($addresses);
+      $this->addresses->removeElement($address);
   }
 
   /**
@@ -290,6 +311,19 @@ class Brand
       return $this->addresses;
   }
 
+  public function setNetworks(\Doctrine\Common\Collections\ArrayCollection $networks)
+  {
+    /*
+    foreach ($networks as $network) {
+      $network->setBrand($this);
+    }
+    */
+
+    $this->networks = $networks;
+    
+    return $this;
+  }
+  
   /**
    * Add networks
    *
@@ -354,5 +388,28 @@ class Brand
     public function getMedias()
     {
         return $this->medias;
+    }
+
+    /**
+     * Add addresses
+     *
+     * @param \Samuca\Fashion\Entity\Address $addresses
+     * @return Brand
+     */
+    public function addAddresse(\Samuca\Fashion\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses;
+    
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \Samuca\Fashion\Entity\Address $addresses
+     */
+    public function removeAddresse(\Samuca\Fashion\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
     }
 }
