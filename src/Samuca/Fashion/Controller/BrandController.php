@@ -80,7 +80,7 @@ class BrandController extends Controller
         ->addField(new Field('brand.description', array(
           'label' => 'Description',
           'formatValueCallback' => function ($value) { 
-            return html_entity_decode(\Samir\Twig\Extensions\TextExtension::wordwrap($value, 50, "...")); 
+            return utf8_encode(html_entity_decode(\Samir\Twig\Extensions\TextExtension::wordwrap($value, 50, "..."))); 
           }
         )))
         ->addField(new Field('brand.type', array(
