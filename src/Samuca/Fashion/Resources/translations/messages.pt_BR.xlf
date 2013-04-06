@@ -230,6 +230,18 @@
         <source>Filter</source>
         <target>Buscar</target>
       </trans-unit>
+      <trans-unit id="58">
+        <source>Add a network</source>
+        <target>Adicionar uma rede social</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Add a address</source>
+        <target>Adicionar um endereço</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>delete</source>
+        <target>excluir</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

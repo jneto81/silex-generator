@@ -1,13 +1,18 @@
 var Brand = (function ($) {
   var networksHolder = $('#networks');
-  var $addNetworkLink = $('<a href="#" class="add_network_link btn btn-mini">Add a network</a>');
+  var $addNetworkLink = $('<a href="#" class="add_network_link btn btn-mini">' + Brand.translation['Add a network'] + '</a>');
   var $newNetworkLinkLi = $('<li></li>').prepend($addNetworkLink);
   
   var addressesHolder = $('#addresses');
-  var $addAddressLink = $('<a href="#" class="add_address_link btn btn-mini">Add a address</a>');
+  var $addAddressLink = $('<a href="#" class="add_address_link btn btn-mini">' + Brand.translation['Add a address'] + '</a>');
   var $newAddressLinkLi = $('<li></li>').prepend($addAddressLink);
 
   return {
+    translation: {
+      'delete': 'delete',
+      'Add a network': 'Add a network',
+      'Add a address': 'Add a address'
+    },
   
     init: function () {
       $('#tab-menu a').click(function (event) {
@@ -108,7 +113,7 @@ var Brand = (function ($) {
     },
     
     addFormDeleteLink: function ($formLi) {
-      var $removeFormA = $('<a href="#" class="btn btn-mini btn-danger">delete</a>');
+      var $removeFormA = $('<a href="#" class="btn btn-mini btn-danger">' + Brand.translation['delete'] + '</a>');
       $formLi.append($removeFormA);
 
       $removeFormA.on('click', function (event) {
