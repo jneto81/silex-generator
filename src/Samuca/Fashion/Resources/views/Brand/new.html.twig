@@ -11,10 +11,36 @@
 </div>
 {% endif %}
 
+<ul class="nav nav-tabs" id="#tab-menu">
+  <li><a href="#tab-addresses" data-toggle="tab">{{ "Addresses"|trans }}</a></li>
+  <li><a href="#tab-networks" data-toggle="tab">{{ "Networks"|trans }}</a></li>
+  <li class="active"><a href="#tab-brand" data-toggle="tab">{{ "Brand"|trans }}</a></li>
+</ul>
+
 <form action="{{ path('brand_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_rest(form) }}
+  <div class="tab-content">
+    <div class="tab-pane" id="tab-addresses">
+      <ul id="addresses" class="unstyled embedded" data-prototype="{{ form_widget(form.addresses.vars.prototype)|e }}">
+        <li class="node">
+        {{ form_widget(form.addresses) }}
+        </li>
+      </ul>
+    </div>
     
-    {% include 'upload.html.twig' %}
+    <div class="tab-pane" id="tab-networks">
+      <ul id="networks" class="unstyled embedded" data-prototype="{{ form_widget(form.networks.vars.prototype)|e }}">
+        <li class="node">
+        {{ form_widget(form.networks) }}
+        </li>
+      </ul>
+    </div>
+    
+    <div class="tab-pane active" id="tab-brand">  
+      {{ form_rest(form) }}
+    
+      {% include 'upload.html.twig' %}
+      </div>
+    </div>
     
     <p>
         <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Create"|trans }}</button>
@@ -40,14 +66,18 @@
 <script src="/assets/tiny_mce/jquery.tinymce.js"></script>
 <script src="/assets/js/tiny_mce.js"></script>
 
+<script src="/assets/js/brand.js"></script>
+
 <script src="/assets/js/bootstrap-fileupload.min.js"></script>
 <script src="/assets/js/upload.js"></script>
 
 <script>
-	$(function () { 
+	$(function () {
+    Brand.init();
+  
 		Upload.init({
 			url: '{{ path('upload') }}',
-      allow: [ 'jpe?g', 'png' ],
+      allow: [ 'jpe?g' ],
       dir: '/uploads',
       showProgress: true,
       end: function (data) {

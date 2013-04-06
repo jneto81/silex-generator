@@ -33,12 +33,9 @@ class Brand
    */
   private $logo;
   
-  /*
-   * @Column(name="segment", type="string", length=255)
-   */
-   
   /**
    * @OneToOne(targetEntity="Segment")
+   * @JoinColumn(name="segment_id", referencedColumnName="id")
    */
   private $segment;
   
@@ -56,13 +53,10 @@ class Brand
    * @Column(name="keyword", type="string", length=255)
    */
   private $keyword;
-  
-  /*
-   * @Column(name="region", type="string", length=255)
-   */
    
   /**
    * @OneToOne(targetEntity="Region")
+   * @JoinColumn(name="region_id", referencedColumnName="id")
    */
   private $region;
   

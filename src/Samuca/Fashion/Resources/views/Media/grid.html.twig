@@ -1,0 +1,111 @@
+{% extends 'default.html.twig' %}
+
+{% block content %}
+
+<h1>{{ "Media"|trans }} {{ "list"|trans }}</h1>
+
+<ul class="unstyled container inline">
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('media_new') }}">
+            {{ "Create a new entry"|trans }}
+        </a>
+    </li>
+    <li>
+        <a id="dropbox-open" role="button" data-toggle="modal" class="btn btn-small btn-success" href="#dropbox-modal">
+            {{ "Upload multiple images"|trans }}
+        </a>
+    </li>
+</ul>
+
+{% embed 'Grid\\grid.html.twig' with {'grid': grid} %}
+  {% block kit_grid_thead_column %}
+    <th>{{ "Actions"|trans }}</th>
+  {% endblock %}
+
+  {% block kit_grid_tbody_column %}
+    <td>
+      <ul class="unstyled inline">
+        <li>
+            <a class="btn btn-mini" href="{{ path('media_show', { 'id': item.id }) }}">{{ "show"|trans }}</a>
+        </li>
+        <li>
+            <a class="btn btn-mini" href="{{ path('media_edit', { 'id': item.id }) }}">{{ "edit"|trans }}</a>
+        </li>
+      </ul>
+    </td>
+  {% endblock %}
+
+{% endembed %}
+
+<ul class="unstyled container">
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('media_new') }}">
+            {{ "Create a new entry"|trans }}
+        </a>
+    </li>
+</ul>
+
+
+<div class="modal hide fade" id="dropbox-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>{{ "Upload multiple images"|trans }}</h3>
+  </div>
+  <div class="modal-body">
+    <div id="dropbox">
+      <div class="dropbox-message">{{ "Drag files here"|trans }}...</div>
+      <div class="dropbox-grid hide">
+        <label>{{ "Brand"|trans }}</label>
+        <select id="brand">
+          <option value>{{ "Select a brand"|trans }}</option>
+          {% for entity in entities %}
+          <option value="{{ entity.id }}">{{ entity.name }}</option>
+          {% endfor %}
+        </select>
+      
+        <table id="dropbox-list" class="table table-striped table-hover table-condensed max-width">
+          <thead>
+            <th><input type="checkbox" class="dropbox-all"></th>
+            <th data-column="title">{{ "Title"|trans }}</th>
+            <th data-column="caption">{{ "Caption"|trans }}</th>
+            <th data-column="src">{{ "Src"|trans }}</th>
+            <th><!-- name--></th>
+            <th><!-- progressbar --></th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div>
+      <div id="modal-success" class="alert alert-success">{{ "Images successful uploaded."|trans }}</div>
+      <div id="modal-error" class="alert alert-error">{{ "Images"|trans }} <span class="files"></span> {{ "not supported."|trans }}</div>
+      <div id="modal-warning" class="alert alert-warning">{{ "You need choose a Brand to upload images"|trans }}</div>
+    </div>
+    <a href="#" class="btn" data-dismiss="modal">{{ "Close"|trans }}</a>
+    <a href="#" id="dropbox-save" class="btn btn-primary">{{ "Save changes"|trans }}</a>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="/assets/js/multiupload.js"></script>
+<script>
+$(function () {
+  var mu = new MultiUpload();
+  mu.init({
+    url: '{{ path('upload') }}',
+    allow: [ 'jpe?g' ],
+    dir: '/contents',
+    showProgress: true,
+    end: function (data) {
+      $('#samuca_fashion_brandtype_logo').after('<img src="/contents/thumbs/' + data.name + '">');
+    },  
+    thumbnail: true
+  });
+});
+</script>
+{% endblock %}

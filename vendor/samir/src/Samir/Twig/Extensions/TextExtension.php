@@ -11,11 +11,16 @@ class TextExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'wordwrap' => new \Twig_Function_Method($this, 'wordwrap'),
+            'wordwrap' => new \Twig_Function_Method($this, 'wordwrapMock'),
         );
     }
     
-    public function wordwrap($str, $length, $append) 
+    public function wordwrapMock($str, $length, $append)
+    {
+      return self::wordwrap($str, $length, $append);
+    }
+    
+    public static function wordwrap($str, $length, $append) 
     {    
       if (strlen($str) > $length) {
         $array = explode(' ', strip_tags($str));

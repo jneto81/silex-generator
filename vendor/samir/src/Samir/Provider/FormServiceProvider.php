@@ -2,10 +2,10 @@
 
 namespace Samir\Provider;
 
-use Silex\Provider\FormServiceProvider;
+use Silex\Provider\FormServiceProvider as SilexFormServiceProvider;
 use Silex\Application;
 
-class FormServiceProviderImpl extends FormServiceProvider
+class FormServiceProvider extends SilexFormServiceProvider
 {
   public function register(Application $app)
   {

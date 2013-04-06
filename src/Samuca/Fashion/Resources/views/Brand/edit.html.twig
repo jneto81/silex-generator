@@ -1,5 +1,7 @@
 {% extends 'default.html.twig' %}
 
+{% form_theme edit_form _self %}
+
 {% block content %}
 
 <h1>{{ "Brand"|trans }} {{ "edit"|trans }}</h1>
@@ -11,18 +13,40 @@
 </div>
 {% endif %}
 
+<ul class="nav nav-tabs" id="#tab-menu">
+  <li><a href="#tab-addresses" data-toggle="tab">{{ "Addresses"|trans }}</a></li>
+  <li><a href="#tab-networks" data-toggle="tab">{{ "Networks"|trans }}</a></li>
+  <li class="active"><a href="#tab-brand" data-toggle="tab">{{ "Brand"|trans }}</a></li>
+</ul>
+
 <form action="{{ path('brand_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_rest(edit_form) }}
+  <div class="tab-content">
+    <div class="tab-pane" id="tab-addresses">
+      <ul id="addresses" class="unstyled embedded" data-prototype="{{ form_widget(edit_form.addresses.vars.prototype)|e }}">
+        <li class="node">
+        {{ form_widget(edit_form.addresses) }}
+        </li>
+      </ul>
+    </div>
     
-		{% include 'upload.html.twig' %}
+    <div class="tab-pane" id="tab-networks">
+      <ul id="networks" class="unstyled embedded" data-prototype="{{ form_widget(edit_form.networks.vars.prototype)|e }}">
+        <li class="node">
+        {{ form_widget(edit_form.networks) }}
+        </li>
+      </ul>
+    </div>
     
-    <ul class="addresses unstyled" data-prototype="{{ form_widget(edit_form.addresses.vars.prototype)|e }}"></ul>
-    
-    <ul class="networks unstyled" data-prototype="{{ form_widget(edit_form.networks.vars.prototype)|e }}"></ul>
-    
-    <p>
-        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Save"|trans }}</button>
-    </p>
+    <div class="tab-pane active" id="tab-brand">
+      {{ form_rest(edit_form) }}
+  
+      {% include 'upload.html.twig' %}
+    </div>
+  </div>
+  
+  <p>
+      <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Save"|trans }}</button>
+  </p>
 </form>
 
 <ul class="record_actions unstyled container inline">
@@ -62,7 +86,7 @@
     
 		Upload.init({
 			url: '{{ path('upload') }}',
-      allow: [ 'jpe?g', 'png' ],
+      allow: [ 'jpe?g' ],
       dir: '/uploads',
       showProgress: true,
       end: function (data) {

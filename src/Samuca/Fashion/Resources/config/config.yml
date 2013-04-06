@@ -19,11 +19,11 @@ Nutwerk\Provider\DoctrineORMServiceProvider:
       
 Silex\Provider\ServiceControllerServiceProvider: ~
 Silex\Provider\UrlGeneratorServiceProvider: ~
-Samir\Provider\FormServiceProviderImpl: ~
+Samir\Provider\FormServiceProvider: ~
 Silex\Provider\SessionServiceProvider: ~
 Neutron\Silex\Provider\FilesystemServiceProvider: ~
 
-Silex\Provider\SecurityServiceProvider:
+Samir\Provider\SecurityServiceProvider:
   security.firewalls:
     list:               { pattern: ^/list }
     show:               { pattern: ^/show }
@@ -36,7 +36,7 @@ Silex\Provider\SecurityServiceProvider:
         check_path:     login_check
       logout: 
         logout_path:    /logout
-      users:            '!Samir\Provider\UserProvider'
+      users:            'Samir\Provider\UserProvider'
   security.access_rules:
     - [ ^/.+$, ROLE_ADMIN ]
     - [ ^/list, '' ]
@@ -48,17 +48,18 @@ Samir\Provider\TranslationServiceProvider:
     messages:
       pt_BR:            '%root_dir%/src/Samuca/Fashion/Resources/translations/messages.pt_BR.xlf'
 
-Samir\Provider\TwigExtraServiceProvider:
-  twig.path:        '%root_dir%/src/Samuca/Fashion/Resources/views'
-  twig.class_path:  '%root_dir%/vendor/twig/twig/lib'
+Samir\Provider\TwigServiceProvider:
+  twig.path:        
+    - '%root_dir%/src/Samuca/Fashion/Resources/views'
+  twig.class_path:  '%root_dir%/vendor/twig/twig/lib'  
   twig.options:
     cache:          '%root_dir%/cache'
     debug:          true
   twig.globals:
     menu:  
       - { name: Brand, path: /brand }
-      - { name: Address, path: /address }
-      - { name: Network, path: /network }   
+    #  - { name: Address, path: /address }
+    #  - { name: Network, path: /network }   
       - { name: Media, path: /media }
       - { name: Region, path: /region }
       - { name: Segment, path: /segment }
@@ -79,3 +80,5 @@ Samir\Provider\TwigExtraServiceProvider:
       author: ''
       description: ''
       keywords: ''
+      
+Samir\Provider\KitPagesGridServiceProvider: ~

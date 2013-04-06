@@ -186,6 +186,50 @@
         <source>Save</source>
         <target>Salvar</target>
       </trans-unit>
+      <trans-unit id="47">
+        <source>Images successful uploaded.</source>
+        <target>Imagens carregadas com sucesso.</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Images</source>
+        <target>Imagens</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>not supported.</source>
+        <target>não suportados.</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>You need choose a Brand to upload images</source>
+        <target>É necessário escolher uma Marca para adicionar imagens</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Upload multiple images</source>
+        <target>Adicionar múltiplas imagens</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Save changes</source>
+        <target>Salvar</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Close</source>
+        <target>Fechar</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Apply</source>
+        <target>Buscar</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Reset</source>
+        <target>Limpar</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Drag files here</source>
+        <target>Arraste imagens aqui</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Filter</source>
+        <target>Buscar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

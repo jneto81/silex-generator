@@ -10,9 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
-
 use Samuca\Fashion\Entity\Media;
 use Samuca\Fashion\Form\MediaType;
+use Kitpages\DataGridBundle\Model\GridConfig;
+use Kitpages\DataGridBundle\Model\PaginatorConfig;
+use Kitpages\DataGridBundle\Model\Field;
 
 /**
  * Media controller.
@@ -23,19 +25,86 @@ use Samuca\Fashion\Form\MediaType;
 class MediaController extends Controller
 {
     /**
-     * Lists all Media entities.
+     * Upload multiple Media entities.
      *
-     * @Route("/", name="media")
-     * @Method("GET")
+     * @Route("/upload", name="media_upload")
+     * @Method("POST")
      * @Template()
      */
-    public function indexAction(Application $app)
+     
+    public function uploadAction(Request $request, Application $app)
     {
-			$entities = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Media')
+      $count = 0;
+      $mediaList = $request->get('media');
+      $brandId = $request->get('brand');      
+      if ($brand = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')->find($brandId)) {
+        foreach ($mediaList as $mediaItem) {
+          $media = new Media();
+          $media->setTitle($mediaItem['title']);
+          $media->setCaption($mediaItem['caption']);
+          $media->setSrc($mediaItem['src']);
+          $media->setBrand($brand);
+          
+          $app['db.orm.em']->persist($media);
+          $app['db.orm.em']->flush();
+          $count++;
+        }
+      }
+      
+      return $app->json($count);
+    }
+    
+    public function gridAction(Request $request, Application $app)
+    {
+      $queryBuilder = $app['db.orm.em']->createQueryBuilder()
+        ->select('media, brand.name AS b_name')
+        ->from('Samuca\Fashion\Entity\Media', 'media')
+        ->leftJoin('media.brand', 'brand')
+        ;
+      
+      $paginatorConfig = new PaginatorConfig();
+      $paginatorConfig->setCountFieldName("media.id");
+      $paginatorConfig->setItemCountInPage(10);
+      $paginatorConfig->setQueryBuilder($queryBuilder);
+      $queryBuilder = $paginatorConfig->getQueryBuilder();
+      
+      //echo $queryBuilder->getQuery()->getSQL();
+      
+      $gridConfig = new GridConfig();
+      $gridConfig->setCountFieldName('media.id')
+        ->addField(new Field('media.id', array(
+          'label' => '#',
+        )))
+        ->addField(new Field('media.title', array(
+          'filterable' => true,
+          'sortable' => true,
+          'label' => 'Title'
+        )))
+        ->addField(new Field('b_name', array(
+          'label' => 'Marca'
+        )))
+        ->addField(new Field('media.src', array(
+          'label' => 'Imagem',
+          'autoEscape' => false,
+          'formatValueCallback' => function ($value) { 
+            return empty($value) ? '' : '<img src="/uploads/thumbs/' . $value . '">'; 
+          }
+        )))        
+        ->addField(new Field('media.caption', array(
+          'label' => 'Caption'
+        )))
+        ->setPaginatorConfig($paginatorConfig)
+      ;
+
+      $grid = $app['kitpages.gm']->getGrid($queryBuilder, $gridConfig, $request);
+      $paginator = $app['kitpages.gm']->getPaginator($queryBuilder, $paginatorConfig, $request);
+      $entities = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
 				->findAll();
-			
-			return $app['twig']->render('Media\index.html.twig', array(
-					'entities' => $entities,
+      
+			return $app['twig']->render('Media\grid.html.twig', array(
+        'grid'  =>  $grid,
+        'entities' => $entities, 
+        'paginator' => $paginator
 			));
     }
 

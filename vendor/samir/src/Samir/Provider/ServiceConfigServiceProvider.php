@@ -12,22 +12,10 @@ class ServiceConfigServiceProvider extends ConfigurationServiceProvider
       if ( ! empty($value)) {
         array_walk_recursive($value, function (&$value, $key) use ($app) {
           $matches = array();
-
+          
           $value = preg_replace_callback('/\%(\w+)\%/', function ($matches) use ($app) {
             return $app[$matches[1]];
           }, $value);
-          
-          $matches = array();
-
-          preg_match('/^\!(.*)/', $value, $matches);
-          
-          if (isset($matches[1])) {
-            $service = $matches[1];
-            
-            $value = $app->share(function () use ($app, $service) {              
-              return new $service($app);
-            });
-          }
         });
       } else {
         $value = array();

@@ -51,11 +51,11 @@
 	$(function () { 
 		Upload.init({
 			url: '{{ path('upload') }}',
-      allow: [ 'jpe?g', 'png' ],
-      dir: '/uploads',
+      allow: [ 'jpe?g' ],
+      dir: '/contents',
       showProgress: true,
       end: function (data) {
-    	  $('#samuca_fashion_mediatype_src').after('<img src="/uploads/thumbs/' + data.name + '">');
+    	  $('#samuca_fashion_mediatype_src').after('<img src="/contents/thumbs/' + data.name + '">');
 			},   
       thumbnail: true      
 		}, '#samuca_fashion_mediatype_src');

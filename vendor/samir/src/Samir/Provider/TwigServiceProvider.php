@@ -3,9 +3,9 @@
 namespace Samir\Provider;
 
 use Silex\Application;
-use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\TwigServiceProvider as SilexTwigServiceProvider;
 
-class TwigExtraServiceProvider extends TwigServiceProvider
+class TwigServiceProvider extends SilexTwigServiceProvider
 {
   public function register(Application $app)
   {

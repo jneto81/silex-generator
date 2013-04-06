@@ -31,7 +31,8 @@ Samuca\Fashion\Controller\NetworkController:
     network_delete: { pattern: '/network/{id}/delete', method: post, action: deleteAction }
     
 Samuca\Fashion\Controller\BrandController:
-    brand: { pattern: /brand/, method: get, action: indexAction }
+    brand: { pattern: /brand/, method: get, action: gridAction }
+    #brand: { pattern: /brand/, method: get, action: indexAction }
     brand_show: { pattern: '/brand/{id}/show', method: get, action: showAction }
     brand_new: { pattern: /brand/new, method: get, action: newAction }
     brand_create: { pattern: /brand/create, method: post, action: createAction }
@@ -40,7 +41,9 @@ Samuca\Fashion\Controller\BrandController:
     brand_delete: { pattern: '/brand/{id}/delete', method: post, action: deleteAction }
     
 Samuca\Fashion\Controller\MediaController:
-    media: { pattern: /media/, method: get, action: indexAction }
+    media:  { pattern: /media, method: get, action: gridAction }
+    #media: { pattern: /media/, method: get, action: indexAction }
+    media_upload: { pattern: '/media/upload', method: post, action: uploadAction }
     media_show: { pattern: '/media/{id}/show', method: get, action: showAction }
     media_new: { pattern: /media/new, method: get, action: newAction }
     media_create: { pattern: /media/create, method: post, action: createAction }

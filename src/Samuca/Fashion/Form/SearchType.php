@@ -13,34 +13,21 @@ class SearchType extends AbstractType
     {
         $builder
             ->add('segment', 'entity', array(
-              'class' => 'Samuca\Fashion\Entity\Brand',
-              'property' => 'segment',
-              'required' => false,
-              'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('b')
-                  ->groupBy('b.segment')
-                  ;              
-              },
+              'class' => 'Samuca\Fashion\Entity\Segment',
+              'property' => 'name',
+              'required' => false
             ))
             ->add('region', 'entity', array(
-              'class' => 'Samuca\Fashion\Entity\Brand',
-              'property' => 'region',
-              'required' => false,
-              'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('b')
-                  ->groupBy('b.region')              
-                  ;
-              },
+              'class' => 'Samuca\Fashion\Entity\Region',
+              'property' => 'name',
+              'required' => false
             ))
-            ->add('type', 'entity', array(
-              'class' => 'Samuca\Fashion\Entity\Brand',
-              'property' => 'type',
+            ->add('type', 'choice', array(
+              'choices' => array(
+                \Samuca\Fashion\Entity\Brand::TYPE_RETAIL, 
+                \Samuca\Fashion\Entity\Brand::TYPE_WHOLESALE
+              ),
               'required' => false,
-              'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('b')
-                  ->groupBy('b.type')
-                  ;
-              },
             ))
             ->add('keyword', 'text', array(
               'required' => false,
