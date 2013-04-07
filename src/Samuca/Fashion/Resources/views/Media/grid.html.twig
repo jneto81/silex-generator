@@ -97,11 +97,6 @@
 $(function () {
   var mu = new MultiUpload();
   mu.init({
-    translation: {
-      'delete': '{{ "delete"|trans }}',
-      'Add a network': '{{ "Add a network"|trans }}',
-      'Add a address': '{{ "Add a address"|trans }}'
-    },
     url: '{{ path('upload') }}',
     allow: [ 'jpe?g' ],
     dir: '/contents',

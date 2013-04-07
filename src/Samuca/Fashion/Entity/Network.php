@@ -91,19 +91,6 @@ class Network
     }
 
     /**
-     * Set brand
-     *
-     * @param \Samuca\Fashion\Entity\Brand $brand
-     * @return Network
-     */
-    public function setShopping(\Samuca\Fashion\Entity\Brand $brand = null)
-    {
-        $this->brand = $brand;
-    
-        return $this;
-    }
-
-    /**
      * Get brand
      *
      * @return \Samuca\Fashion\Entity\Brand

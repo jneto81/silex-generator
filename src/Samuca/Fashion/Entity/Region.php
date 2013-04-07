@@ -23,11 +23,6 @@ class Region
    * @Column(name="name", type="string", length=255)
    */
   private $name;
-  
-  /**
-   * @OneToOne(targetEntity="Brand", inversedBy="region", fetch="LAZY")    
-   */
-  private $brand;
 
   /**
    * Get id
@@ -61,27 +56,4 @@ class Region
   {
       return $this->name;
   }
-
-    /**
-     * Set brand
-     *
-     * @param \Samuca\Fashion\Entity\Brand $brand
-     * @return Region
-     */
-    public function setBrand(\Samuca\Fashion\Entity\Brand $brand = null)
-    {
-        $this->brand = $brand;
-    
-        return $this;
-    }
-
-    /**
-     * Get brand
-     *
-     * @return \Samuca\Fashion\Entity\Brand 
-     */
-    public function getBrand()
-    {
-        return $this->brand;
-    }
 }

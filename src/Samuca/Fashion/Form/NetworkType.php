@@ -19,13 +19,7 @@ class NetworkType extends AbstractType
                 'pinterest'   => 'Pinterest',
                 'twitter'     => 'Twitter',
             )))
-            ->add('link')
-            /*
-            ->add('brand', 'entity', array(
-              'class' => 'Samuca\Fashion\Entity\Brand',
-              'property' => 'name'
-            ))
-            */
+            ->add('link', 'url')
         ;
     }
 

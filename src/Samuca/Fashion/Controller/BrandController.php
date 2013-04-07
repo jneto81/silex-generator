@@ -184,7 +184,7 @@ class BrandController extends Controller
      */
     public function editAction($id, Application $app)
     {
-			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+      $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
 				->find($id);
 
 			if ( ! $entity) {
@@ -228,49 +228,39 @@ class BrandController extends Controller
         $originalNetworks[] = $network;
       }
       
-			$deleteForm = $this->createDeleteForm($id);
+      $deleteForm = $this->createDeleteForm($id);
 			$editForm = $app['form.factory']->create(new BrandType(), $entity, array());
 			$editForm->bind($request);
 
 			if ($editForm->isValid()) {
         // filter $original to contain tags no longer present
         foreach ($entity->getAddresses() as $address) {
-            foreach ($originalAddresses as $key => $toDel) {
-                if ($toDel->getId() === $address->getId()) {
-                    unset($originalAddresses[$key]);
-                }
+          foreach ($originalAddresses as $key => $toDel) {
+            if ($toDel->getId() === $address->getId()) {
+              unset($originalAddresses[$key]);
             }
+          }
+        }
+
+        // remove the relationship between the tag and the Network
+        foreach ($originalAddresses as $address) {
+            // remove the Brand from the Network            
+            $app['db.orm.em']->remove($address);
         }
         
         foreach ($entity->getNetworks() as $network) {
-           foreach ($originalNetworks as $key => $toDel) {
-                if ($toDel->getId() === $network->getId()) {
-                    unset($originalNetworks[$key]);
-                }
+          foreach ($originalNetworks as $key => $toDel) {
+            if ($toDel->getId() === $network->getId()) {
+              unset($originalNetworks[$key]);
             }
+          }
         }
 
-        // remove the relationship between the tag and the Address
-        foreach ($originalAddresses as $address) {
-            // remove the Brand from the Address
-            $entity->getAddresses()->removeElement($address);
-            // if it were a ManyToOne relationship, remove the relationship like this
-            // $tag->setTask(null);
-            $app['db.orm.em']->persist($address);
-            // if you wanted to delete the Tag entirely, you can also do that
-            //$app['db.orm.em']->remove($address);
-        }
-        
         // remove the relationship between the tag and the Network
         foreach ($originalNetworks as $network) {
-            // remove the Brand from the Network
-            $entity->getNetworks()->removeElement($network);
-            // if it were a ManyToOne relationship, remove the relationship like this
-            // $tag->setTask(null);
-            $app['db.orm.em']->persist($network);
-            // if you wanted to delete the Tag entirely, you can also do that
-            // $app['db.orm.em']->remove($network);
-        }      
+            // remove the Brand from the Network            
+            $app['db.orm.em']->remove($network);
+        }
       
         $app['db.orm.em']->persist($entity);
         $app['db.orm.em']->flush();

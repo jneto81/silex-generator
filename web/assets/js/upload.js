@@ -24,7 +24,9 @@ var Upload = (function ($) {
       }
       
       if ('form' in Upload) {
-    	  Upload.form.submit();  
+        if (Upload.form.checkValidity()) {
+          Upload.form.submit();  
+        }
       }
     },
     
@@ -122,7 +124,9 @@ var Upload = (function ($) {
             reader.get(0).readAsBinaryString(file);	
           }
         } else {
-          this.form.submit();
+          if (this.form.checkValidity()) {
+            this.form.submit();
+          }
         }
       });
     }

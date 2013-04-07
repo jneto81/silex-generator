@@ -35,19 +35,13 @@ class BrandType extends AbstractType
               'type'         => new AddressType(),
               'allow_add'    => true,
               'by_reference' => false,
-              'allow_delete' => true,
-              'attr'         => array(
-              //  'class' => 'embedded'
-              )
+              'allow_delete' => true
             ))
             ->add('networks', 'collection', array(
               'type'         => new NetworkType(),
               'allow_add'    => true,
               'by_reference' => false,
-              'allow_delete' => true,
-              'attr'         => array(
-              //  'class' => 'embedded'
-              )
+              'allow_delete' => true
             ))
             ->add('logo')
         ;

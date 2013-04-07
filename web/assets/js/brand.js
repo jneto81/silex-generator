@@ -1,11 +1,9 @@
 var Brand = (function ($) {
   var networksHolder = $('#networks');
-  var $addNetworkLink = $('<a href="#" class="add_network_link btn btn-mini">' + Brand.translation['Add a network'] + '</a>');
-  var $newNetworkLinkLi = $('<li></li>').prepend($addNetworkLink);
+  var $addNetworkLink, $newNetworkLinkLi;
   
   var addressesHolder = $('#addresses');
-  var $addAddressLink = $('<a href="#" class="add_address_link btn btn-mini">' + Brand.translation['Add a address'] + '</a>');
-  var $newAddressLinkLi = $('<li></li>').prepend($addAddressLink);
+  var $addAddressLink, $newAddressLinkLi;
 
   return {
     translation: {
@@ -21,7 +19,13 @@ var Brand = (function ($) {
       })
     
       $('#tab-menu a:last').tab('show');
-    
+      
+      $addNetworkLink = $('<a href="#" class="add_network_link btn btn-mini">' + Brand.translation['Add a network'] + '</a>');
+      $newNetworkLinkLi = $('<li></li>').prepend($addNetworkLink);
+  
+      $addAddressLink = $('<a href="#" class="add_address_link btn btn-mini">' + Brand.translation['Add a address'] + '</a>');
+      $newAddressLinkLi = $('<li></li>').prepend($addAddressLink);
+      
       Brand.dettachForms();
       Brand.networks();
       Brand.addresses();

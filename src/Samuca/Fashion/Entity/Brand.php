@@ -34,7 +34,7 @@ class Brand
   private $logo;
   
   /**
-   * @OneToOne(targetEntity="Segment")
+   * @ManyToOne(targetEntity="Segment")
    * @JoinColumn(name="segment_id", referencedColumnName="id")
    */
   private $segment;
@@ -55,23 +55,23 @@ class Brand
   private $keyword;
    
   /**
-   * @OneToOne(targetEntity="Region")
+   * @ManyToOne(targetEntity="Region")
    * @JoinColumn(name="region_id", referencedColumnName="id")
    */
   private $region;
   
   /**
-   * @OneToMany(targetEntity="Address", mappedBy="brand")
+   * @OneToMany(targetEntity="Address", mappedBy="brand", cascade={"persist","remove"})
    */
   private $addresses;
   
   /**
-   * @OneToMany(targetEntity="Network", mappedBy="brand", cascade={"persist"})
+   * @OneToMany(targetEntity="Network", mappedBy="brand", cascade={"persist","remove"})
    */
   private $networks;
   
   /**
-   * @OneToMany(targetEntity="Media", mappedBy="brand", cascade={"persist"})
+   * @OneToMany(targetEntity="Media", mappedBy="brand")
    */
   private $medias;
   
@@ -261,11 +261,9 @@ class Brand
 
   public function setAddresses(\Doctrine\Common\Collections\ArrayCollection $addresses)
   {
-    /*
     foreach ($addresses as $address) {
       $address->setBrand($this);
     }
-    */
 
     $this->addresses = $addresses;
     
@@ -280,9 +278,10 @@ class Brand
    */
   public function addAddress(\Samuca\Fashion\Entity\Address $address)
   {
-      $this->address[] = $address;
+    $address->setBrand($this);
+    $this->addresses[] = $address;
   
-      return $this;
+    return $this;
   }
 
   /**
@@ -307,11 +306,9 @@ class Brand
 
   public function setNetworks(\Doctrine\Common\Collections\ArrayCollection $networks)
   {
-    /*
     foreach ($networks as $network) {
       $network->setBrand($this);
     }
-    */
 
     $this->networks = $networks;
     
@@ -319,16 +316,17 @@ class Brand
   }
   
   /**
-   * Add networks
+   * Add network
    *
-   * @param \Samuca\Fashion\Entity\Network $networks
+   * @param \Samuca\Fashion\Entity\Network $network
    * @return Shopping
    */
-  public function addNetwork(\Samuca\Fashion\Entity\Network $networks)
+  public function addNetwork(\Samuca\Fashion\Entity\Network $network)
   {
-      $this->networks[] = $networks;
+    $network->setBrand($this);
+    $this->networks[] = $network;
   
-      return $this;
+    return $this;
   }
 
   /**
