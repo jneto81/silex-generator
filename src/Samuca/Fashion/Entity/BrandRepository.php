@@ -33,7 +33,7 @@ class BrandRepository extends EntityRepository
     }
   
     return $this->getEntityManager()
-      ->createQuery('SELECT b FROM Samuca\Fashion\Entity\Brand b' . (count($params) ? ' WHERE ' . implode(' AND ', $params) : ''))
+      ->createQuery('SELECT b FROM Samuca\Fashion\Entity\Brand b' . (count($params) ? ' WHERE ' . implode(' OR ', $params) : ''))
       ->getResult();
   }
 }

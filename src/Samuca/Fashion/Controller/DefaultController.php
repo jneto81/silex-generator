@@ -71,7 +71,7 @@ class DefaultController extends Controller
       if (isset($search['keyword'])) {
         $search['keyword'] = $search['name'] = implode(' OR ', array_map(function ($value) {
           return "%$value%";
-        }, explode($search['keyword'])));
+        }, explode(' ', $search['keyword'])));
       }
       
       if (isset($letter)) {
