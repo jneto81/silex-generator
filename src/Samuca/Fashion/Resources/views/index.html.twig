@@ -39,7 +39,7 @@
                     <select id="{{ search_form.vars.name }}_{{ key }}" name="{{ search_form.vars.name }}[{{ key }}]" >
                       <option value>{{ key|capitalize|trans }}</value>
                     {% for choice in form.vars.choices %}
-                      <option value="{{ choice.label }}" {{ form.vars.data == choice.label ? 'selected="true"' : '' }}>{{ choice.label|trans }}</value>
+                      <option value="{{ choice.value }}" {{ form.vars.data == choice.value ? 'selected="true"' : '' }}>{{ choice.label|trans }}</value>
                     {% endfor %}
                     </select>
                   {% else %}

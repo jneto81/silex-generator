@@ -24,8 +24,8 @@ class SearchType extends AbstractType
             ))
             ->add('type', 'choice', array(
               'choices' => array(
-                \Samuca\Fashion\Entity\Brand::TYPE_RETAIL, 
-                \Samuca\Fashion\Entity\Brand::TYPE_WHOLESALE
+                \Samuca\Fashion\Entity\Brand::TYPE_RETAIL => \Samuca\Fashion\Entity\Brand::TYPE_RETAIL, 
+                \Samuca\Fashion\Entity\Brand::TYPE_WHOLESALE => \Samuca\Fashion\Entity\Brand::TYPE_WHOLESALE
               ),
               'required' => false,
             ))
