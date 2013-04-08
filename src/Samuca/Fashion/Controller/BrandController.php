@@ -295,7 +295,7 @@ class BrandController extends Controller
 					if ( ! $entity) {
 						return $app->abort(404, 'Unable to find Brand entity.');
 					}
-
+					
 					$app['db.orm.em']->remove($entity);
 					$app['db.orm.em']->flush();
 			}

@@ -1,0 +1,126 @@
+{% extends 'Site\\index.html.twig' %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/assets/css/wowslider.css">
+<style>
+  #wowslider-container { margin-bottom: 70px; }
+</style>
+
+{% endblock %}
+
+{% block header %}
+
+  <div class="btn-back">
+    <a href="{{ referer_url }}">
+      <i class="icon icon-arrow-left"></i><span class="heading">{{ "BACK TO BRAND LIST"|trans }}</span>
+    </a>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+  
+    <header class="dashed-bottom container-fluid title">
+      <div>
+        <h2>{{ entity.name }}</h2>
+      </div>    
+    </header>
+  
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style clearfix span2 pull-right text-right">
+      <a class="addthis_button_preferred_1"></a>
+      <a class="addthis_button_preferred_2"></a>
+      <a class="addthis_button_preferred_3"></a>
+      <a class="addthis_button_preferred_4"></a>
+      <a class="addthis_button_compact"></a>
+      <!--
+      <a class="addthis_counter addthis_bubble_style"></a>
+      -->
+    </div>
+    <!-- AddThis Button END -->
+    
+    <div class="text-justify entry">
+      {{ entity.description|raw }}
+    </div>
+
+    {% if entity.medias|length %}
+    <h3>{{ "PHOTO GALLERY"|trans }}</h3>
+    
+    <div id="wowslider-container">
+      <div class="ws_images">
+        <ul>
+          {% for media in entity.medias %}
+          <li>
+            <img src="/contents/{{ media.src }}" alt="{{ media.title }}" title="{{ media.caption }}">
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="ws_thumbs">
+        <div>
+          {% for media in entity.medias %}
+          <a href="#" title="{{ media.title }}">
+            <img src="/contents/thumbs/{{ media.src }}" alt="{{ media.caption }}">
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    
+    <br class="clearfix" />
+    
+    <h3>{{ "WHERE TO BUY"|trans }}</h3>
+
+    <ul class="unstyled">
+    {% for address in entity.addresses %}
+      <li class="heading">
+        <p>
+          <strong>{{ address.name }}</strong>
+          <br />
+          <span>{{ address.location }}</strong>
+        </p>
+      </li>
+    {% endfor %}
+    </ul>
+      
+    <h3>{{ "FOLLOW US IN THE SOCIAL NETWORKS"|trans }}</h3>
+
+    <ul class="inline unstyled container">
+    {% for network in entity.networks %}
+      <li><a href="{{ network.link }}" target="_blank"><i class="icon icon-network icon-{{ network.name }}"></i></a></li>
+    {% endfor %}	
+    </ul>
+  
+{% endblock %}
+
+{% block javascripts %}
+  
+  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-51476ef143dd7d2e"></script>
+  
+  <script src="/assets/js/wowslider.js"></script>
+  <script>
+  $(function () {
+    $("#wowslider-container").wowSlider({
+      effect: "fade",
+      prev: "",
+      next: "",
+      duration: 20 * 100,
+      delay: 24 * 100,
+      width: 960,
+      height: 360,
+      autoPlay: true,
+      stopOnHover: false,
+      loop: false,
+      bullets: 0,
+      caption: true,
+      captionEffect: "fade",
+      controls: true,
+      onBeforeStep: 0,
+      images: 0
+    });
+  });
+</script>
+
+{% endblock %}

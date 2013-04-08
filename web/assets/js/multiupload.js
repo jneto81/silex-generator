@@ -22,18 +22,18 @@ var MultiUpload = (function ($) {
             media: media
           }, function (data) {
             if (data) {
-              $('#message-success').show();
+              $('#modal-success').show();
               
               setTimeout(function () {
-                $('#message-success').hide();
-              });
+                $('#modal-success').hide();
+              }, 3000);
             }
           }, 'json');
         } else {
-          $('#message-warning').show();
+          $('#modal-warning').show();
           
           setTimeout(function () {
-            $('#message-warning').hide();
+            $('#modal-warning').hide();
           }, 3000);
         }
       }).show();
@@ -52,7 +52,7 @@ var MultiUpload = (function ($) {
     
       $('#dropbox-modal').on('hidden', function () {
         $('.dropbox-grid').hide()
-        $('#dropbox-list tbody')empty();
+        $('#dropbox-list tbody').empty();
         $('.dropbox-message').show();          
       });
     
@@ -105,13 +105,13 @@ var MultiUpload = (function ($) {
           }
           
           if (errors.length) {
-            $('#message-error').find('.files')
+            $('#modal-error').find('.files')
               .text(error.join(', '))
               .end()
               .show();
               
              setTimeout(function () {
-                $('#message-error').hide();
+                $('#modal-error').hide();
               }, 5000);
           };
         }
@@ -128,7 +128,7 @@ var FileItem = (function ($) {
     this.name = name;
     
     this.init = function (url) {
-      this.$context = $('<tr data-src="' + this.file.name + '">' +
+      this.$context = $('<tr data-src="">' +
         '<td><input type="checkbox"></td>' + 
         '<td data-column="title"><input type="text" class="title"></td>' +
         '<td data-column="caption"><input type="text" class="caption"></td>' +
@@ -196,6 +196,7 @@ var FileItem = (function ($) {
     }
     
     this.load = function (data, textStatus, jqXHR) {
+      $(this.$context).attr('data-src', data.name);
       $('td[data-column="src"]', this.$context).html('<input type="hidden" value="' + data.name + '">' + 
         '<img src="/contents/thumbs/' + data.name + '">');
       

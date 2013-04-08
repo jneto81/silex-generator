@@ -90,7 +90,7 @@ class DefaultController extends Controller
         ->setMaxResults(3)
         ->getResult();
         
-      return $app['twig']->render('list.html.twig', array(
+      return $app['twig']->render('Site\\list.html.twig', array(
         'list'            => $paginator->get($page),
         'pages'           => $paginator->pages(),
         'show_pagination' => $paginator->count() > 1,
@@ -105,11 +105,11 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/show/{id}", name="show")
+     * @Route("/show/{id}/{name}", name="show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id, Request $request, Application $app)
+    public function showAction($id, $name, Request $request, Application $app)
     {
       $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
         ->find($id);
@@ -117,7 +117,7 @@ class DefaultController extends Controller
       $form = $app['form.factory']->create(new SearchType(), new Brand(), array())
         ->createView();
     
-      return $app['twig']->render('show.html.twig', array(
+      return $app['twig']->render('Site\\show.html.twig', array(
         'entity'        => $entity,
         'search_form'   => $form,
         'referer_url'       => $request->headers->get('referer')

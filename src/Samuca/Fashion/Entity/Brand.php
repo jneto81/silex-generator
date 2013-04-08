@@ -71,7 +71,7 @@ class Brand
   private $networks;
   
   /**
-   * @OneToMany(targetEntity="Media", mappedBy="brand")
+   * @OneToMany(targetEntity="Media", mappedBy="brand", cascade={"remove"})
    */
   private $medias;
   

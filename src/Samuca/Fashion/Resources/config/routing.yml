@@ -9,7 +9,7 @@ Samuca\Fashion\Controller\DefaultController:
       method: MATCH
       action: listAction
       defaults: { param1: NULL, param2: NULL }
-    show: { pattern: '/show/{id}', method: GET, action: showAction }
+    show: { pattern: '/show/{id}/{name}', method: GET, action: showAction }
     upload: { pattern: /upload, method: MATCH, action: uploadAction }
     
 Samuca\Fashion\Controller\AddressController:
