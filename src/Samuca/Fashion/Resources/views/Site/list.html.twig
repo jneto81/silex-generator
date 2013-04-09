@@ -20,30 +20,33 @@
 {% endblock %}
 
 {% block content %}
-
-  {% for entity in list %}
-    {% if loop.index%3 == 1 %}
-    <div>
-    {% endif %}
-      <div class="item span4 dashed-bottom">
-        <h4>{{ entity.name }}</h4>
-        
-        <div class="text-center brand-logo">
-          <img src="/uploads/thumbs/{{ entity.logo }}">
+  {% if list|length %}
+    {% for entity in list %}
+      {% if loop.index%3 == 1 %}
+      <div>
+      {% endif %}
+        <div class="item span4 dashed-bottom">
+          <h4>{{ entity.name }}</h4>
+          
+          <div class="text-center brand-logo">
+            <img src="/uploads/thumbs/{{ entity.logo }}">
+          </div>
+          
+          <div class="text-center brand-text">
+            {{ wordwrap(entity.description, 50, "...")|raw }}
+          </div>
+          
+          <div class="clearfix pull-right">
+            <a class="btn btn-black btn-more" href="/show/{{ entity.id }}/{{ normalize(entity.name) }}">> {{ "MORE"|trans }}</a>        
+          </div>
         </div>
-        
-        <div class="text-center brand-text">
-          {{ wordwrap(entity.description, 50, "...")|raw }}
-        </div>
-        
-        <div class="clearfix pull-right">
-          <a class="btn btn-black btn-more" href="/show/{{ entity.id }}/{{ normalize(entity.name) }}">> {{ "MORE"|trans }}</a>        
-        </div>
+      {% if loop.index%3 == 0 %}
       </div>
-    {% if loop.index%3 == 0 %}
-    </div>
-    {% endif %}
-  {% endfor %}
+      {% endif %}
+    {% endfor %}
+  {% else %}  
+    {{ "No results found."|trans }}
+  {% endif %}
   
   <footer>
     <div class="clearfix">

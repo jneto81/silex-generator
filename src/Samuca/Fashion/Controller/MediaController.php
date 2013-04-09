@@ -87,7 +87,7 @@ class MediaController extends Controller
           'label' => 'Imagem',
           'autoEscape' => false,
           'formatValueCallback' => function ($value) { 
-            return empty($value) ? '' : '<img src="/contents/thumbs/' . $value . '">'; 
+            return empty($value) ? '' : '<img src="/uploads/thumbs/' . $value . '">'; 
           }
         )))        
         ->addField(new Field('media.caption', array(

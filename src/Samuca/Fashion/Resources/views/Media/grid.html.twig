@@ -99,10 +99,10 @@ $(function () {
   mu.init({
     url: '{{ path('upload') }}',
     allow: [ 'jpe?g' ],
-    dir: '/contents',
+    dir: '/uploads',
     showProgress: true,
     end: function (data) {
-      $('#samuca_fashion_brandtype_logo').after('<img src="/contents/thumbs/' + data.name + '">');
+      $('#samuca_fashion_brandtype_logo').after('<img src="/uploads/thumbs/' + data.name + '">');
     },  
     thumbnail: true
   });

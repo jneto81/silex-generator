@@ -241,7 +241,11 @@
       <trans-unit id="60">
         <source>delete</source>
         <target>excluir</target>
-      </trans-unit>      
+      </trans-unit>
+      <trans-unit id="61">
+        <source>No results found.</source>
+        <target>Nenhum resultado encontrado.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

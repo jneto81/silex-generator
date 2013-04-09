@@ -198,7 +198,7 @@ var FileItem = (function ($) {
     this.load = function (data, textStatus, jqXHR) {
       $(this.$context).attr('data-src', data.name);
       $('td[data-column="src"]', this.$context).html('<input type="hidden" value="' + data.name + '">' + 
-        '<img src="/contents/thumbs/' + data.name + '">');
+        '<img src="/uploads/thumbs/' + data.name + '">');
       
       this.end(data);
     }

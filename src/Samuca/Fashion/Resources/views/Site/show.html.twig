@@ -52,7 +52,7 @@
         <ul>
           {% for media in entity.medias %}
           <li>
-            <img src="/contents/{{ media.src }}" alt="{{ media.title }}" title="{{ media.caption }}">
+            <img src="/uploads/{{ media.src }}" alt="{{ media.title }}" title="{{ media.caption }}">
           </li>
           {% endfor %}
         </ul>
@@ -61,7 +61,7 @@
         <div>
           {% for media in entity.medias %}
           <a href="#" title="{{ media.title }}">
-            <img src="/contents/thumbs/{{ media.src }}" alt="{{ media.caption }}">
+            <img src="/uploads/thumbs/{{ media.src }}" alt="{{ media.caption }}">
           </a>
           {% endfor %}
         </div>
