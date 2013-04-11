@@ -17,6 +17,7 @@ class BrandType extends AbstractType
               'property' => 'name'
             ))
             ->add('description', 'textarea', array(
+              'required' => false,
             	'attr' => array(
             			'class' => 'tiny_mce'
             	)))
