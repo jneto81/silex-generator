@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Samuca\Fashion\Entity\Brand;
 
 class SearchType extends AbstractType
 {
@@ -24,12 +25,15 @@ class SearchType extends AbstractType
             ))
             ->add('type', 'choice', array(
               'choices' => array(
-                \Samuca\Fashion\Entity\Brand::TYPE_RETAIL => \Samuca\Fashion\Entity\Brand::TYPE_RETAIL, 
-                \Samuca\Fashion\Entity\Brand::TYPE_WHOLESALE => \Samuca\Fashion\Entity\Brand::TYPE_WHOLESALE
+                Brand::TYPE_RETAIL => Brand::TYPE_RETAIL, 
+                Brand::TYPE_WHOLESALE => Brand::TYPE_WHOLESALE,
               ),
               'required' => false,
             ))
             ->add('keyword', 'text', array(
+              'attr' => array(
+                'class' => 'input-small'
+              ),
               'required' => false,
             ))
         ;

@@ -99,7 +99,7 @@ class SegmentController extends Controller
 					$app['db.orm.em']->persist($entity);
 					$app['db.orm.em']->flush();
 	
-										return $app->redirect($app['url_generator']->generate('segment_show', array(
+					return $app->redirect($app['url_generator']->generate('segment_show', array(
 						'id' => $entity->getId()
 					)));
       }
@@ -126,18 +126,7 @@ class SegmentController extends Controller
 					return $app->abort(404, 'Unable to find Segment entity.');
 			}
       
-      $originalAddresses = array();
-      $originalNetworks = array();
-      
-      foreach ($entity->getAddresses() as $address) {
-        $originalAddresses[] = $address;
-      }
-      
-      foreach ($entity->getNetworks() as $networks) {
-        $originalNetworks[] = $networks;
-      }
-
-			$editForm = $app['form.factory']->create(new SegmentType(), $entity, array());
+      $editForm = $app['form.factory']->create(new SegmentType(), $entity, array());
 			$deleteForm = $this->createDeleteForm($id);
 
 			return $app['twig']->render('Segment\edit.html.twig', array(
@@ -163,66 +152,15 @@ class SegmentController extends Controller
 				return $app->abort(404, 'Unable to find Segment entity.');
 			}
       
-      $originalAddresses = array();
-      $originalNetworks = array();
-      
-      foreach ($entity->getAddresses() as $address) {
-        $originalAddresses[] = $address;
-      }
-      
-      foreach ($entity->getNetworks() as $network) {
-        $originalNetworks[] = $network;
-      }
-      
 			$deleteForm = $this->createDeleteForm($id);
 			$editForm = $app['form.factory']->create(new SegmentType(), $entity, array());
 			$editForm->bind($request);
 
 			if ($editForm->isValid()) {
-        // filter $originalTags to contain tags no longer present
-        foreach ($task->getAddresses() as $address) {
-            foreach ($originalAddresses as $key => $toDel) {
-                if ($toDel->getId() === $address->getId()) {
-                    unset($originalAddresses[$key]);
-                }
-            }
-        }
-        
-        foreach ($entity->getNetworks() as $network) {
-           foreach ($originalNetworks as $key => $toDel) {
-                if ($toDel->getId() === $network->getId()) {
-                    unset($originalNetworks[$key]);
-                }
-            }
-        }
-
-        // remove the relationship between the tag and the Task
-        foreach ($originalAddresses as $address) {
-            // remove the Task from the Tag
-            $entity->getAddresses()->removeElement($address);
-            // if it were a ManyToOne relationship, remove the relationship like this
-            // $tag->setTask(null);
-            $app['db.orm.em']->persist($address);
-            // if you wanted to delete the Tag entirely, you can also do that
-            $app['db.orm.em']->remove($address);
-        }
-        
-        // remove the relationship between the tag and the Task
-        foreach ($originalNetworks as $network) {
-            // remove the Task from the Tag
-            $entity->getNetworks()->removeElement($network);
-            // if it were a ManyToOne relationship, remove the relationship like this
-            // $tag->setTask(null);
-            $app['db.orm.em']->persist($network);
-            // if you wanted to delete the Tag entirely, you can also do that
-            $app['db.orm.em']->remove($network);
-        }
-      
-      
-					$app['db.orm.em']->persist($entity);
+        	$app['db.orm.em']->persist($entity);
 					$app['db.orm.em']->flush();
 					
-					return $app->redirect($app['url_generator']->generate('segment_edit', array(
+					return $app->redirect($app['url_generator']->generate('segment_show', array(
 						'id' => $id
 					)));
 			}

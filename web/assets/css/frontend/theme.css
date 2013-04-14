@@ -1,7 +1,8 @@
-body { font-family: Arial }
+body { font-family: Arial; font-size: 12px; }
 
 h2 { font-size: 24px; margin: 35px 0 0; padding: 0; }
-h3 { font-size: 18px; margin: 30px 0 5px; }
+h3 { font-size: 18px; margin: 30px 0 5px; line-height: 20px; font-family: 'Oswald', sans-serif; font-weight: 300; }
+h4 { font-size: 14px; height: 35px; }
 
 a { color: black; }
 
@@ -25,41 +26,49 @@ a { color: black; }
 .clearfix { clear: both; }
 
 .tab { padding: 10px; font-size: 18px; }
-.nav-tabs > li > a {  padding: 20px; }
-.nav-tabs { border-bottom: dashed 1px black; }
+.nav-tabs > li > a {  padding: 20px 15px; }
+.nav-tabs { border-bottom: dotted 1px black; }
 .nav-tabs > li > a:hover,
-.nav-tabs > li > a { border-bottom: dashed 1px black; background-color: #eeeeee; color: #6e6e6e; }
+.nav-tabs > li > a { border-bottom: dotted 1px black; background-color: #eeeeee; color: #6e6e6e; }
 .nav-tabs > .active > a { color: black; }
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover, 
-.nav-tabs > .active > a:focus { border: dashed 1px black; border-bottom: dashed 1px transparent; }
+.nav-tabs > .active > a:focus { border: dotted 1px black; border-bottom: dotted 1px transparent; }
 
 .pagination { margin: 0; }
 
 .index a { display: inline-block; margin-right: 5px; }
 
-.item { padding: 10px; margin: 5px 0 0; height: 250px; }
+.item { padding: 0 10px 10px; margin: 5px 0 0; }
 .brand-logo { height: 120px; }
 .brand-text { padding: 10px 0; }
 .btn-black, 
+.btn-more, 
 .btn-nav,
-.btn-page { background: black; color: white; font-size: 14px; padding: 5px; }
+.btn-page { background: black; color: white; font-size: 11px; padding: 5px 10px; font-family: 'Oswald', sans-serif; }
 .btn-page { color: black; }
 .btn-page.active { color: white; }
 .btn-page:hover { color: #b62a3e; }
 .btn-page.active { background: #b62a3e; }
-.btn-nav { font-weight: bold; color: white; }
+.btn-nav { font-weight: bold; color: white; padding: 4px 12px; line-height: 11px; }
+.btn-nav:hover { text-decoration: none; color: white; }
+.btn-black { border: solid 1px black; }
+.btn-more { border: none; }
+.btn-more { font-size: 10px; line-height: 12px; }
+.btn-black:hover, .btn-more:hover { color: white; text-decoration: none; background: black; }
+.btn-back { margin-top: 55px; position: absolute; margin-left: 528px; }
 
 .section { margin: 30px 0 5px }
 
-.item-featured { background: #d7d7d7; padding: 10px; }
+.item-featured { background: #d7d7d7; }
+.item-featured .item { padding: 0 0 10px; }
 
 .heading { font-size: 14px; }
 
-.dashed-top { border-top: dashed 1px black; } 
-.dashed-bottom { border-bottom: dashed 1px black; } 
+.dashed-top { border-top: dotted 1px black; } 
+.dashed-bottom { border-bottom: dotted 1px black; } 
 
-.addthis_toolbox { margin: 10px 0 0; position: absolute; right: 5px; }
+.addthis_toolbox { margin: 10px 0 0; position: absolute; margin-left: 588px; }
 .addthis_default_style .addthis_separator, 
 .addthis_default_style .at300b, 
 .addthis_default_style .at300bo, 
@@ -76,10 +85,31 @@ a { color: black; }
 .row-fluid .span12 { margin-left: 0; }
 .container-fluid.title { padding: 0; }
 .entry { padding: 35px 0 0; }
-.btn-back { margin-top: 55px; position: absolute; right: 0; }
 
 .hidden { visibility: hidden; }
 
-#search { position: absolute; right: 0; }
+.brand-text { height: 35px; }
+
+#search { position: absolute; margin-left: 298px; }
+
+aside { width: 240px; display: inline-block; vertical-align: top; }
+
+#page { margin: 0 auto; width: 958px; }
+
+#wrapper { width: 698px; margin-left: 15px; display: inline-block; vertical-align: top; }
 
 #content { padding: 5px 0; }
+
+.pager { margin: 20px 0 0; }
+
+.pagination ul>li { display: inline-block; margin: 0 4px; }
+
+.pagination ul>li>a, .pagination ul>li>span { border-left-width: 1px; line-height: 12px; padding: 4px 8px; }
+.pagination ul>li>a, .pagination ul>li>span { background: black; color: white; }
+.pager li>a, .pager li>span { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+
+.headline, .heading, .tab-anchor{ font-family: 'Oswald', sans-serif; font-weight: 300; }
+
+.poster { margin-bottom: 20px; }
+
+.search-form { margin: 0; height: 60px; }

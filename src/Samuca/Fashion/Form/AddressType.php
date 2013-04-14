@@ -12,7 +12,11 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('location')
+            ->add('location')            
+            ->add('region', 'entity', array(
+              'class' => 'Samuca\Fashion\Entity\Region',
+              'property' => 'name'
+            ))
         ;
     }
 

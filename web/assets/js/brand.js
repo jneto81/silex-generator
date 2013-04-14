@@ -5,11 +5,15 @@ var Brand = (function ($) {
   var addressesHolder = $('#addresses');
   var $addAddressLink, $newAddressLinkLi;
 
+  var postersHolder = $('#posters');
+  var $addPosterLink, $newPosterLinkLi;
+  
   return {
     translation: {
       'delete': 'delete',
       'Add a network': 'Add a network',
-      'Add a address': 'Add a address'
+      'Add a address': 'Add a address',
+      'Add a poster': 'Add a poster'
     },
   
     init: function () {
@@ -26,9 +30,13 @@ var Brand = (function ($) {
       $addAddressLink = $('<a href="#" class="add_address_link btn btn-mini">' + Brand.translation['Add a address'] + '</a>');
       $newAddressLinkLi = $('<li></li>').prepend($addAddressLink);
       
+      $addPosterLink = $('<a href="#" class="add_poster_link btn btn-mini">' + Brand.translation['Add a poster'] + '</a>');
+      $newPosterLinkLi = $('<li></li>').prepend($addPosterLink);
+      
       Brand.dettachForms();
       Brand.networks();
       Brand.addresses();
+      Brand.posters();
     },
     
     dettachForms: function () {
@@ -49,6 +57,27 @@ var Brand = (function ($) {
           .children(':odd')
           .addClass('odd');
       });
+    },
+    
+    posters: function () {
+      postersHolder.find('.even, .odd').each(function() {
+        Brand.addFormDeleteLink($(this));
+      });
+    
+      // add the "add a tag" anchor and li to the tags ul
+      postersHolder.prepend($newPosterLinkLi);
+
+      // count the current form inputs we have (e.g. 2), use that as the new
+      // index when inserting a new item (e.g. 2)
+      postersHolder.attr('data-index', postersHolder.find('.even, .odd').length);
+
+      $addPosterLink.on('click', function (event) {
+        // prevent the link from creating a "#" on the URL
+        event.preventDefault();
+
+        // add a new tag form (see next code block)
+        Brand.addForm(postersHolder, postersHolder.find('.node').children().eq(0));
+      });      
     },
     
     networks: function () {

@@ -55,12 +55,6 @@ class Brand
   private $keyword;
    
   /**
-   * @ManyToOne(targetEntity="Region")
-   * @JoinColumn(name="region_id", referencedColumnName="id")
-   */
-  private $region;
-  
-  /**
    * @OneToMany(targetEntity="Address", mappedBy="brand", cascade={"persist","remove"})
    */
   private $addresses;
@@ -76,12 +70,19 @@ class Brand
   private $medias;
   
   /**
+   * @OneToMany(targetEntity="Poster", mappedBy="brand", cascade={"persist","remove"})
+   */
+  private $posters;
+  
+  /**
    * Constructor
    */
   public function __construct()
   {
       $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
       $this->networks = new \Doctrine\Common\Collections\ArrayCollection();
+      $this->posters = new \Doctrine\Common\Collections\ArrayCollection();
+      $this->medias = new \Doctrine\Common\Collections\ArrayCollection();
   }
   
   /**
@@ -236,29 +237,6 @@ class Brand
       return $this->keyword;
   }
 
-  /**
-   * Set region
-   *
-   * @param string $region
-   * @return Shopping
-   */
-  public function setRegion($region)
-  {
-      $this->region = $region;
-  
-      return $this;
-  }
-
-  /**
-   * Get region
-   *
-   * @return string 
-   */
-  public function getRegion()
-  {
-      return $this->region;
-  }
-
   public function setAddresses(\Doctrine\Common\Collections\ArrayCollection $addresses)
   {
     foreach ($addresses as $address) {
@@ -349,59 +327,81 @@ class Brand
       return $this->networks;
   }
 
-    /**
-     * Add medias
-     *
-     * @param \Samuca\Fashion\Entity\Media $medias
-     * @return Brand
-     */
-    public function addMedia(\Samuca\Fashion\Entity\Media $medias)
-    {
-        $this->medias[] = $medias;
+  /**
+   * Add media
+   *
+   * @param \Samuca\Fashion\Entity\Media $media
+   * @return Brand
+   */
+  public function addMedia(\Samuca\Fashion\Entity\Media $media)
+  {
+    $this->medias[] = $media;
+
+    return $this;
+  }
+
+  /**
+   * Remove media
+   *
+   * @param \Samuca\Fashion\Entity\Media $media
+   */
+  public function removeMedia(\Samuca\Fashion\Entity\Media $media)
+  {
+    $this->medias->removeElement($media);
+  }
+
+  /**
+   * Get medias
+   *
+   * @return \Doctrine\Common\Collections\Collection 
+   */
+  public function getMedias()
+  {
+    return $this->medias;
+  }
+  
+  /**
+   * Add poster
+   *
+   * @param \Samuca\Fashion\Entity\Poster $poster
+   * @return Brand
+   */
+  public function addPoster(\Samuca\Fashion\Entity\Poster $poster)
+  {
+    $poster->setBrand($this);
+    $this->posters[] = $poster;
+
+    return $this;
+  }
+
+  /**
+   * Remove poster
+   *
+   * @param \Samuca\Fashion\Entity\Poster $poster
+   */
+  public function removePoster(\Samuca\Fashion\Entity\Poster $poster)
+  {
+    $this->posters->removeElement($poster);
+  }
+
+  /**
+   * Get posters
+   *
+   * @return \Doctrine\Common\Collections\Collection 
+   */
+  public function getPosters()
+  {
+    return $this->posters;
+  }
+  
+  public function setPosters(\Doctrine\Common\Collections\ArrayCollection $posters)
+  {
+    foreach ($posters as $poster) {
+      $poster->setBrand($this);
+    }
+
+    $this->posters = $posters;
     
-        return $this;
-    }
-
-    /**
-     * Remove medias
-     *
-     * @param \Samuca\Fashion\Entity\Media $medias
-     */
-    public function removeMedia(\Samuca\Fashion\Entity\Media $medias)
-    {
-        $this->medias->removeElement($medias);
-    }
-
-    /**
-     * Get medias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMedias()
-    {
-        return $this->medias;
-    }
-
-    /**
-     * Add addresses
-     *
-     * @param \Samuca\Fashion\Entity\Address $addresses
-     * @return Brand
-     */
-    public function addAddresse(\Samuca\Fashion\Entity\Address $addresses)
-    {
-        $this->addresses[] = $addresses;
-    
-        return $this;
-    }
-
-    /**
-     * Remove addresses
-     *
-     * @param \Samuca\Fashion\Entity\Address $addresses
-     */
-    public function removeAddresse(\Samuca\Fashion\Entity\Address $addresses)
-    {
-        $this->addresses->removeElement($addresses);
-    }
+    return $this;
+  }
 }

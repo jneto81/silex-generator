@@ -43,10 +43,9 @@ class BrandController extends Controller
     public function gridAction(Request $request, Application $app)
     {
       $queryBuilder = $app['db.orm.em']->createQueryBuilder()
-        ->select('brand, segment.name AS s_name, region.name AS r_name')
+        ->select('brand, segment.name AS s_name')
         ->from('Samuca\Fashion\Entity\Brand', 'brand')
         ->leftJoin('brand.segment', 'segment')
-        ->leftJoin('brand.region', 'region')
         ;
       
       $paginatorConfig = new PaginatorConfig();
@@ -80,7 +79,7 @@ class BrandController extends Controller
         ->addField(new Field('brand.description', array(
           'label' => 'Description',
           'formatValueCallback' => function ($value) { 
-            return utf8_encode(html_entity_decode(\Samir\Twig\Extensions\TextExtension::wordwrap($value, 50, "..."))); 
+            return html_entity_decode(\Samir\Twig\Extensions\TextExtension::wordwrap($value, 50, "..."), ENT_COMPAT, 'UTF-8'); 
           }
         )))
         ->addField(new Field('brand.type', array(
@@ -88,9 +87,6 @@ class BrandController extends Controller
         )))
         ->addField(new Field('brand.keyword', array(
           'label' => 'Keyword'
-        )))
-        ->addField(new Field('r_name', array(
-          'label' => 'Region'
         )))
         ->setPaginatorConfig($paginatorConfig)
       ;
@@ -164,7 +160,7 @@ class BrandController extends Controller
 					$app['db.orm.em']->persist($entity);
 					$app['db.orm.em']->flush();
 	
-										return $app->redirect($app['url_generator']->generate('brand_show', array(
+          return $app->redirect($app['url_generator']->generate('brand_show', array(
 						'id' => $entity->getId()
 					)));
       }
@@ -217,8 +213,13 @@ class BrandController extends Controller
 				return $app->abort(404, 'Unable to find Brand entity.');
 			}
       
+      $originalPosters = array();
       $originalAddresses = array();
       $originalNetworks = array();
+      
+      foreach ($entity->getPosters() as $poster) {
+        $originalPosters[] = $poster;
+      }
       
       foreach ($entity->getAddresses() as $address) {
         $originalAddresses[] = $address;
@@ -233,7 +234,19 @@ class BrandController extends Controller
 			$editForm->bind($request);
 
 			if ($editForm->isValid()) {
-        // filter $original to contain tags no longer present
+        foreach ($entity->getPosters() as $poster) {
+          foreach ($originalPosters as $key => $toDel) {
+            if ($toDel->getId() === $poster->getId()) {
+              unset($originalPosters[$key]);
+            }
+          }
+        }
+        
+        foreach ($originalPosters as $poster) {
+            // remove the Brand from the Poster            
+            $app['db.orm.em']->remove($poster);
+        }
+        
         foreach ($entity->getAddresses() as $address) {
           foreach ($originalAddresses as $key => $toDel) {
             if ($toDel->getId() === $address->getId()) {
@@ -265,7 +278,7 @@ class BrandController extends Controller
         $app['db.orm.em']->persist($entity);
         $app['db.orm.em']->flush();
         
-        return $app->redirect($app['url_generator']->generate('brand_edit', array(
+        return $app->redirect($app['url_generator']->generate('brand_show', array(
           'id' => $id
         )));
 			}

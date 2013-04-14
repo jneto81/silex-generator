@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>{{ "Media"|trans }} {{ "creation"|trans }}</h1>
+<h1>{{ "Poster"|trans }} {{ "creation"|trans }}</h1>
 
 {% if form.vars.errors|length %}
 <div class="alert alert-error">
@@ -16,7 +16,7 @@
   {{ "Format not allowed."|trans }}
 </div>
 
-<form action="{{ path('media_create') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('poster_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_rest(form) }}
     
     <p>
@@ -26,7 +26,7 @@
 
 <ul class="record_actions unstyled container inline">
     <li>
-        <a class="btn btn-small" href="{{ path('media') }}">
+        <a class="btn btn-small" href="{{ path('poster') }}">
             {{ "Back to the list"|trans }}
         </a>
     </li>
@@ -39,13 +39,11 @@
 {% endblock %}
 
 {% block javascripts %}
-
 <script src="/assets/js/bootstrap-fileupload.min.js"></script>
 <script src="/assets/js/upload.v2.js"></script>
-
 <script>
-	$(function () { 
-		Upload.init('#submit-btn');
+	$(function () {    
+    Upload.init('#submit-btn');
 	});
 </script>
 {% endblock %}

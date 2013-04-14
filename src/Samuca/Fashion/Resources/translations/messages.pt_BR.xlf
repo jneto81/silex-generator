@@ -243,8 +243,48 @@
         <target>excluir</target>
       </trans-unit>
       <trans-unit id="61">
+        <source>Format not allowed.</source>
+        <target>Formato não permitido.</target>
+      </trans-unit>
+      <trans-unit id="62">
         <source>No results found.</source>
         <target>Nenhum resultado encontrado.</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Poster</source>
+        <target>Banner</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Size</source>
+        <target>Tamanho</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Add a poster</source>
+        <target>Adicionar um banner</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Posters</source>
+        <target>Banners</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Addresses</source>
+        <target>Endereços</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Networks</source>
+        <target>Redes Sociais</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>No data found</source>
+        <target>Nenhum registro encontrado</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Large</source>
+        <target>Topo</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Medium</source>
+        <target>Lateral</target>
       </trans-unit>
     </body>
   </file>

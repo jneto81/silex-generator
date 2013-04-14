@@ -1,0 +1,65 @@
+{% extends 'default.html.twig' %}
+
+{% block content %}
+
+<h1>{{ "Poster"|trans }} {{ "list"|trans }}</h1>
+
+<ul class="unstyled container">
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('poster_new') }}">
+            {{ "Create a new entry"|trans }}
+        </a>
+    </li>
+</ul>
+
+<table class="records_list table table-striped table-hover table-condensed span12">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>{{ "Size"|trans }}</th>
+            <th>{{ "Link"|trans }}</th>
+            <th>{{ "Src"|trans }}</th>
+            <!--
+            <th>{{ "Brand"|trans }}</th>
+            -->
+            <th>{{ "Actions"|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('poster_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.size }}</td>
+            <td>{{ entity.link }}</td>
+            <td>
+            {% if entity.src is not null %}
+              <img src="/uploads/thumbs/{{ entity.src }}">
+            {% endif %}
+            </td>
+            <!--
+            <td>{{ entity.brand is not null ? entity.brand.name : '' }}</td>
+            -->
+            <td>
+                <ul class="unstyled inline">
+                    <li>
+                        <a class="btn btn-mini" href="{{ path('poster_show', { 'id': entity.id }) }}">{{ "show"|trans }}</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-mini" href="{{ path('poster_edit', { 'id': entity.id }) }}">{{ "edit"|trans }}</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul class="unstyled container">
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('poster_new') }}">
+            {{ "Create a new entry"|trans }}
+        </a>
+    </li>
+</ul>
+
+{% endblock %}

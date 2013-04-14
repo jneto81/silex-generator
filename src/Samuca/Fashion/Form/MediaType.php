@@ -10,6 +10,8 @@ class MediaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+      global $app;
+    
         $builder
             ->add('title')
             ->add('caption')
@@ -17,7 +19,14 @@ class MediaType extends AbstractType
               'class' => 'Samuca\Fashion\Entity\Brand',
               'property' => 'name'
             ))
-            ->add('src')
+            ->add('src', 'bootstrap_file', array(
+              'data_class' => null,
+              'attr' => array(
+                'url'   => $app['url_generator']->generate('upload'),
+                'allow' => 'jpe?g|png',
+                'dir'   => '/uploads',
+              )
+            ))
         ;
     }
 

@@ -11,10 +11,13 @@
 </div>
 {% endif %}
 
+<div id="upload-error" class="alert alert-error hide">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ "Format not allowed."|trans }}
+</div>
+
 <form action="{{ path('media_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_rest(edit_form) }}
-		
-    {% include 'upload.html.twig' %}
     
     <p>
         <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Save"|trans }}</button>
@@ -45,20 +48,11 @@
 {% block javascripts %}
 
 <script src="/assets/js/bootstrap-fileupload.min.js"></script>
-<script src="/assets/js/upload.js"></script>
+<script src="/assets/js/upload.v2.js"></script>
 
 <script>
 	$(function () { 
-		Upload.init({
-			url: '{{ path('upload') }}',
-      allow: [ 'jpe?g' ],
-      dir: '/uploads',
-      showProgress: true,
-      end: function (data) {
-    	  $('#samuca_fashion_mediatype_src').after('<img src="/uploads/thumbs/' + data.name + '">');
-			},   
-      thumbnail: true      
-		}, '#samuca_fashion_mediatype_src');
+		Upload.init('#submit-btn');
 	});
 </script>
 {% endblock %}

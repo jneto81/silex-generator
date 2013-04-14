@@ -18,6 +18,7 @@
             <th>Id</th>
             <th>{{ "Name"|trans }}</th>
             <th>{{ "Location"|trans }}</th>
+            <th>{{ "Region"|trans }}</th>
             <th>{{ "Brand"|trans }}</th>
             <th>{{ "Actions"|trans }}</th>
         </tr>
@@ -28,6 +29,7 @@
             <td><a href="{{ path('address_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.name }}</td>
             <td>{{ entity.location }}</td>
+            <td>{{ entity.region is not null ? entity.region.name : '' }}</td>
             <td>{{ entity.brand.name }}</td>
             <td>
                 <ul class="unstyled inline">

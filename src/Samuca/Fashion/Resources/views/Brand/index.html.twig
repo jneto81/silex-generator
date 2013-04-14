@@ -22,7 +22,6 @@
 						<th>{{ "Description"|trans }}</th>
 						<th>{{ "Type"|trans }}</th>
 						<th>{{ "Keyword"|trans }}</th>
-						<th>{{ "Region"|trans }}</th>
             <th>{{ "Actions"|trans }}</th>
         </tr>
     </thead>
@@ -40,8 +39,7 @@
 						<td>{{ wordwrap(entity.description, 50, "...")|raw }}</td>
 						<td>{{ entity.type }}</td>
 						<td>{{ entity.keyword }}</td>
-						<td>{{ entity.region is not null ? entity.region.name : '' }}</td>
-            <td>
+						<td>
                 <ul class="unstyled inline">
                     <li>
                         <a class="btn btn-mini" href="{{ path('brand_show', { 'id': entity.id }) }}">{{ "show"|trans }}</a>

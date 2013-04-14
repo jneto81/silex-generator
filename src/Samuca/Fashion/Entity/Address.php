@@ -30,6 +30,12 @@ class Address
   private $location;
   
   /**
+   * @ManyToOne(targetEntity="Region")
+   * @JoinColumn(name="region_id", referencedColumnName="id")
+   */
+  private $region;
+  
+  /**
    * @ManyToOne(targetEntity="Brand", inversedBy="addresses", fetch="LAZY")    
    */
   private $brand;
@@ -89,6 +95,29 @@ class Address
     {
         return $this->name;
     }
+    
+  /**
+   * Set region
+   *
+   * @param string $region
+   * @return Shopping
+   */
+  public function setRegion($region)
+  {
+      $this->region = $region;
+  
+      return $this;
+  }
+
+  /**
+   * Get region
+   *
+   * @return string 
+   */
+  public function getRegion()
+  {
+      return $this->region;
+  }
 
     /**
      * Set location

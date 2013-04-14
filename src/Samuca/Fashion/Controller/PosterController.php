@@ -3,67 +3,37 @@
 namespace Samuca\Fashion\Controller;
 
 use Silex\Application;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
-use Samuca\Fashion\Entity\Media;
-use Samuca\Fashion\Form\MediaType;
+use Samuca\Fashion\Entity\Poster;
+use Samuca\Fashion\Form\PosterType;
 use Kitpages\DataGridBundle\Model\GridConfig;
 use Kitpages\DataGridBundle\Model\PaginatorConfig;
 use Kitpages\DataGridBundle\Model\Field;
 
 /**
- * Media controller.
+ * Poster controller.
  *
- * @Route("/media")
+ * @Route("/poster")
  * @Method("GET")
  */
-class MediaController extends Controller
+class PosterController extends Controller
 {
-    /**
-     * Upload multiple Media entities.
-     *
-     * @Route("/upload", name="media_upload")
-     * @Method("POST")
-     * @Template()
-     */
-     
-    public function uploadAction(Request $request, Application $app)
-    {
-      $count = 0;
-      $mediaList = $request->get('media');
-      $brandId = $request->get('brand');      
-      if ($brand = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')->find($brandId)) {
-        foreach ($mediaList as $mediaItem) {
-          $media = new Media();
-          $media->setTitle($mediaItem['title']);
-          $media->setCaption($mediaItem['caption']);
-          $media->setSrc($mediaItem['src']);
-          $media->setBrand($brand);
-          
-          $app['db.orm.em']->persist($media);
-          $app['db.orm.em']->flush();
-          $count++;
-        }
-      }
-      
-      return $app->json($count);
-    }
-    
     public function gridAction(Request $request, Application $app)
     {
       $queryBuilder = $app['db.orm.em']->createQueryBuilder()
-        ->select('media, brand.name AS b_name')
-        ->from('Samuca\Fashion\Entity\Media', 'media')
-        ->leftJoin('media.brand', 'brand')
+        ->select('poster')
+        ->from('Samuca\Fashion\Entity\Poster', 'poster')
+        ->leftJoin('poster.brand', 'brand')
+        ->where('brand.id IS NULL')
         ;
       
       $paginatorConfig = new PaginatorConfig();
-      $paginatorConfig->setCountFieldName("media.id");
+      $paginatorConfig->setCountFieldName("poster.id");
       $paginatorConfig->setItemCountInPage(10);
       $paginatorConfig->setQueryBuilder($queryBuilder);
       $queryBuilder = $paginatorConfig->getQueryBuilder();
@@ -71,27 +41,23 @@ class MediaController extends Controller
       //echo $queryBuilder->getQuery()->getSQL();
       
       $gridConfig = new GridConfig();
-      $gridConfig->setCountFieldName('media.id')
-        ->addField(new Field('media.id', array(
+      $gridConfig->setCountFieldName('poster.id')
+        ->addField(new Field('poster.id', array(
           'label' => '#',
         )))
-        ->addField(new Field('media.title', array(
-          'filterable' => true,
-          'sortable' => true,
-          'label' => 'Title'
+        ->addField(new Field('poster.size', array(
+          'label' => 'Size',
+          'translatable' => true
         )))
-        ->addField(new Field('b_name', array(
-          'label' => 'Brand'
+         ->addField(new Field('poster.link', array(
+          'label' => 'Link'
         )))
-        ->addField(new Field('media.src', array(
+        ->addField(new Field('poster.src', array(
           'label' => 'Image',
-          'autoEscape' => false,
+          'autoEscape' => false,          
           'formatValueCallback' => function ($value) { 
             return empty($value) ? '' : '<img src="/uploads/thumbs/' . $value . '">'; 
           }
-        )))        
-        ->addField(new Field('media.caption', array(
-          'label' => 'Caption'
         )))
         ->setPaginatorConfig($paginatorConfig)
       ;
@@ -101,7 +67,7 @@ class MediaController extends Controller
       $entities = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
 				->findAll();
       
-			return $app['twig']->render('Media\grid.html.twig', array(
+			return $app['twig']->render('Poster\grid.html.twig', array(
         'grid'  =>  $grid,
         'entities' => $entities, 
         'paginator' => $paginator
@@ -109,96 +75,96 @@ class MediaController extends Controller
     }
 
     /**
-     * Finds and displays a Media entity.
+     * Finds and displays a Poster entity.
      *
-     * @Route("/{id}/show", name="media_show")
+     * @Route("/{id}/show", name="poster_show")
      * @Method("GET")
      * @Template()
      */
     public function showAction($id, Application $app)
     {
-			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Media')
+			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Poster')
 				->find($id);
 
 			if ( ! $entity) {
-					return $app->abort(404, 'Unable to find Media entity.');
+					return $app->abort(404, 'Unable to find Poster entity.');
 			}
 
 			$deleteForm = $this->createDeleteForm($id);
 						
-			return $app['twig']->render('Media\show.html.twig', array(
+			return $app['twig']->render('Poster\show.html.twig', array(
 				'entity'      => $entity,
         'delete_form' => $deleteForm->createView()			
       ));
     }
 
     /**
-     * Displays a form to create a new Media entity.
+     * Displays a form to create a new Poster entity.
      *
-     * @Route("/new", name="media_new")
+     * @Route("/new", name="poster_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction(Application $app)
     {
-        $entity = new Media();
+        $entity = new Poster();
 				
-				$form = $app['form.factory']->create(new MediaType(), $entity, array());
+				$form = $app['form.factory']->create(new PosterType(), $entity, array());
 				
-				return $app['twig']->render('Media\new.html.twig', array(
+				return $app['twig']->render('Poster\new.html.twig', array(
 						'entity' => $entity,
 						'form'   => $form->createView(),
 				));
     }
 
     /**
-     * Creates a new Media entity.
+     * Creates a new Poster entity.
      *
-     * @Route("/create", name="media_create")
+     * @Route("/create", name="poster_create")
      * @Method("POST")
-     * @Template("Media:Media:new.html.twig")
+     * @Template("Poster:Poster:new.html.twig")
      */
     public function createAction(Request $request, Application $app)
     {
-			$entity  = new Media();
-			$form = $app['form.factory']->create(new MediaType(), $entity, array());
+			$entity  = new Poster();
+			$form = $app['form.factory']->create(new PosterType(), $entity, array());
 			$form->bind($request);
 
 			if ($form->isValid()) {
         $app['db.orm.em']->persist($entity);
         $app['db.orm.em']->flush();
 
-        return $app->redirect($app['url_generator']->generate('media_show', array(
+        return $app->redirect($app['url_generator']->generate('poster_show', array(
           'id' => $entity->getId()
         )));
       }
 			
-			return $app['twig']->render('Media\new.html.twig', array(
+			return $app['twig']->render('Poster\new.html.twig', array(
 					'entity' => $entity,
 					'form'   => $form->createView()
 			));
     }
 
     /**
-     * Displays a form to edit an existing Media entity.
+     * Displays a form to edit an existing Poster entity.
      *
-     * @Route("/{id}/edit", name="media_edit")
+     * @Route("/{id}/edit", name="poster_edit")
      * @Method("GET")
      * @Template()
      */
     public function editAction($id, Application $app)
     {
-			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Media')
+			$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Poster')
 				->find($id);
 
 			if ( ! $entity) {
-					return $app->abort(404, 'Unable to find Media entity.');
+					return $app->abort(404, 'Unable to find Poster entity.');
 			}
 
-			$editForm = $app['form.factory']->create(new MediaType(), $entity, array());
+			$editForm = $app['form.factory']->create(new PosterType(), $entity, array());
 			$deleteForm = $this->createDeleteForm($id);
 
-			return $app['twig']->render('Media\edit.html.twig', array(
+			return $app['twig']->render('Poster\edit.html.twig', array(
 					'entity'      => $entity,
 					'edit_form'   => $editForm->createView(),
 					'delete_form' => $deleteForm->createView(),
@@ -206,35 +172,35 @@ class MediaController extends Controller
     }
 
     /**
-     * Edits an existing Media entity.
+     * Edits an existing Poster entity.
      *
-     * @Route("/{id}/update", name="media_update")
+     * @Route("/{id}/update", name="poster_update")
      * @Method("POST")
-     * @Template("Media:Media:edit.html.twig")
+     * @Template("Poster:Poster:edit.html.twig")
      */
     public function updateAction(Request $request, $id, Application $app)
     {
-      $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Media')
+      $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Poster')
 				->find($id);
 
 			if ( ! $entity) {
-				return $app->abort(404, 'Unable to find Media entity.');
+				return $app->abort(404, 'Unable to find Poster entity.');
 			}
 
 			$deleteForm = $this->createDeleteForm($id);
-			$editForm = $app['form.factory']->create(new MediaType(), $entity, array());
+			$editForm = $app['form.factory']->create(new PosterType(), $entity, array());
 			$editForm->bind($request);
 
 			if ($editForm->isValid()) {
         $app['db.orm.em']->persist($entity);
         $app['db.orm.em']->flush();
         
-        return $app->redirect($app['url_generator']->generate('media_show', array(
+        return $app->redirect($app['url_generator']->generate('poster_show', array(
           'id' => $id
         )));
 			}
 
-			return $app['twig']->render('Media\edit.html.twig', array(
+			return $app['twig']->render('Poster\edit.html.twig', array(
 					'entity'      => $entity,
 					'edit_form'   => $editForm->createView(),
 					'delete_form' => $deleteForm->createView(),
@@ -242,9 +208,9 @@ class MediaController extends Controller
     }
 
     /**
-     * Deletes a Media entity.
+     * Deletes a Poster entity.
      *
-     * @Route("/{id}/delete", name="media_delete")
+     * @Route("/{id}/delete", name="poster_delete")
      * @Method("POST")
      */
     public function deleteAction(Request $request, $id, Application $app)
@@ -253,18 +219,18 @@ class MediaController extends Controller
 			$form->bind($request);
 
 			if ($form->isValid()) {
-        $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Media')
+        $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Poster')
           ->find($id);
 
         if ( ! $entity) {
-          return $app->abort(404, 'Unable to find Media entity.');
+          return $app->abort(404, 'Unable to find Poster entity.');
         }
 
         $app['db.orm.em']->remove($entity);
         $app['db.orm.em']->flush();
 			}
 			
-			return $app->redirect($app['url_generator']->generate('media'));
+			return $app->redirect($app['url_generator']->generate('poster'));
     }
 
     private function createDeleteForm($id)

@@ -18,6 +18,11 @@
             <th>{{ "Location"|trans }}</th>
             <td>{{ entity.location }}</td>
         </tr>
+        
+        <tr>
+            <th>{{ "Region"|trans }}</th>
+            <td>{{ entity.region is not null ? entity.region.name : '' }}</td>
+        </tr>
         <tr>
             <th>{{ "Brand"|trans }}</th>
             <td>{{ entity.brand.name }}</td>

@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<h1>{{ "Media"|trans }} {{ "creation"|trans }}</h1>
+<h1>{{ "Poster"|trans }} {{ "edit"|trans }}</h1>
 
-{% if form.vars.errors|length %}
+{% if edit_form.vars.errors|length %}
 <div class="alert alert-error">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
-  {{ form_errors(form) }}
+  {{ form_errors(edit_form) }}
 </div>
 {% endif %}
 
@@ -16,19 +16,25 @@
   {{ "Format not allowed."|trans }}
 </div>
 
-<form action="{{ path('media_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_rest(form) }}
+<form action="{{ path('poster_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_rest(edit_form) }}
     
     <p>
-        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Create"|trans }}</button>
+        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Save"|trans }}</button>
     </p>
 </form>
 
 <ul class="record_actions unstyled container inline">
     <li>
-        <a class="btn btn-small" href="{{ path('media') }}">
+        <a class="btn btn-small" href="{{ path('poster') }}">
             {{ "Back to the list"|trans }}
         </a>
+    </li>
+    <li>
+        <form action="{{ path('poster_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-small btn-danger" type="submit">{{ "Delete"|trans }}</button>
+        </form>
     </li>
 </ul>
 
@@ -39,13 +45,11 @@
 {% endblock %}
 
 {% block javascripts %}
-
 <script src="/assets/js/bootstrap-fileupload.min.js"></script>
 <script src="/assets/js/upload.v2.js"></script>
-
 <script>
-	$(function () { 
-		Upload.init('#submit-btn');
+	$(function () {
+    Upload.init('#submit-btn');
 	});
 </script>
 {% endblock %}

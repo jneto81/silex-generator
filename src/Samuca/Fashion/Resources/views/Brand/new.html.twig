@@ -11,9 +11,15 @@
 </div>
 {% endif %}
 
+<div id="upload-error" class="alert alert-error hide">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ "Format not allowed."|trans }}
+</div>
+
 <ul class="nav nav-tabs" id="#tab-menu">
   <li><a href="#tab-addresses" data-toggle="tab">{{ "Addresses"|trans }}</a></li>
   <li><a href="#tab-networks" data-toggle="tab">{{ "Networks"|trans }}</a></li>
+  <li><a href="#tab-posters" data-toggle="tab">{{ "Posters"|trans }}</a></li>
   <li class="active"><a href="#tab-brand" data-toggle="tab">{{ "Brand"|trans }}</a></li>
 </ul>
 
@@ -35,16 +41,22 @@
       </ul>
     </div>
     
-    <div class="tab-pane active" id="tab-brand">  
-      {{ form_rest(form) }}
-    
-      {% include 'upload.html.twig' %}
-      </div>
+    <div class="tab-pane" id="tab-posters">
+      <ul id="posters" class="unstyled embedded" data-prototype="{{ form_widget(form.posters.vars.prototype)|e }}">
+        <li class="node">
+        {{ form_widget(form.posters) }}
+        </li>
+      </ul>
     </div>
     
-    <p>
-        <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Create"|trans }}</button>
-    </p>
+    <div class="tab-pane active" id="tab-brand">  
+      {{ form_rest(form) }}
+    </div>
+  </div>
+    
+  <p>
+      <button class="btn btn-small btn-primary" id="submit-btn" type="submit">{{ "Create"|trans }}</button>
+  </p>
 </form>
 
 <ul class="record_actions unstyled container inline">
@@ -69,27 +81,20 @@
 <script src="/assets/js/brand.js"></script>
 
 <script src="/assets/js/bootstrap-fileupload.min.js"></script>
-<script src="/assets/js/upload.js"></script>
+<script src="/assets/js/upload.v2.js"></script>
 
 <script>
 	$(function () {
     Brand.translation = {
       'delete': '{{ "delete"|trans }}',
       'Add a network': '{{ "Add a network"|trans }}',
-      'Add a address': '{{ "Add a address"|trans }}'
+      'Add a address': '{{ "Add a address"|trans }}',
+      'Add a poster': '{{ "Add a poster"|trans }}'
     };
     Brand.init();
   
-		Upload.init({
-			url: '{{ path('upload') }}',
-      allow: [ 'jpe?g' ],
-      dir: '/uploads',
-      showProgress: true,
-      end: function (data) {
-    	  $('#samuca_fashion_brandtype_logo').after('<img src="/uploads/thumbs/' + data.name + '">');
-			},  
-      thumbnail: true
-		}, '#samuca_fashion_brandtype_logo');
-	});
+		var embedded = new EmbeddedUpload('#submit-btn');
+    embedded.init('#tab-brand, #tab-posters .odd, #tab-posters .even');
+  });
 </script>
 {% endblock %}

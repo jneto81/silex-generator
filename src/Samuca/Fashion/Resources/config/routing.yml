@@ -68,3 +68,12 @@ Samuca\Fashion\Controller\RegionController:
     region_edit: { pattern: '/region/{id}/edit', method: get, action: editAction }
     region_update: { pattern: '/region/{id}/update', method: post, action: updateAction }
     region_delete: { pattern: '/region/{id}/delete', method: post, action: deleteAction }
+
+Samuca\Fashion\Controller\PosterController:
+    poster: { pattern: /poster, method: get, action: gridAction }
+    poster_show: { pattern: '/poster/{id}/show', method: get, action: showAction }
+    poster_new: { pattern: /poster/new, method: get, action: newAction }
+    poster_create: { pattern: /poster/create, method: post, action: createAction }
+    poster_edit: { pattern: '/poster/{id}/edit', method: get, action: editAction }
+    poster_update: { pattern: '/poster/{id}/update', method: post, action: updateAction }
+    poster_delete: { pattern: '/poster/{id}/delete', method: post, action: deleteAction }

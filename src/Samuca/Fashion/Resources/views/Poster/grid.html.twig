@@ -1,0 +1,43 @@
+{% extends 'default.html.twig' %}
+
+{% block content %}
+
+<h1>{{ "Poster"|trans }} {{ "list"|trans }}</h1>
+
+<ul class="unstyled container">
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('poster_new') }}">
+            {{ "Create a new entry"|trans }}
+        </a>
+    </li>
+</ul>
+
+{% embed 'Grid\\grid.html.twig' with {'grid': grid} %}
+  {% block kit_grid_thead_column %}
+    <th>{{ "Actions"|trans }}</th>
+  {% endblock %}
+
+  {% block kit_grid_tbody_column %}
+    <td>
+      <ul class="unstyled inline">
+        <li>
+            <a class="btn btn-mini" href="{{ path('poster_show', { 'id': item.id }) }}">{{ "show"|trans }}</a>
+        </li>
+        <li>
+            <a class="btn btn-mini" href="{{ path('poster_edit', { 'id': item.id }) }}">{{ "edit"|trans }}</a>
+        </li>
+      </ul>
+    </td>
+  {% endblock %}
+
+{% endembed %}
+
+<ul class="unstyled container">
+    <li>
+        <a class="btn btn-small btn-primary" href="{{ path('poster_new') }}">
+            {{ "Create a new entry"|trans }}
+        </a>
+    </li>
+</ul>
+
+{% endblock %}

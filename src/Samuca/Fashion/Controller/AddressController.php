@@ -98,10 +98,10 @@ class AddressController extends Controller
 					$app['db.orm.em']->persist($entity);
 					$app['db.orm.em']->flush();
 	
-										return $app->redirect($app['url_generator']->generate('address_show', array(
+          return $app->redirect($app['url_generator']->generate('address_show', array(
 						'id' => $entity->getId()
 					)));
-								}
+      }
 			
 			return $app['twig']->render('Address\new.html.twig', array(
 					'entity' => $entity,
@@ -159,7 +159,7 @@ class AddressController extends Controller
 					$app['db.orm.em']->persist($entity);
 					$app['db.orm.em']->flush();
 					
-					return $app->redirect($app['url_generator']->generate('address_edit', array(
+					return $app->redirect($app['url_generator']->generate('address_show', array(
 						'id' => $id
 					)));
 			}

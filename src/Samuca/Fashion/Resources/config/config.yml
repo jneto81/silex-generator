@@ -4,7 +4,7 @@ Samir\Provider\ConstantsBagServiceProvider:
 Silex\Provider\DoctrineServiceProvider:
   db.options:
     driver:   pdo_mysql
-    host:     192.168.56.1
+    host:     192.168.137.168 
     dbname:   fashiondb
     user:     fashiondb
     password: fashiondb
@@ -19,9 +19,14 @@ Nutwerk\Provider\DoctrineORMServiceProvider:
       
 Silex\Provider\ServiceControllerServiceProvider: ~
 Silex\Provider\UrlGeneratorServiceProvider: ~
-Samir\Provider\FormServiceProvider: ~
 Silex\Provider\SessionServiceProvider: ~
 Neutron\Silex\Provider\FilesystemServiceProvider: ~
+
+Samir\Provider\FormServiceProvider: 
+  form.types:
+    - 'Samir\Form\Type\BootstrapFileType'
+  form.templates:
+    - fields.html.twig
 
 Samir\Provider\SecurityServiceProvider:
   security.firewalls:
@@ -52,6 +57,9 @@ Samir\Provider\TwigServiceProvider:
   twig.path:        
     - '%root_dir%/src/Samuca/Fashion/Resources/views'
   twig.class_path:  '%root_dir%/vendor/twig/twig/lib'  
+  #twig.form.templates:
+    #- fields.html.twig
+    #- '%root_dir%/vendor/samir/src/Samir/Form/Resources/views/Form/fields.html.twig'
   twig.options:
     cache:          '%root_dir%/cache'
     debug:          true
@@ -63,8 +71,8 @@ Samir\Provider\TwigServiceProvider:
       - { name: Media, path: /media }
       - { name: Region, path: /region }
       - { name: Segment, path: /segment }
+      - { name: Poster, path: /poster }
     use_authentication: true
-    types: [ retail, wholesale ]
     filesystem:
       title: 'FILESYSTEM'
       author: ''

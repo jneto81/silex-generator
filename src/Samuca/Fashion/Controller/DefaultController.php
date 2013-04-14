@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Samuca\Fashion\Form\SearchType;
 use Samuca\Fashion\Entity\Brand;
+use Samuca\Fashion\Entity\Poster;
 use Samir\Pagination\Paginator;
 use Samir\File\Streamer;
 use Samir\Image\Thumbnail;
@@ -35,7 +36,7 @@ class DefaultController extends Controller
      */
     public function listAction($param1 = null, $param2 = null, Request $request, Application $app)
     {
-      $data = new Brand();
+      $data = array();
       $type = new SearchType();
       $search = array();
       $values = $request->get($type->getName(), array());
@@ -61,35 +62,41 @@ class DefaultController extends Controller
       if ( ! empty($values)) {
         array_walk($values, function ($value, $key) use (&$search, $data) {
           if (strpos($key, '_')  !== 0 && ! empty($value)) {              
-              $search[$key] = $value;
-              $setter = 'set' . ucfirst($key);
-              $data->$setter($value);
+              $search['b.' . $key] = $value;
+              $data[$key] = $value;
           }
         });
       }
       
-      if (isset($search['keyword'])) {
-        $search['keyword'] = $search['name'] = implode(' OR ', array_map(function ($value) {
+      if (isset($search['b.keyword'])) {
+        $search['b.keyword'] = implode(' OR ', array_map(function ($value) {
           return "%$value%";
-        }, explode(' ', $search['keyword'])));
+        }, explode(' ', $search['b.keyword'])));
       }
       
       if (isset($letter)) {
-        $search['name'] = "$letter%";
+        $search['b.name'] = "$letter%";
+      }
+      
+      if (isset($search['b.region'])) { 
+        $search['a.region'] = $search['b.region'];
+        unset($search['b.region']);
       }
       
       $list = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
-        ->findByWildcard($search);
+        ->findByWildcardJoin($search);
         
       $paginator = new Paginator($list, $limit);
       
       $form = $app['form.factory']->create($type, $data, array())
-        ->createView();        
+        ->createView();
         
       $featured = $app['db.orm.em']->createQuery("SELECT b FROM Samuca\Fashion\Entity\Brand b ORDER BY b.id DESC")
         ->setMaxResults(3)
         ->getResult();
-        
+      
+      $posters = $this->getPosters();
+      
       return $app['twig']->render('Site\\list.html.twig', array(
         'list'            => $paginator->get($page),
         'pages'           => $paginator->pages(),
@@ -98,9 +105,12 @@ class DefaultController extends Controller
         'search_form'     => $form,
         'current_page'    => $page,
         'base_page'       => $base_page,
-        'current_type'    => isset($values['type']) ? $values['type'] : 1,
+        'current_type'    => isset($values['type']) ? $values['type'] : Brand::TYPE_RETAIL,
         'current_index'   => $letter,
-        'featured'        => $featured
+        'types'           => array( Brand::TYPE_RETAIL, Brand::TYPE_WHOLESALE ),
+        'featured'        => $featured,
+        'poster_large'    => $posters[Poster::SIZE_LARGE],
+        'poster_medium'   => $posters[Poster::SIZE_MEDIUM]
       ));
     }
     
@@ -114,13 +124,17 @@ class DefaultController extends Controller
       $entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
         ->find($id);
         
-      $form = $app['form.factory']->create(new SearchType(), new Brand(), array())
+      $form = $app['form.factory']->create(new SearchType(), array(), array())
         ->createView();
+        
+      $posters = $this->getPosters($entity);
     
       return $app['twig']->render('Site\\show.html.twig', array(
         'entity'        => $entity,
         'search_form'   => $form,
-        'referer_url'       => $request->headers->get('referer')
+        'referer_url'   => $request->headers->get('referer'),
+        'poster_large'    => $posters[Poster::SIZE_LARGE],
+        'poster_medium'   => $posters[Poster::SIZE_MEDIUM]
       ));
     }
     
@@ -165,4 +179,38 @@ class DefaultController extends Controller
 		
 			return $app->json(false);
 		}
+    
+    private function getPosters(Brand $entity = null)
+    {
+      global $app;
+    
+      $posters = array(
+        Poster::SIZE_LARGE  => array(),
+        Poster::SIZE_MEDIUM => array(),
+      );
+      
+      $defaultPosters = $app['db.orm.em']->createQuery("SELECT p FROM Samuca\Fashion\Entity\Poster p WHERE p.brand IS NULL")
+        ->getResult();
+      
+      if ($defaultPosters) {  
+        shuffle($defaultPosters);
+      
+        foreach ($defaultPosters as $poster) {
+          $posters[$poster->getSize()][] = $poster;
+        }
+      }
+      
+      if ($entity) {
+        $brandPosters = $entity->getPosters()
+          ->toArray();
+        
+        shuffle($brandPosters);
+        
+        foreach ($brandPosters as $poster) {
+          $posters[$poster->getSize()][] = $poster;
+        }      
+      }
+      
+      return $posters;
+    }
 }

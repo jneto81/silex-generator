@@ -35,9 +35,11 @@ var Upload = (function ($) {
     },
     
     load: function (data, textStatus, jqXHR) {
-      $(Upload.context).val(data.name);
+      Upload.$context.val(data.name);
       
-      Upload.options.end(data);
+      if (Upload.showPreview) {
+        Upload.$preview.attr('src', '/uploads/thumbs/' + data.name);
+      }
     },
     
     progress: function (event) {    
@@ -64,22 +66,34 @@ var Upload = (function ($) {
       }));
     },
     
-    init: function (options, context) {
-      Upload.options = options;
-      Upload.context = context;
-    
+    init: function (context) {
+      var $input = $('.fileupload :file', context.form);
+      var $context = $('.fileupload [role="file"]', context.form);
+      
+      Upload.$preview = $('.fileupload .fileupload-thumb', context.form);
+      Upload.$context = $context;
+      Upload.options = {
+        url: $context.attr('url'),
+        dir: $context.attr('dir'),
+        allow: $context.attr('allow'),
+        showProgress: Boolean(parseInt($context.attr('data-show-progress'))),
+        showPreview: Boolean(parseInt($context.attr('data-show-preview'))),
+        thumbnail: Boolean(parseInt($context.attr('data-thumbnail')))
+      };
+      
       $('.fileupload').fileupload();
-    
-      $('#submit-btn').bind('click', function (event) {
-        if ($('.fileupload :file').val()) {
+      
+      $(context).bind('click', function (event) {
+        if ($input.val()) {
           event.preventDefault();
           
           if ('form' in this && this.form) {
         	  Upload.form = this.form;
           }
           
-          var file = $('.fileupload :file').get(0).files[0];          
-          var extensions = Upload.options.allow.join('|');
+          var file = $input.get(0).files[0];          
+          //var extensions = Upload.options.allow.join('|');
+          var extensions = Upload.options.allow;
           var allow = new RegExp("(.*)\\.(" + extensions + ")$", "i");
           
           if (allow.test(file.name)) {

@@ -33,7 +33,32 @@ class BrandRepository extends EntityRepository
     }
   
     return $this->getEntityManager()
-      ->createQuery('SELECT b FROM Samuca\Fashion\Entity\Brand b' . (count($params) ? ' WHERE ' . implode(' OR ', $params) : ''))
+      ->createQuery('SELECT b FROM Samuca\Fashion\Entity\Brand b' . (count($params) ? ' WHERE ' . implode(' AND ', $params) : ''))
+      ->getResult();
+  }
+  
+  public function findByWildcardJoin($wildcard) 
+  {
+    if (empty($wildcard) || !is_array($wildcard)) {
+      $wildcard = array();
+    }
+    
+    $params = array();
+  
+    foreach ($wildcard as $col => $val) {
+      $opr = '=';
+      
+      if (strpos($val, '%') !== false && preg_match('/%?(.*)%?$/', $val))
+        $opr = 'LIKE';
+      
+      if (!is_numeric($val))
+        $val = "'$val'";
+      
+      $params[] = sprintf('%s %s %s', $col, $opr, $val);
+    }
+  
+    return $this->getEntityManager()
+      ->createQuery('SELECT b FROM Samuca\Fashion\Entity\Brand b LEFT JOIN b.addresses AS a' . (count($params) ? ' WHERE ' . implode(' AND ', $params) : ''))
       ->getResult();
   }
 }
