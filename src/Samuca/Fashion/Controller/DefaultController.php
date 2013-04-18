@@ -211,6 +211,9 @@ class DefaultController extends Controller
         }      
       }
       
+      shuffle($posters[Poster::SIZE_LARGE]);
+      shuffle($posters[Poster::SIZE_MEDIUM]);
+   
       return $posters;
     }
 }

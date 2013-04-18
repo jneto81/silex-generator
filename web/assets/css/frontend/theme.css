@@ -15,7 +15,7 @@ a { color: black; }
 .input-append .add-on:last-child, 
 .input-append .btn:last-child, 
 .input-append .btn-group:last-child>.dropdown-toggle,
-.pagination ul>li:last-child>a { border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; }
+.pagination ul>li:last-child>a { border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; text-shadow: none; }
 
 .input-append select, 
 .input-append input { border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; border: solid 1px black; font-size: 12px; }
