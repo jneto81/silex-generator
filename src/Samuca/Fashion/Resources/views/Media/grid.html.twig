@@ -17,7 +17,21 @@
     </li>
 </ul>
 
+
+    
 {% embed 'Grid\\grid.html.twig' with {'grid': grid} %}
+  {% block kit_grid_before_table %}
+    <form action="{{ path('media_bulk') }}" method="post">
+  {% endblock %}
+  
+  {% block kit_grid_thead_before_column %}
+    <th><input type="checkbox" id="checkAll" value></th>
+  {% endblock %}
+  
+  {% block kit_grid_tbody_before_column %}
+    <td><input type="checkbox" name="ids[]" value="{{ item.id }}"></td>
+  {% endblock %}
+
   {% block kit_grid_thead_column %}
     <th>{{ "Actions"|trans }}</th>
   {% endblock %}
@@ -34,8 +48,16 @@
       </ul>
     </td>
   {% endblock %}
-
+  
+  {% block kit_grid_after_table %}
+    <p>
+        <button class="btn btn-small btn-danger" type="submit">{{ "Delete checked"|trans }}</button>
+    </p>
+  </form>
+  {% endblock %}
 {% endembed %}
+
+</form>
 
 <ul class="unstyled container">
     <li>
@@ -95,6 +117,10 @@
 <script src="/assets/js/multiupload.js"></script>
 <script>
 $(function () {
+  $('#checkAll').click(function () {
+    $('.records_list :checkbox').attr('checked', $(this).is(':checked'));
+  });
+
   var mu = new MultiUpload();
   mu.init({
     url: '{{ path('upload') }}',

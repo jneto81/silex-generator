@@ -50,6 +50,7 @@ Samuca\Fashion\Controller\MediaController:
     media_edit: { pattern: '/media/{id}/edit', method: get, action: editAction }
     media_update: { pattern: '/media/{id}/update', method: post, action: updateAction }
     media_delete: { pattern: '/media/{id}/delete', method: post, action: deleteAction }
+    media_bulk: { pattern: '/media/bulk', method: post, action: bulkAction }
 
 Samuca\Fashion\Controller\SegmentController:
     segment: { pattern: /segment/, method: get, action: indexAction }

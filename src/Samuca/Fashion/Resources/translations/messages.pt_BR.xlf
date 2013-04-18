@@ -286,6 +286,10 @@
         <source>Medium</source>
         <target>Lateral</target>
       </trans-unit>
+      <trans-unit id="72">
+        <source>Delete checked</source>
+        <target>Remover selecionados</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

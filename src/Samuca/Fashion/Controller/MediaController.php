@@ -276,4 +276,25 @@ class MediaController extends Controller
 					->getForm()
 			;
     }
+    
+    public function bulkAction(Request $request, Application $app)
+    {
+      $ids = $request->get('ids');
+      
+      if (count($ids)) {
+        $entities = $app['db.orm.em']->createQuery('SELECT m FROM Samuca\Fashion\Entity\Media m WHERE m.id IN (:ids)')
+          ->setParameter('ids', $ids)
+          ->getResult();
+          
+        if ($entities) {
+          foreach ($entities as $entity) {
+            $app['db.orm.em']->remove($entity);
+          }
+          
+          $app['db.orm.em']->flush();
+        }
+      }
+      
+      return $app->redirect($app['url_generator']->generate('media'));
+    }
 }
