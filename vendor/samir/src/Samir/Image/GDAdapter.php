@@ -13,7 +13,8 @@ class GDAdapter
 	$inflate,
 	$quality,
 	$source,
-	$thumb;
+	$thumb,
+  $file;
 	
 	/**
 	 * List of accepted image types based on MIME
@@ -60,7 +61,7 @@ class GDAdapter
 		$this->options = $options;
 	}
 	
-	public function loadFile($thumbnail, $image)
+	public function _loadFile($thumbnail, $image)
 	{
 		$imgData = @GetImageSize($image);
 	
@@ -87,7 +88,8 @@ class GDAdapter
 			if ($imgData[0] == $this->maxWidth && $imgData[1] == $this->maxHeight) {
 				$this->thumb = $this->source;
 			} else {
-				imagecopyresampled($this->thumb, $this->source, 0, 0, 0, 0, $thumbnail->getThumbWidth(), $thumbnail->getThumbHeight(), $imgData[0], $imgData[1]);
+				//imagecopyresampled($this->thumb, $this->source, 0, 0, 0, 0, $thumbnail->getThumbWidth(), $thumbnail->getThumbHeight(), $imgData[0], $imgData[1]);
+        $this->keepTransparency($this->source, $this->thumb, $imgData['mime']); 
 			}
 	
 			return true;
@@ -112,7 +114,8 @@ class GDAdapter
 			if ($this->sourceWidth == $this->maxWidth && $this->sourceHeight == $this->maxHeight) {
 				$this->thumb = $this->source;
 			} else {
-				imagecopyresampled($this->thumb, $this->source, 0, 0, 0, 0, $thumbnail->getThumbWidth(), $thumbnail->getThumbHeight(), $this->sourceWidth, $this->sourceHeight);
+				//imagecopyresampled($this->thumb, $this->source, 0, 0, 0, 0, $thumbnail->getThumbWidth(), $thumbnail->getThumbHeight(), $this->sourceWidth, $this->sourceHeight);
+         $this->keepTransparency($this->source, $this->thumb, $mime); 
 			}
 	
 			return true;
@@ -120,8 +123,146 @@ class GDAdapter
 			throw new \Exception(sprintf('Image MIME type %s not supported', $mime));
 		}
 	}
+  
+  protected function keepTransparency($source_img, $dest_img, $mime)
+  {
+    if ($mime == 'image/png' || $mime == 'image/gif') {
+      $transparentIndex = @imagecolortransparent($source_img);
+      
+      if ($transparentIndex >= 0) {
+        // Get the original image's transparent color's RGB values
+        $trnprt_color = imagecolorsforindex($source_img, $transparentIndex);
+  
+        // Allocate the same color in the new image resource
+        $transparentIndex = imagecolorallocate($dest_img, $trnprt_color['red'], $trnprt_color['green'], $trnprt_color['blue']);
+  
+        // Completely fill the background of the new image with allocated color.
+        imagefill($dest_img, 0, 0, $transparentIndex);
+  
+        // Set the background color for new image to transparent
+        imagecolortransparent($dest_img, $transparentIndex);          
+      } elseif ($mime == 'image/png') {
+        // Turn off transparency blending (temporarily)
+        imagealphablending($dest_img, false);
+  
+        // Create a new transparent color for image
+        $color = imagecolorallocatealpha($dest_img, 0, 0, 0, 127);
+        // Completely fill the background of the new image with allocated color.
+        imagefill($dest_img, 0, 0, $color);
+  
+        // Restore transparency blending
+        imagesavealpha($dest_img, true);
+      }        
+    } 
+  }
+  
+  public function loadFile($thumbnail, $filename)
+  {
+    $this->file = $filename;
+  }
+  
+  public function save($thumbnail, $thumb_name, $mime, $proportional = true)
+  {
+    $width = $this->maxWidth;
+    $height = $this->maxHeight;
+    
+    if ( $height <= 0 && $width <= 0 ) {
+      return false;
+    }
+
+    $info = getimagesize($this->file);
+    $image = '';
+
+    $final_width = 0;
+    $final_height = 0;
+    list($width_old, $height_old) = $info;
+
+    if ($proportional) {
+      if ($width == 0) $factor = $height/$height_old;
+      elseif ($height == 0) $factor = $width/$width_old;
+      else $factor = min ( $width / $width_old, $height / $height_old);   
+
+      $final_width = round ($width_old * $factor);
+      $final_height = round ($height_old * $factor);
+
+    } else {
+      $final_width = ( $width <= 0 ) ? $width_old : $width;
+      $final_height = ( $height <= 0 ) ? $height_old : $height;
+    }
+    
+    switch ( $info[2] ) {
+      case IMAGETYPE_GIF:
+        $image = imagecreatefromgif($this->file);
+      break;
+      case IMAGETYPE_JPEG:
+        $image = imagecreatefromjpeg($this->file);
+      break;
+      case IMAGETYPE_PNG:
+        $image = imagecreatefrompng($this->file);
+      break;
+      default:
+        return false;
+    }
+    
+    $image_resized = imagecreatetruecolor( $final_width, $final_height );
+        
+    if ( ($info[2] == IMAGETYPE_GIF) || ($info[2] == IMAGETYPE_PNG) ) {
+      $trnprt_indx = imagecolortransparent($image);
+   
+      // If we have a specific transparent color
+      if ($trnprt_indx >= 0) {
+   
+        // Get the original image's transparent color's RGB values
+        $trnprt_color    = imagecolorsforindex($image, $trnprt_indx);
+   
+        // Allocate the same color in the new image resource
+        $trnprt_indx    = imagecolorallocate($image_resized, $trnprt_color['red'], $trnprt_color['green'], $trnprt_color['blue']);
+   
+        // Completely fill the background of the new image with allocated color.
+        imagefill($image_resized, 0, 0, $trnprt_indx);
+   
+        // Set the background color for new image to transparent
+        imagecolortransparent($image_resized, $trnprt_indx);
+   
+      
+      } 
+      // Always make a transparent background color for PNGs that don't have one allocated already
+      elseif ($info[2] == IMAGETYPE_PNG) {
+   
+        // Turn off transparency blending (temporarily)
+        imagealphablending($image_resized, false);
+   
+        // Create a new transparent color for image
+        $color = imagecolorallocatealpha($image_resized, 0, 0, 0, 127);
+   
+        // Completely fill the background of the new image with allocated color.
+        imagefill($image_resized, 0, 0, $color);
+   
+        // Restore transparency blending
+        imagesavealpha($image_resized, true);
+      }
+    }
+
+    imagecopyresampled($image_resized, $image, 0, 0, 0, 0, $final_width, $final_height, $width_old, $height_old);
+    
+    switch ( $info[2] ) {
+      case IMAGETYPE_GIF:
+        imagegif($image_resized, $thumb_name);
+      break;
+      case IMAGETYPE_JPEG:
+        imagejpeg($image_resized, $thumb_name);
+      break;
+      case IMAGETYPE_PNG:
+        imagepng($image_resized, $thumb_name);
+      break;
+      default:
+        return false;
+    }
+
+    return true;
+  }
 	
-	public function save($thumbnail, $thumbDest, $targetMime = null)
+	public function _save($thumbnail, $thumbDest, $targetMime = null)
 	{
 		if($targetMime !== null) {
 			$creator = $this->imgCreators[$targetMime];
@@ -132,7 +273,7 @@ class GDAdapter
 		if ($creator == 'imagejpeg') {
 			imagejpeg($this->thumb, $thumbDest, $this->quality);
 		} else {
-			$creator($this->thumb, $thumbDest);
+      $creator($this->thumb, $thumbDest);
 		}
 	}
 	

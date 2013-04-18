@@ -30,8 +30,8 @@ class Thumbnail
 	 */
 	public function __construct($maxWidth = null, $maxHeight = null, $scale = true, $inflate = true, $quality = 75, $adapterClass = null, $adapterOptions = array())
 	{
-		if (!$adapterClass) {
-			if (extension_loaded('gd')) {
+    if (!$adapterClass) {
+      if (extension_loaded('gd')) {
 				$this->adapter = new GDAdapter($maxWidth, $maxHeight, $scale, $inflate, $quality, $adapterOptions);
 			} else {
 				$this->adapter = new ImageMagickAdapter($maxWidth, $maxHeight, $scale, $inflate, $quality, $adapterOptions);
@@ -83,7 +83,12 @@ class Thumbnail
 	 */
 	public function save($thumbDest, $targetMime = null)
 	{
-		$this->adapter->save($this, $thumbDest, $targetMime);
+		return $this->adapter->save($this, $thumbDest, $targetMime);
+	}
+  
+  public function smartSave($thumbDest, $targetMime = null)
+	{
+		$this->adapter->smartSave($this, $thumbDest, $targetMime);
 	}
 	
 	/**
