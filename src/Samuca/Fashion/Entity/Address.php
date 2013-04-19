@@ -30,7 +30,7 @@ class Address
   private $location;
   
   /**
-   * @ManyToOne(targetEntity="Region")
+   * @ManyToOne(targetEntity="Region", cascade={"remove"})
    * @JoinColumn(name="region_id", referencedColumnName="id")
    */
   private $region;

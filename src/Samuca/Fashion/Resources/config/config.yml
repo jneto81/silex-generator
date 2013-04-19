@@ -57,17 +57,12 @@ Samir\Provider\TwigServiceProvider:
   twig.path:        
     - '%root_dir%/src/Samuca/Fashion/Resources/views'
   twig.class_path:  '%root_dir%/vendor/twig/twig/lib'  
-  #twig.form.templates:
-    #- fields.html.twig
-    #- '%root_dir%/vendor/samir/src/Samir/Form/Resources/views/Form/fields.html.twig'
   twig.options:
     cache:          '%root_dir%/cache'
     debug:          true
   twig.globals:
     menu:  
       - { name: Brand, path: /brand }
-    #  - { name: Address, path: /address }
-    #  - { name: Network, path: /network }   
       - { name: Media, path: /media }
       - { name: Region, path: /region }
       - { name: Segment, path: /segment }
@@ -77,12 +72,13 @@ Samir\Provider\TwigServiceProvider:
       title: 'FILESYSTEM'
       author: ''
       description: ''
-      keywords: ''
+      keywords: ''      
     backend: 
-      title: 'BACKEND'
+      title: 'COMPRAS BH'
       author: ''
       description: ''
       keywords: ''
+      footer: 'Fashionistando 2013'
     frontend: 
       title: 'COMPRAS BH'
       author: ''

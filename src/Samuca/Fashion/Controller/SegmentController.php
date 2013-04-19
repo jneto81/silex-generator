@@ -186,11 +186,21 @@ class SegmentController extends Controller
 			if ($form->isValid()) {
 					$entity = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Segment')
 						->find($id);
-
-					if ( ! $entity) {
+            
+          if ( ! $entity) {
 						return $app->abort(404, 'Unable to find Segment entity.');
 					}
 
+          $brands = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
+						->findBySegment($id);
+            
+          if ($brands) {
+            foreach ($brands as $brand) {
+              $brand->setSegment(null);
+              $app['db.orm.em']->persist($brand);
+            }
+          }
+          
 					$app['db.orm.em']->remove($entity);
 					$app['db.orm.em']->flush();
 			}

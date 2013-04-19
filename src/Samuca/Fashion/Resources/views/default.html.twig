@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Samuca Fashion</title>
+	<title>{{ backend.title }}</title>
 	
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="{% block description %}{% endblock %}">
-	<meta name="author" content="{% block author %}{% endblock %}">
+	<meta name="description" content="{{ backend.description }}">
+	<meta name="author" content="{{ backend.author }}">
 	
 	<link rel="shortcut icon" href="/assets/ico/favicon.ico" />
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
@@ -38,7 +38,7 @@
 						<span class="icon-bar"></span>
 					</a>
 					
-					<a class="brand" href="/">Samuca Fashion</a>
+					<a class="brand" href="/">{{ backend.title }}</a>
 					
 					<div class="nav-collapse">
             {% if use_authentication is not defined or is_granted('ROLE_ADMIN') %}
@@ -75,7 +75,7 @@
 	
 	<footer class="container-fluid pull-right"">
 		<a href="javascript:void(0);"><img src="/assets/img/vendor-logo.png"></a>
-		<p>&copy; Samuca 2013</p>
+		<p>&copy; {{ backend.footer }}</p>
 	</footer>
 	
 	<script src="/assets/js/jquery.min.js"></script>

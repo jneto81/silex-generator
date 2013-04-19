@@ -204,11 +204,18 @@ class DefaultController extends Controller
         $brandPosters = $entity->getPosters()
           ->toArray();
         
-        shuffle($brandPosters);
-        
-        foreach ($brandPosters as $poster) {
-          $posters[$poster->getSize()][] = $poster;
-        }      
+        if (count($brandPosters)) {
+          $posters = array(
+            Poster::SIZE_LARGE  => array(),
+            Poster::SIZE_MEDIUM => array(),
+          );
+          
+          shuffle($brandPosters);
+          
+          foreach ($brandPosters as $poster) {
+            $posters[$poster->getSize()][] = $poster;
+          }
+        }
       }
       
       shuffle($posters[Poster::SIZE_LARGE]);

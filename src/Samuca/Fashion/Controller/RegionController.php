@@ -188,7 +188,17 @@ class RegionController extends Controller
 					if ( ! $entity) {
 						return $app->abort(404, 'Unable to find Region entity.');
 					}
-
+          
+          $addresses = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Address')
+						->findByRegion($id);
+            
+          if ($addresses) {
+            foreach ($addresses as $address) {
+              $address->setRegion(null);
+              $app['db.orm.em']->persist($address);
+            }
+          }
+          
 					$app['db.orm.em']->remove($entity);
 					$app['db.orm.em']->flush();
 			}
