@@ -45,7 +45,7 @@ class Brand
   private $description;
   
   /**
-   * @Column(name="type", type="string", columnDefinition="ENUM('wholesail','retail')")
+   * @Column(name="type", type="string", columnDefinition="ENUM('wholesale','retail')")
    */
   private $type;
   
