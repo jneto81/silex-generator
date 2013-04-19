@@ -83,7 +83,8 @@ class BrandController extends Controller
           }
         )))
         ->addField(new Field('brand.type', array(
-          'label' => 'Type'
+          'label' => 'Type',
+	  'translatable' => true
         )))
         ->addField(new Field('brand.keyword', array(
           'label' => 'Keyword'
