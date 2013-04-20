@@ -27,13 +27,6 @@ class PosterType extends AbstractType
         'required' => false,
         'property_path' => false
       ))
-      /*
-      ->add('brand', 'entity', array(
-        'class' => 'Samuca\Fashion\Entity\Brand',
-        'property' => 'name',
-        'required' => false,
-      ))
-      */
       ->add('src', 'bootstrap_file', array(
         'data_class' => null,
         'attr' => array(
