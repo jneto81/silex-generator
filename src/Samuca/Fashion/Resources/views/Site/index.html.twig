@@ -32,7 +32,9 @@
   <div id="page">
     {% if poster_large|length %}
     <div class="poster poster-top">
-      <img src="/uploads/{{ poster_large[0].src }}">
+      <a href="{{ poster_large[0].link }}" target="_blank">
+        <img src="/uploads/{{ poster_large[0].src }}">
+      </a>
       <img src="/assets/img/heading.png">
     </div>
     {% endif %}
