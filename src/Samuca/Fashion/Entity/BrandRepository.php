@@ -37,28 +37,57 @@ class BrandRepository extends EntityRepository
       ->getResult();
   }
   
-  public function findByWildcardJoin($wildcard) 
+  public function findByParams(array $args) 
   {
-    if (empty($wildcard) || !is_array($wildcard)) {
-      $wildcard = array();
+    $param = array();
+    $query = array();
+    $query = array();
+  
+    if (isset($args['region'])) {
+      $param['R.id'] = 'R.id = ' . $args['region'];
     }
     
-    $params = array();
-  
-    foreach ($wildcard as $col => $val) {
-      $opr = '=';
-      
-      if (strpos($val, '%') !== false && preg_match('/%?(.*)%?$/', $val))
-        $opr = 'LIKE';
-      
-      if (!is_numeric($val))
-        $val = "'$val'";
-      
-      $params[] = sprintf('%s %s %s', $col, $opr, $val);
+    if (isset($args['segment'])) {
+      $param['B.segment_id'] = 'B.segment_id = ' . $args['segment'];
     }
+    
+    if (isset($args['type'])) {
+      $param['B.type'] = 'B.type = \'' . $args['type'] . '\'';
+    }
+    
+    $query[] = implode(' AND ', $param);
+    
+    $param = array();
+    
+    if (isset($args['keyword'])) {
+      $param['B.keyword'] = 'B.keyword = \'' . $args['keyword'] . '\'';
+    }
+    
+    if (isset($args['name'])) {
+      $param['B.name'] = 'B.name = \'' . $args['name'] . '\'';
+    }
+    
+    $query[] = implode(' OR ', $param);
+
+    $param = array_filter($query, function ($value) {
+      return ! empty($value);
+    });
+    
+    $param = implode(' AND ', $param);
+    
+    $sql = "SELECT B.* FROM brand B 
+      LEFT JOIN address A ON B.id = A.brand_id 
+      LEFT JOIN region R ON R.address_id = A.id" . 
+      (empty($param) ? "" : " WHERE $param");
   
-    return $this->getEntityManager()
-      ->createQuery('SELECT b FROM Samuca\Fashion\Entity\Brand b LEFT JOIN b.addresses AS a' . (count($params) ? ' WHERE ' . implode(' AND ', $params) : ''))
-      ->getResult();
+    $stmt = $this->getEntityManager()
+      ->getConnection()
+      ->prepare($sql);
+      
+    if ($stmt->execute()) {
+      return $stmt->fetchAll();
+    } else {
+      return false;
+    }
   }
 }

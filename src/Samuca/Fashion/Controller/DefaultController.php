@@ -62,29 +62,25 @@ class DefaultController extends Controller
       if ( ! empty($values)) {
         array_walk($values, function ($value, $key) use (&$search, $data) {
           if (strpos($key, '_')  !== 0 && ! empty($value)) {              
-              $search['b.' . $key] = $value;
+              $search[$key] = $value;
               $data[$key] = $value;
           }
         });
       }
       
-      if (isset($search['b.keyword'])) {
-        $search['b.keyword'] = implode(' OR ', array_map(function ($value) {
+      if (isset($search['keyword'])) {
+        $search['name'] = $search['keyword'];
+        $search['keyword'] = implode(' OR ', array_map(function ($value) {
           return "%$value%";
-        }, explode(' ', $search['b.keyword'])));
+        }, explode(' ', $search['keyword'])));
       }
       
       if (isset($letter)) {
-        $search['b.name'] = "$letter%";
-      }
-      
-      if (isset($search['b.region'])) { 
-        $search['a.region'] = $search['b.region'];
-        unset($search['b.region']);
+        $search['name'] = "$letter%";
       }
       
       $list = $app['db.orm.em']->getRepository('Samuca\Fashion\Entity\Brand')
-        ->findByWildcardJoin($search);
+        ->findByParams($search);
         
       $paginator = new Paginator($list, $limit);
       
