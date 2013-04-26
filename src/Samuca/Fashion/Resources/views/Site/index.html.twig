@@ -97,7 +97,7 @@
   <script>
   $(function () {
     if (window.parent) {
-      $(window.parent).css('height', document.body.scrollHeight);
+      window.parent.setFrameHeight(document.body.scrollHeight);
     }
     
     $("img").error(function(){

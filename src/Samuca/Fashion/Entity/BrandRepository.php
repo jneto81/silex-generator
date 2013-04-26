@@ -77,7 +77,7 @@ class BrandRepository extends EntityRepository
     
     $sql = "SELECT B.* FROM brand B 
       LEFT JOIN address A ON B.id = A.brand_id 
-      LEFT JOIN region R ON R.address_id = A.id" . 
+      LEFT JOIN region R ON R.id = A.region_id" . 
       (empty($param) ? "" : " WHERE $param");
   
     $stmt = $this->getEntityManager()
